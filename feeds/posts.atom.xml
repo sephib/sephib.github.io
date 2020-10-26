@@ -2935,4 +2935,1631 @@ Using the Panel / hvplot libraries was quite straightforward. The documentation 
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</content><category term="posts"></category><category term="python dataviz"></category></entry></feed>
+</content><category term="posts"></category><category term="python dataviz"></category></entry><entry><title>Implementing a graph network pipeline with Dagster</title><link href="https://sephib.github.io/Dagster-neo4j.html" rel="alternate"></link><published>2020-07-09T20:00:00+03:00</published><updated>2020-07-09T20:00:00+03:00</updated><author><name>Sephi Berry David Katz</name></author><id>tag:sephib.github.io,2020-07-09:/Dagster-neo4j.html</id><summary type="html">&lt;p&gt;How to created a graph (nodes and edges) from separate data sources and import them into Neo4j&lt;/p&gt;</summary><content type="html">&lt;style type="text/css"&gt;/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
+.ansibold {
+  font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
+  border-color: #ababab;
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
+}
+@media print {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area &gt; div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area &gt; div.highlight &gt; pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the &lt;head&gt; if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
+  border: 0;
+  border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev &lt;Maniac@SoftwareManiacs.Org&gt;
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+div.output_area .mglyph &gt; img {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 1px 0 1px 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+
+
+
+.rendered_html pre,
+
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+&lt;/style&gt;
+&lt;style type="text/css"&gt;pre { line-height: 125%; margin: 0; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+ .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre  { background: #f8f8f8; }
+ .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
+ .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
+ .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
+ .highlight pre  .o { color: #666666 } /* Operator */
+ .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+ .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+ .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
+ .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+ .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
+ .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
+ .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
+ .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
+ .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+ .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
+ .highlight pre  .go { color: #888888 } /* Generic.Output */
+ .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+ .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
+ .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+ .highlight pre  .gt { color: #0044DD } /* Generic.Traceback */
+ .highlight pre  .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+ .highlight pre  .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+ .highlight pre  .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+ .highlight pre  .kp { color: #008000 } /* Keyword.Pseudo */
+ .highlight pre  .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+ .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
+ .highlight pre  .m { color: #666666 } /* Literal.Number */
+ .highlight pre  .s { color: #BA2121 } /* Literal.String */
+ .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
+ .highlight pre  .nb { color: #008000 } /* Name.Builtin */
+ .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+ .highlight pre  .no { color: #880000 } /* Name.Constant */
+ .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
+ .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
+ .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+ .highlight pre  .nf { color: #0000FF } /* Name.Function */
+ .highlight pre  .nl { color: #A0A000 } /* Name.Label */
+ .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+ .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
+ .highlight pre  .nv { color: #19177C } /* Name.Variable */
+ .highlight pre  .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+ .highlight pre  .w { color: #bbbbbb } /* Text.Whitespace */
+ .highlight pre  .mb { color: #666666 } /* Literal.Number.Bin */
+ .highlight pre  .mf { color: #666666 } /* Literal.Number.Float */
+ .highlight pre  .mh { color: #666666 } /* Literal.Number.Hex */
+ .highlight pre  .mi { color: #666666 } /* Literal.Number.Integer */
+ .highlight pre  .mo { color: #666666 } /* Literal.Number.Oct */
+ .highlight pre  .sa { color: #BA2121 } /* Literal.String.Affix */
+ .highlight pre  .sb { color: #BA2121 } /* Literal.String.Backtick */
+ .highlight pre  .sc { color: #BA2121 } /* Literal.String.Char */
+ .highlight pre  .dl { color: #BA2121 } /* Literal.String.Delimiter */
+ .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+ .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
+ .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+ .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
+ .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+ .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
+ .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
+ .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
+ .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
+ .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
+ .highlight pre  .fm { color: #0000FF } /* Name.Function.Magic */
+ .highlight pre  .vc { color: #19177C } /* Name.Variable.Class */
+ .highlight pre  .vg { color: #19177C } /* Name.Variable.Global */
+ .highlight pre  .vi { color: #19177C } /* Name.Variable.Instance */
+ .highlight pre  .vm { color: #19177C } /* Name.Variable.Magic */
+ .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h1 id="Implementing-a-graph-network-pipeline-with-Dagster"&gt;Implementing a graph network pipeline with Dagster&lt;a class="anchor-link" href="#Implementing-a-graph-network-pipeline-with-Dagster"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Working in the Intelligence arena we try to 'connect the dots' to extract meaningful information from data.&lt;/li&gt;
+&lt;li&gt;We analyze various datasets to link between them in a logical manner.&lt;/li&gt;
+&lt;li&gt;This is useful in many different projects - so we needed to build a pipeline that can be both dynamic and robust, and be readily and easily  utilized.&lt;/li&gt;
+&lt;li&gt;In this blog post we share our experience in running one of our data pipelines with  &lt;a href="https://docs.dagster.io/"&gt;dagster&lt;/a&gt; - which uses a modern approach (compared to the traditional Airflow / Luigi task managers), see &lt;a href="https://docs.dagster.io/docs/learn"&gt;Dagster's website description&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;We hope this blog post will help others to adopt such a data-pipeline and allow them to learn from our experiences.  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Our-Challenge"&gt;Our Challenge&lt;a class="anchor-link" href="#Our-Challenge"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;h4 id="Connecting-the-dots"&gt;Connecting the dots&lt;a class="anchor-link" href="#Connecting-the-dots"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Finding relationships between different entities can be challenging (especially across datasets) - but is vital when building a reliable intelligent report.  &lt;/li&gt;
+&lt;li&gt;A logical structure to store the entities and their relationships is in a &lt;a href="https://en.wikipedia.org/wiki/Graph_database"&gt;Graph Database&lt;/a&gt;. In this example we are going to use &lt;a href="https://neo4j.com/"&gt;Neo4j&lt;/a&gt; DB for storing the graph.   &lt;/li&gt;
+&lt;li&gt;Also we are going to use &lt;em&gt;psedo BigData&lt;/em&gt;. However the pipeline that we are presenting generates billions of relationships.  &lt;/li&gt;
+&lt;li&gt;The outcome files of the pipeline will be in the format that will allow to use the dedicated &lt;a href="https://neo4j.com/docs/operations-manual/4.1/tools/import/"&gt;Neo4j tool for bulk import&lt;/a&gt;.   In the future we will do a separate blog post on our data analysis workflow with &lt;code&gt;Neo4j&lt;/code&gt;. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="First-take"&gt;First take&lt;a class="anchor-link" href="#First-take"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Our initial version for our pipeline was based on custom code and configurations (YAML) files.       &lt;/li&gt;
+&lt;li&gt;The code base is a combination of R and Python script that utilize Spark, Dask and HDFS.  &lt;/li&gt;
+&lt;li&gt;A shell script aggregated all the scripts to run the entire workflow&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="Inspect-and-Adapt"&gt;Inspect and Adapt&lt;a class="anchor-link" href="#Inspect-and-Adapt"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;After our initial alpha version we noticed that we had some problems that required our attention:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The pipeline was built horizontally (per process) and not vertically (per dataset) - leading to uncertainty and fragmented results  &lt;/li&gt;
+&lt;li&gt;We needed to refactor our code in order to stabilize and verify the quality of the product.  &lt;/li&gt;
+&lt;li&gt;Working with &lt;a href="www.dask.org"&gt;dask&lt;/a&gt; didn't solve all of our use-cases and so we needed to run some workloads on &lt;a href="https://spark.apache.org/"&gt;spark&lt;/a&gt;.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After checking several options we chose &lt;code&gt;dagster&lt;/code&gt; as our pipeline framework for numerous reasons - including:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Simplicity logic/framework  &lt;/li&gt;
+&lt;li&gt;Modern architecture with data as a "first class citizen".  &lt;/li&gt;
+&lt;li&gt;Open-source code base   &lt;/li&gt;
+&lt;li&gt;The framework includes a modern UI for monitoring and communicating the workflow status  &lt;/li&gt;
+&lt;li&gt;Pipeline supports data dependencies (and not function outputs)    &lt;/li&gt;
+&lt;li&gt;Ability to log/monitor metrics   &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It was fortunate that our configuration files allowed us to identify the various functions and abstract our business logic from the data transformation.&lt;/p&gt;
+&lt;p&gt;*** This is a &lt;code&gt;dagster&lt;/code&gt; &lt;em&gt;intermediate level&lt;/em&gt; blog post - for newbees it is recommended to run through the &lt;a href="https://docs.dagster.io/docs/tutorial"&gt;beginner tutorial&lt;/a&gt; on the dagster's site.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Understanding-Dagster-lego-blocks"&gt;Understanding &lt;code&gt;Dagster&lt;/code&gt; &lt;strong&gt;lego&lt;/strong&gt; blocks&lt;a class="anchor-link" href="#Understanding-Dagster-lego-blocks"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Before we start, here's a short introduction to Dagster's &lt;em&gt;&lt;em&gt;lego&lt;/em&gt;&lt;/em&gt; building blocks &lt;a href="https://docs.dagster.io/docs/learn/concepts"&gt;see dagster documentation&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;At the core we have &lt;code&gt;solids&lt;/code&gt; - these are the various "functional unit of computation that consumes and produces data assets".  &lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;solids&lt;/code&gt; can be aggregated into &lt;code&gt;composite solids&lt;/code&gt;.   &lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;solid&lt;/code&gt; can have &lt;strong&gt;inputs&lt;/strong&gt; and &lt;strong&gt;outputs&lt;/strong&gt; that can be passed along the pipeline.  &lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;pipeline&lt;/code&gt; orchestrates the various &lt;code&gt;solids&lt;/code&gt; and the data flows.   &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="Design-implementation"&gt;Design implementation&lt;a class="anchor-link" href="#Design-implementation"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;The following diagram displays the architecture  outline of the code:&lt;br&gt;
+&lt;img src="../docs/images/architecture_diagram.png" alt="entity model" width="650" &gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;YAML configurations&lt;br&gt;
+&lt;code&gt;Dagster&lt;/code&gt; has many configuration files that assist in managing pipelines and there environments. In this example we will use only 2 configuration types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;resources - configuration file that manges the resources for the running pipeline  &lt;/li&gt;
+&lt;li&gt;solids - configuration file for the &lt;code&gt;composite solids&lt;/code&gt;. Each data source has its own configuration, in addition to the composite solid that implements the creation of the Neo4j DB.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Inputs&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Our premise is that the datasets inputs arrive in a timely manner (batch not streaming).  &lt;/li&gt;
+&lt;li&gt;Each dataset source has a corresponding configuration file.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Pipeline&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;pipeline&lt;/code&gt; consists of all the &lt;code&gt;composite solids&lt;/code&gt; that organize the work that needs to be executed within each &lt;code&gt;solid&lt;/code&gt;.    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Output Files&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In our example the outputs are:&lt;ul&gt;
+&lt;li&gt;Nodes and Edges flat files in the format to be bulk imported into Neo4j&lt;/li&gt;
+&lt;li&gt;Neo4j DB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Let's-build"&gt;Let's build&lt;a class="anchor-link" href="#Let's-build"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Now we will build our basic units needed for our project:&lt;br&gt;
+Since we have several datasets we will can build each building block to be executed with a configuration file.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Read file into dataframe  (e.g. &lt;code&gt;cvs&lt;/code&gt; and &lt;code&gt;parquet&lt;/code&gt;)  &lt;/li&gt;
+&lt;li&gt;Message our data to fit the schema that we want for our graph network (including: adding/drop columns,  rename_columns, concat columns etc.)   &lt;/li&gt;
+&lt;li&gt;Generate nodes and edges  (per entity in the graph model)   &lt;/li&gt;
+&lt;li&gt;Save nodes and edges into csv files  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finally we will bulk import the csv files (nodes and edges) into &lt;code&gt;Neo4j&lt;/code&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Data"&gt;Data&lt;a class="anchor-link" href="#Data"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In order to demonstrate our workflow we will use data from &lt;a href="https://statsbomb.com/"&gt;&lt;img src="https://raw.githubusercontent.com/statsbomb/open-data/master/stats-bomb-logo.png" alt="StatsBomb logo" width="100"/&gt;&lt;/a&gt;, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the &lt;strong&gt;original&lt;/strong&gt; football - &lt;em&gt;&lt;em&gt;soccer&lt;/em&gt;&lt;/em&gt; ) . The company has a free open data API tier that can be accessed using the instructions on &lt;a href="https://github.com/statsbomb/statsbombpy#open-data"&gt;their git hub page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We would like to find the relationships between the players in 2  dimensions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Team companionship  &lt;/li&gt;
+&lt;li&gt;The number of passes between the players   &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We will be building a graph based on the following entity model:&lt;/p&gt;
+&lt;p&gt;&lt;img src="../docs/images/entity_model.png" alt="entity model" width="450" &gt;&lt;/p&gt;
+&lt;p&gt;The &lt;a href="link to github"&gt;following script&lt;/a&gt; is available to download the data into 2 separate datasets:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Player lineup as csv  &lt;/li&gt;
+&lt;li&gt;Player passes as parquet  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Understanding-the-datasets"&gt;Understanding the datasets&lt;a class="anchor-link" href="#Understanding-the-datasets"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;h4 id="Player-Lineup"&gt;Player Lineup&lt;a class="anchor-link" href="#Player-Lineup"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;This dataset has all the information regarding the players relationships with their teams. The key columns that we will use are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;player_id&lt;/code&gt; -  identifies each &lt;code&gt;Player&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;team_id&lt;/code&gt; -  identifies each &lt;code&gt;Team&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;team_id&lt;/code&gt; &amp;amp; &lt;code&gt;match_id&lt;/code&gt; - will create our &lt;code&gt;EdgeID&lt;/code&gt; to identify when a &lt;code&gt;Player&lt;/code&gt; &lt;code&gt;PLAYED_TOGETHER&lt;/code&gt; with another &lt;code&gt;Player&lt;/code&gt;  &lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;Player&lt;/code&gt; &lt;code&gt;PLAYED_IN&lt;/code&gt; relationship can be immediately derived from the table.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id="Player-Event"&gt;Player Event&lt;a class="anchor-link" href="#Player-Event"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;This dataset has all the information regarding the players action within a match. The key columns that we will use are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;player_id&lt;/code&gt; - identifies each &lt;code&gt;Player&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pass_type&lt;/code&gt; - identifies the event in the match (we will select only the &lt;code&gt;pass&lt;/code&gt; event)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pass_recipient&lt;/code&gt; - will identify the recipient of the pass&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Additional properties will enrich the Nodes and Edges.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Let's--play--Lego"&gt;Let's  play  Lego&lt;a class="anchor-link" href="#Let's--play--Lego"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Let's see how we can use the &lt;code&gt;dagster&lt;/code&gt;'s  blocks&lt;/p&gt;
+&lt;p&gt;Since we are working with &lt;em&gt;BigData&lt;/em&gt; we will be working with &lt;code&gt;spark&lt;/code&gt; (we also implemented some of workflow on &lt;code&gt;Dask&lt;/code&gt; - but will keep this for a future post).&lt;br&gt;
+We will need to tell &lt;code&gt;dagster&lt;/code&gt; what resources we are going to use. In dagster's environment everything is very module so we can define our resource with a YAML file &lt;a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.resource"&gt;see api resource documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In our env_yaml folder we have the following &lt;code&gt;env_yaml/resources.yaml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resources:  
+    spark:  
+      config:  
+        spark_conf:  
+          spark:  
+            master: "local"&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Additional configuration for &lt;code&gt;spark&lt;/code&gt; can  be included under &lt;code&gt;spark_conf&lt;/code&gt;. For our workload we added for example the following parameters:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;spark.executor.memoryOverhead: "16G"
+spark.driver.memory: "8G"&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Obviously for the example in this post there is no need to add any additional parameters.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Solid-Intro"&gt;Solid Intro&lt;a class="anchor-link" href="#Solid-Intro"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Lets review a simple &lt;code&gt;solid&lt;/code&gt;  such as a &lt;code&gt;show&lt;/code&gt; function for a spark dataframe:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@solid(
+    config_schema={
+        "num_rows": Field(
+            Int, is_required=False, default_value=5, description=("Number of rows to display"),
+        ),
+    }
+)
+def show(context, df: DataFrame):
+    num_rows = context.solid_config.get("num_rows")
+    context.log.info(f"df.show():\n{df._jdf.showString(num_rows, 20, False)}")&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;@solid()&lt;/code&gt; decorator above the function converts the function into a &lt;code&gt;solid&lt;/code&gt; so dagster can utilize/ingest it.&lt;br&gt;
+The &lt;a href="https://docs.dagster.io/docs/apidocs/solids"&gt;solid decorator&lt;/a&gt;  can take several parameters. In this &lt;code&gt;solid&lt;/code&gt; we are just using&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="&amp;quot;https://docs.dagster.io/docs/apidocs/config#dagster.ConfigSchema&amp;quot;"&gt;config_schema&lt;/a&gt; which consists of:  &lt;ul&gt;
+&lt;li&gt;&lt;a href="&amp;quot;https://docs.dagster.io/docs/apidocs/config#dagster.Field&amp;quot;"&gt;Field&lt;/a&gt; "num_rows" which will determine the number of rows to print out with the following properties:  &lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Int&lt;/code&gt; type (see list of available &lt;a href="https://docs.dagster.io/docs/apidocs/types"&gt;types&lt;/a&gt;) .  &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;is_required&lt;/code&gt; (boolean) determines if this parameter is is_required  &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;default_value&lt;/code&gt; for the number of rows to show   &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; of the Field parameter.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The config_schema assists in checking the validity of our pipeline.&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;def show(context, df: DataFrame):&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Our function receives the &lt;a href="&amp;quot;https://docs.dagster.io/docs/apidocs/execution#dagster.Context&amp;quot;"&gt;context&lt;/a&gt; of the solid (supplementing the function with some additional inputs), in addition to a parameter that it will receive from the pipeline (which is a DataFrame).&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;num_rows = context.solid_config.get("num_rows")&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;When the function is executed we get the &lt;code&gt;num_rows&lt;/code&gt; parameter&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;context.log.info(f"df.show():\n{df._jdf.showString(num_rows, 20, False)}")&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Then we are using the &lt;a href="&amp;quot;https://docs.dagster.io/docs/apidocs/internals#dagster.DagsterLogManager&amp;quot;"&gt;internal dagster logging&lt;/a&gt; to print out the number of rows of the Dataframe.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Solid--Cont."&gt;Solid  Cont.&lt;a class="anchor-link" href="#Solid--Cont."&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Now lets delve deeper into a more complex &lt;code&gt;solid&lt;/code&gt; such as &lt;code&gt;read_file&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@solid(
+    output_defs=[OutputDefinition(dagster_type=DataFrame, name="df")],
+    required_resource_keys={"spark"},
+    config_schema={
+        "path": Field(
+            Any,
+            is_required=True,
+            description=(
+                "String or a list of string for file-system backed data sources."
+            ),
+        ),
+        "dtype": Field(
+            list,
+            is_required=False,
+            description='Dictionary with column types e.g. {"col_name": "string"}.',
+        ),
+        "format": Field(
+            String,
+            default_value="csv",
+            is_required=False,
+            description='String for format of the data source. Default to "parquet".',
+        ),
+        "options": Field(
+            Permissive(
+                fields={
+                    "inferSchema": Field(Bool, is_required=False),
+                    "sep": Field(String, is_required=False),
+                    "header": Field(Bool, is_required=False),
+                    "encoding": Field(String, is_required=False),
+                }
+            ),
+            is_required=False,
+        ),
+    },
+)
+def read_file(context) -&amp;gt; DataFrame:
+    path = context.solid_config["path"]
+    dtype = context.solid_config.get("dtype")
+    _format = context.solid_config.get("format")
+    options = context.solid_config.get("options", {})
+    context.log.debug(
+        f"read_file: path={path}, dtype={dtype}, _format={_format}, options={options}, "
+    )
+    spark = context.resources.spark.spark_session
+    if dtype:
+        df = (
+            spark.read.format(_format)
+            .options(**options)
+            .schema(transform.create_schema(dtype))
+            .load(path)
+        )
+    else:
+        df = spark.read.format(_format).options(**options).load(path)
+
+    yield Output(df, "df")&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lets now break it down&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h4 id="solid-decorator"&gt;&lt;code&gt;solid&lt;/code&gt; decorator&lt;a class="anchor-link" href="#solid-decorator"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;In this &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.SolidDefinition"&gt;&lt;code&gt;solid&lt;/code&gt; decorator&lt;/a&gt; we have some additional parameters:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;output_defs=[OutputDefinition(dagster_type=DataFrame, name="df")],&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;output_defs defines a list of &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.OutputDefinition"&gt;OutputDefinition&lt;/a&gt; of the &lt;code&gt;solid&lt;/code&gt;.  In our case the output will be a &lt;code&gt;dataframe&lt;/code&gt; that will be consumed by &lt;code&gt;solid&lt;/code&gt;s in the pipeline.  The &lt;code&gt;name&lt;/code&gt; of the object in the OutputDefinition can be consumed by other &lt;code&gt;solid&lt;/code&gt;s.   &lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;&lt;p&gt;required_resource_keys={"spark"}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.SolidDefinition"&gt;resources&lt;/a&gt; that the solid requires in order to execute.  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt; config_schema={  
+         "path": Field(  
+        ...          
+        "options": Field(  
+            Permissive(   
+                fields={  
+                    "inferSchema": Field(Bool, is_required=False),  
+                    "sep": Field(String, is_required=False),  
+                    "header": Field(Bool, is_required=False),  
+                    "encoding": Field(String, is_required=False),  
+                }  
+            ),  
+            is_required=False,  
+        ),&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="(&amp;quot;https://docs.dagster.io/docs/apidocs/config#dagster.ConfigSchema&amp;quot;"&gt;config_schema&lt;/a&gt;) - similar to the explanation above.   &lt;ul&gt;
+&lt;li&gt;In this &lt;code&gt;solid&lt;/code&gt; we also have a &lt;code&gt;Permissive&lt;/code&gt; Field type as a dictionary that will take various option parameters for reading in file.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h4 id="solid-in-actions"&gt;solid in actions&lt;a class="anchor-link" href="#solid-in-actions"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Now let's look what the &lt;code&gt;solid&lt;/code&gt; does.&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;def read_file(context) -&amp;gt; DataFrame:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Every solid has a &lt;code&gt;context&lt;/code&gt; which is a collection of information provided by the system, such as the parameters provided within the &lt;code&gt;config_schema&lt;/code&gt;.  In this solid there is no additional parameter (compared to the above &lt;code&gt;show solid&lt;/code&gt; since this is the starting point of the pipeline)&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;path = context.solid_config.get("path")&lt;br&gt;
+   dtype = context.solid_config.get("dtype")&lt;br&gt;
+   _format = context.solid_config.get("format")&lt;br&gt;
+   options = context.solid_config.get("options", {})&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In order to obtain the values from the &lt;code&gt;context&lt;/code&gt; we can use the &lt;code&gt;solid_config&lt;/code&gt; method&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;context.log.debug(f"read_file: path={path}, dtype={dtype}, _format={_format}, options={options}, ")&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Dagster comes with a &lt;a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.logger"&gt;build in logger&lt;/a&gt; that tracks all the events in the pipeline. In addition you are able to add any logs that you require.&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;spark = context.resources.spark.spark_session&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Normally we would get the &lt;code&gt;spark_session&lt;/code&gt; from the importing &lt;a href="http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.SparkSession"&gt;pyspark.sql.SparkSession&lt;/a&gt;, however since we already configured our &lt;code&gt;resources&lt;/code&gt; - we will get our session from the &lt;code&gt;context.resources&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    if dtype:
+        df = (
+            spark.read.format(_format)
+            .options(**options)
+            .schema(transform.create_schema(dtype))
+            .load(path)
+        )
+    else:
+        df = spark.read.format(_format).options(**options).load(path)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have everything in place we can run the basic code to read in the data into spark.&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;yield Output(df, "df")&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Finally the function yields an &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.Output"&gt;Output&lt;/a&gt; that can be consumed by the other solids in the pipeline.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Composite-Solids"&gt;Composite Solids&lt;a class="anchor-link" href="#Composite-Solids"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;A single &lt;code&gt;solid&lt;/code&gt; executes a 
+computation, however when wanting to create dependencies between solids we can use a &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid"&gt;composite_solid&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is a screen shot of the &lt;code&gt;composite_solid&lt;/code&gt; from &lt;a href="https://docs.dagster.io/tutorial/execute#executing-our-first-pipeline"&gt;dagit&lt;/a&gt;&lt;br&gt;
+&lt;img src="../docs/images/player_pass.png" alt="player_pass composite solid" width="250" &gt;&lt;/p&gt;
+&lt;p&gt;Lets review the &lt;code&gt;player_pass&lt;/code&gt; composite_solid&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@composite_solid(
+    output_defs=(
+        [
+            OutputDefinition(name="df_edges", dagster_type=DataFrame),
+            OutputDefinition(name="df_nodes", dagster_type=DataFrame),
+        ]
+    ),
+)
+def player_pass():
+    df_edges_disc = solids_transform.lit.alias("add_col_label1")(
+        solids_transform.lit.alias("add_col_label2")(
+            solids_transform.rename_cols(
+                solids_transform.drop_cols(
+                    solids_transform.dropna(solids_fcutils.read_file())
+                )
+            )
+        )
+    )
+
+    df_edges, df_nodes = solids_edges.edges_agg(df_edges_disc)
+    solids_fcutils.save_header.alias("save_header_edges")(df_edges)
+    return df_edges, df_nodes&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid"&gt;@composite_solid&lt;/a&gt; is very similar to the &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.SolidDefinition"&gt;@solid&lt;/a&gt; decorator.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Here we can see how the solids are nested within each other.  Every &lt;code&gt;solid&lt;/code&gt; has an input of a &lt;code&gt;DataFrame&lt;/code&gt; (excpet for the &lt;code&gt;read_file&lt;/code&gt; solid).  An every solid has an &lt;code&gt;Output&lt;/code&gt; &lt;code&gt;DataFrame&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;alias&lt;/code&gt; allows to call the same &lt;code&gt;solid&lt;/code&gt; several time within a single &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid"&gt;composite_solid&lt;/a&gt;.  &lt;/li&gt;
+&lt;li&gt;A solid can return several outputs (which need to be defined in the solid decorator under the &lt;code&gt;OutputDefinition&lt;/code&gt; parameter )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Finally we can put everything together in our pipeline. A &lt;a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.pipeline"&gt;pipeline&lt;/a&gt; builds up a dependency graph between the solids/composite_solids.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../docs/images/pipeline.png" alt="pipeline" width="550" &gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@pipeline(mode_defs=[ModeDefinition(resource_defs={"spark": pyspark_resource})])  
+def statsbomb_pipeline():  
+    player_pass_edges, player_pass_nodes = player_pass()  
+    player_team_edges, player_team_nodes = player_team()  
+    create_neo4j_db(dfs_nodes=[player_pass_nodes, player_team_nodes])&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In our pipeline, we have two &lt;code&gt;composite_solid&lt;/code&gt;s that output 2 &lt;code&gt;Dataframe&lt;/code&gt; objects.&lt;br&gt;
+Our final &lt;code&gt;create_neo4j_db composite_solid&lt;/code&gt; is dependent on the output of the prior 2 &lt;code&gt;composite_solid&lt;/code&gt;s and executes a solid to generate the node files, in addition to execute a &lt;code&gt;neo4j-admin.bat&lt;/code&gt; script to bulk import that data into the database.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Into-Neo4j"&gt;Into Neo4j&lt;a class="anchor-link" href="#Into-Neo4j"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The results of the Pipeline can be imported into &lt;code&gt;neo4j&lt;/code&gt; .&lt;br&gt;
+In order to import &lt;em&gt;bigData&lt;/em&gt; in an optimal manner we will use the &lt;a href="https://neo4j.com/docs/operations-manual/4.1/tools/import/"&gt;batch import&lt;/a&gt; admin tool.  This allows for loading tens of millions of nodes and billions of relationships  in the matter of hours.&lt;/p&gt;
+&lt;p&gt;Here is some data for Liverpool's striker &lt;a href="https://en.wikipedia.org/wiki/Mohamed_Salah"&gt;Mohamed Salah&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src="../docs/images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" &gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Some-Tips"&gt;Some Tips&lt;a class="anchor-link" href="#Some-Tips"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Once we managed to &lt;em&gt;&lt;em&gt;grok&lt;/em&gt;&lt;/em&gt; our understanding of &lt;code&gt;dagster&lt;/code&gt; and wrap our pyspark functions, our workflow was quite productive.  Here are some tips to make your onboarding easier:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;When working with Spark:   &lt;ol&gt;
+&lt;li&gt;Run a &lt;a href="https://spark.apache.org/docs/2.1.0/api/python/pyspark.sql.html#cache"&gt;cache&lt;/a&gt; when returning a &lt;code&gt;spark dataframe&lt;/code&gt; from a &lt;code&gt;solid&lt;/code&gt;. This will prevent running the &lt;code&gt;DAG&lt;/code&gt; in complex pipeline that has various outputs.   &lt;/li&gt;
+&lt;li&gt;Since we had various checkpoints where we needed to dump our datasets, we found that when our &lt;code&gt;spark&lt;/code&gt; performed unexpectedly, braking up the pipeline by reading back the output file (instead of passing on the dataframe object) allowed spark to manage its resources in an optimal manner.&lt;/li&gt;
+&lt;li&gt;Since our environment is on a CDH, the iteration of building a pipeline was enhanced when combining a &lt;code&gt;jupyter notebook&lt;/code&gt; that would implement each step in the &lt;code&gt;composite solid&lt;/code&gt;     &lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Dagster:  &lt;ol&gt;
+&lt;li&gt;Remember to set &lt;a href="https://docs.dagster.io/overview/instances/dagster-instance"&gt;DAGSTER_HOME&lt;/a&gt; once you are becoming serious&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="What-else...."&gt;What else....&lt;a class="anchor-link" href="#What-else...."&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Dagster has several additional components that can upgrade the pipeline in a significant manner. These include, among others, &lt;a href="https://docs.dagster.io/docs/learn/guides/testing/testing"&gt;Test framework&lt;/a&gt;,  &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.Materialization"&gt;Materialization&lt;/a&gt; for persistent artifacts in the pipeline and  a  &lt;a href="https://docs.dagster.io/docs/apidocs/schedules#dagster.schedule"&gt;scheduler&lt;/a&gt;. Unfortunately thses topics are outside the scope of this post.&lt;/p&gt;
+&lt;h2 id="Summary"&gt;Summary&lt;a class="anchor-link" href="#Summary"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In this post we describe our workflow for generating a graph from separate data sources.&lt;br&gt;
+As our project matured, we needed to stabilize our workflow, thus migrating our ad-hoc script scaffolds into &lt;code&gt;Dagster&lt;/code&gt;s framework.  In this process we were able to improve the quality of our pipeline and enable new data sources to quickly be integrated in our product in a frectioness manner.&lt;br&gt;
+We hope that this post will inspire you to upgrade your workflow.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[&amp;nbsp;]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+ 
+
+
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;
+</content><category term="posts"></category><category term="python neo4j dagster"></category></entry></feed>
