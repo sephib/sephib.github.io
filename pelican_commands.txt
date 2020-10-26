@@ -1,0 +1,40 @@
+## run dev server
+pelican --listen
+
+http://localhost:8000/
+
+pelican content -o output
+ghp-import output -b gh-pages -r https://github.com/sephib/sephib.github.io
+git push git@github.com:sephib/sephib.github.io.git gh-pages:master
+
+# NOT RUN git remote add origin git@github.com:<username>/<username>.github.io.git
+
+## create not
+
+make html && make serve
+
+make publish
+
+https://lorenamesa.com/building-a-github-page-with-pelican-a-python-static-site-generator.html
+
+conda create --name blog --file requirements.txt
+
+git submodule update --init --recursive
+git submodule update --remote --merge --recursive
+
+ghp-import output
+git push origin gh-pages
+
+
+
+
+***************************
+git checkout -b dev
+
+ghp-import output -b master
+git push origin master
+
+pelican content -s publishconf.py
+
+
+git remote add origin git@github.com:sephib/sephib.github.io.git
