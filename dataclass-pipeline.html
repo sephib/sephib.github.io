@@ -1,81 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-          <title>Geo Berry</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charset="utf-8" />
-        <!-- twitter card metadata -->
-<meta name="twitter:site" content="">
-<meta name="twitter:title" content="Dataclasses in ML Pipelines">
-<meta name="twitter:description" content="">
-        <!-- OG Tags -->
-<meta property="og:url" content="/dataclass-pipeline.html"/>
-<meta property="og:title" content="Geo Berry | Dataclasses in ML Pipelines" />
-<meta property="og:description" content="" />
-        <!-- favicon -->
-        <!-- moment.js for date formatting -->
-        <script src="/theme/js/moment.js"></script>
-        <!-- css -->
-        <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
-		<script>
-			
-                /*! grunt-grunticon Stylesheet Loader - v2.1.2 | https://github.com/filamentgroup/grunticon | (c) 2015 Scott Jehl, Filament Group, Inc. | MIT license. */
-    
-    (function(e){function t(t,n,r,o){"use strict";function a(){for(var e,n=0;u.length>n;n++)u[n].href&&u[n].href.indexOf(t)>-1&&(e=!0);e?i.media=r||"all":setTimeout(a)}var i=e.document.createElement("link"),l=n||e.document.getElementsByTagName("script")[0],u=e.document.styleSheets;return i.rel="stylesheet",i.href=t,i.media="only x",i.onload=o||null,l.parentNode.insertBefore(i,l),a(),i}var n=function(r,o){"use strict";if(r&&3===r.length){var a=e.navigator,i=e.Image,l=!(!document.createElementNS||!document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect||!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||e.opera&&-1===a.userAgent.indexOf("Chrome")||-1!==a.userAgent.indexOf("Series40")),u=new i;u.onerror=function(){n.method="png",n.href=r[2],t(r[2])},u.onload=function(){var e=1===u.width&&1===u.height,a=r[e&&l?0:e?1:2];n.method=e&&l?"svg":e?"datapng":"png",n.href=a,t(a,null,null,o)},u.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==",document.documentElement.className+=" grunticon"}};n.loadCSS=t,e.grunticon=n})(this);(function(e,t){"use strict";var n=t.document,r="grunticon:",o=function(e){if(n.attachEvent?"complete"===n.readyState:"loading"!==n.readyState)e();else{var t=!1;n.addEventListener("readystatechange",function(){t||(t=!0,e())},!1)}},a=function(e){return t.document.querySelector('link[href$="'+e+'"]')},c=function(e){var t,n,o,a,c,i,u={};if(t=e.sheet,!t)return u;n=t.cssRules?t.cssRules:t.rules;for(var l=0;n.length>l;l++)o=n[l].cssText,a=r+n[l].selectorText,c=o.split(");")[0].match(/US\-ASCII\,([^"']+)/),c&&c[1]&&(i=decodeURIComponent(c[1]),u[a]=i);return u},i=function(e){var t,o,a;o="data-grunticon-embed";for(var c in e)if(a=c.slice(r.length),t=n.querySelectorAll(a+"["+o+"]"),t.length)for(var i=0;t.length>i;i++)t[i].innerHTML=e[c],t[i].style.backgroundImage="none",t[i].removeAttribute(o);return t},u=function(t){"svg"===e.method&&o(function(){i(c(a(e.href))),"function"==typeof t&&t()})};e.embedIcons=i,e.getCSS=a,e.getIcons=c,e.ready=o,e.svgLoadedCallback=u,e.embedSVG=u})(grunticon,this);
-                
-                grunticon(["/theme/css/icons.data.svg.css", "/theme/css/icons.data.png.css", "/theme/css/icons.fallback.css"]);
-            </script>
-        <noscript><link href="/theme/css/icons.fallback.css" rel="stylesheet"></noscript>
-        <!-- menu toggle javascript -->
-        <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", initMenu);
-            
-            function initMenu(){
-                var menu = document.getElementById("menu");
-                var menulink = document.getElementById("menu-link");
-                menulink.addEventListener("click", function toggleMenu(){
-                        window.event.preventDefault();
-                        menulink.classList.toggle('active');
-                        menu.classList.toggle('active');              
-                    });
-            };
-        </script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
 
 
-    <meta name="tags" content="python MLpipeline" />
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+
+
+
+<meta name="author" content="Sephi Berry" />
+<meta name="description" content="Tidy your ML pipelines with dataclasses." />
+<meta name="keywords" content="python MLpipeline">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="Dataclasses in ML Pipelines"/>
+<meta property="og:description" content="Tidy your ML pipelines with dataclasses."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./dataclass-pipeline.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-07-26 20:00:00+03:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python MLpipeline"/>
+<meta property="og:image" content="">
+
+  <title>Geo Berry &ndash; Dataclasses in ML Pipelines</title>
 
 </head>
 <body>
-    <div role="banner" id="masthead">
-        <header>
-            <h1><a href="/">'s Blog</a></h1>
-            <a href="#menu" id="menu-link">more stuff</a>
-            <nav id="menu">
-                <ul>
-                        <li><a href="/pages/about.html">about</a></li>
-                            <li class="active"><a href="/category/posts.html">posts</a></li>
-                </ul>
-            </nav>
-        </header>
+  <aside>
+    <div>
+      <a href=".">
+        <img src="./theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="."></a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="./pages/about.html#about">About</a></li>
+
+          <li><a href="https://getpelican.com/" target="_blank">Pelican</a></li>
+          <li><a href="https://www.python.org/" target="_blank">Python.org</a></li>
+          <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-You can add links in your config file" href="#" target="_blank"><i class="fa fa-You can add links in your config file"></i></a></li>
+        <li><a class="sc-Another social link" href="#" target="_blank"><i class="fa fa-Another social link"></i></a></li>
+      </ul>
     </div>
-        <div class="page" role="main">
-  <div class="article" role="article">
-    <article>
-        <footer>
-            <a name="top"></a>
-            <p>
-              <time datetime=" 2020-07-26 20:00:00+03:00">
-                <script>document.write(moment('2020-07-26 20:00:00+03:00').format('LL'));</script>
-              </time>
-            </p>
-        </footer>
-        <header>
-          <h2>
-            Dataclasses in ML Pipelines
-          </h2>
-        </header>
-      <div class="content">
-         <style type="text/css">/*!
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="dataclass-pipeline">Dataclasses in ML Pipelines</h1>
+    <p>
+          Posted on Sun 26 July 2020 in <a href="./category/posts.html">posts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1207,7 +1218,7 @@ Some tools that can assist in this cleanliness is the usage of Pipelines and Dat
 <blockquote><p>MLEngineer is 10% ML 90% Engineer.</p>
 </blockquote>
 <h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Pipeline is a <em>meta</em> object that assists in managing the processes in a ML model.  Pipelines can encapsulat seperate processes which can later on be combined together.<br>
-Forcing to work with <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">Pipline objects</a> can be nuisance at the begining (especially the conversion between  <code>pandas DataFrame</code> and <code>np.ndarray</code> ), but it garenties the quility of the model down the line (no data leakage, modularity etc.).</p>
+Forcing to work with <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">Pipline objects</a> can be nuisance at the begining (especially the conversion between  <code>pandas DataFrame</code> and <code>np.ndarray</code> ), but it garenties the quility of the model down the line (no data leakage, modularity etc.). Here is <a href="https://www.youtube.com/watch?v=yv4adDGcFE8">Kevin Markham 4 min. video</a> explaining the pipeline advantages.</p>
 <h3 id="Dataclass">Dataclass<a class="anchor-link" href="#Dataclass">&#182;</a></h3><p>Another usefull ML coding tool is to use an object to save datasets along the pipeline. Before Python 3.7 you may have been using <a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple">namedtubple</a>, however since Python 3.7 <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> was introduced, which are a great candidate for storing such data objects. Using dataclasses allows for consistancy while accessing various datasets along the Pipeline.</p>
 
 </div>
@@ -1234,7 +1245,7 @@ Forcing to work with <a href="https://scikit-learn.org/stable/modules/generated/
 <span class="p">])</span>
 </pre></div>
 <p>In this <em>psedo code</em> our Pipeline has some preprocessing to the numeric columns follwing by the processing of the categrical columns with the vtreat package (it will passthrough all the non categorical and numeric columns).</p>
-<p>Since we are catboost does not have a transform method we are going to introduce it leater on.<br>
+<p>Since <code>catboost</code> does not have a transform method we are going to introduce it leater on.<br>
 Additionaly since we have an imbalanced data set we are going to use the <code>StratifiedShuffleSplit</code> when splitting our data.</p>
 <p>So now the time has come to <a href="https://getyarn.io/yarn-clip/2c689f11-6d71-425c-a701-81be09ad034e#llil9DAFRQ.copy">cut up our data</a>...</p>
 
@@ -1259,7 +1270,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># basic dataclass </span>
@@ -1271,7 +1282,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
     <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">idx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">pred_class</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pred_class</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">pred_proba</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span>
     
@@ -1295,23 +1306,26 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Each</span> <span class="n">dataclass</span> <span class="n">will</span> <span class="n">have</span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each <code>dataclass</code> will have the follwing attributes:</p>
+<ol>
+<li><code>X</code> - a numpy ndarray storing all the features   </li>
+<li><code>y</code> - a numpy array storing the labeling classification  </li>
+<li><code>idx</code> - the index for storing the original indexes (usefull for referencing at the end of the pipe line )  </li>
+<li><code>pred_class</code> - a numpy array storing the predicted classification  </li>
+<li><code>pred_proba</code> - a numpy ndarray for storrying the probabilites of the classificaitons</li>
+</ol>
+<p>Additionally we will store a <code>name</code> for the dataclass to easily referencing it along the pipeline.</p>
 
-    </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Split">Split<a class="anchor-link" href="#Split">&#182;</a></h3><p>There are several methods that you can split your datasets. When data is imbalenced it is important to split the data with a stratified method,  so in our case we chose to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html">StratifiedShuffleSplit</a>.  In contrast  to the simple <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split">train_test_split</a> which returnes the datasets themselfs, the StratifiedShuffleSplit returnes only the indices for each group.</p>
+<h3 id="Splitting-In-Action">Splitting In Action<a class="anchor-link" href="#Splitting-In-Action">&#182;</a></h3><p>There are several methods that you can split your datasets. When data is imbalenced it is important to split the data with a stratified method,  so in our case we chose to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html">StratifiedShuffleSplit</a>.  In contrast  to the simple <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split">train_test_split</a> which returnes the datasets themselfs, the StratifiedShuffleSplit returnes only the indices for each group.</p>
 
 </div>
 </div>
@@ -1323,7 +1337,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
     <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>  <span class="c1"># a helper function to get all data itslef since the StratifiedSplitValid on returns the indices</span>
     <span class="n">_train_X</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
-<p>Our helper function is nice and minimal do to the usage fo <code>dataclasses</code></p>
+<p>Our helper function is nice and minimal thx for the usage of our <code>dataclasses</code></p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">split1</span><span class="p">:</span> <span class="n">Split</span><span class="p">,</span> <span class="n">split2</span><span class="p">:</span> <span class="n">Split</span><span class="p">):</span>
     <span class="n">split1</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
     <span class="n">split1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
@@ -1370,10 +1384,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <span class="n">test</span><span class="o">.</span><span class="n">pred_proba</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">pred_proba</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">X</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 <p>Now lets say we want to analyse our model and analyse some specific observations or generate our confusion_matrix we can run the following code:</p>
-<div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">pred_class</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>  
-<span class="n">train</span><span class="o">.</span><span class="n">pred_proba</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">pred_proba</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">X</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>  
-
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
 <span class="n">conf_matrix_test</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">test</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">test</span><span class="o">.</span><span class="n">pred_class</span> <span class="p">)</span>
 </pre></div>
 
@@ -1383,7 +1394,8 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>I hope this short writeup will push you to explore the usage of Pipelines and Dataclasses</p>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>This blog post outlined the advantages for using Pipelines and Dataclasses.</p>
+<p>I hope the example illustrated the potentail for such usage and inspires you to try them out.</p>
 
 </div>
 </div>
@@ -1420,18 +1432,38 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 }
 </script>
 
-      </div>
-      <div class="back-to-top">
-          <a href="#top">back to top</a>
-      </div>
-    </article>
   </div>
-<!-- end article -->
-                <footer>
-                    <div class="icons">
-                    </div>
-                    <p>© <script>document.write(moment().format('YYYY'));</script> Joseph (Sephi) Berry</p>
-                </footer>
-        </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/python-mlpipeline.html">python MLpipeline</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : ".",
+  "image": "",
+  "description": ""
+}
+</script>
+
 </body>
 </html>
