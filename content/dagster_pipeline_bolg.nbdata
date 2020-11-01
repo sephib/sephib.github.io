@@ -1,7 +1,0 @@
-Title: Implementing a graph network pipeline with Dagster
-Slug: Dagster-neo4j
-Date: 2020-07-09 20:00
-Category: posts
-Tags: python neo4j dagster
-author: Sephi Berry David Katz
-Summary: How to created a graph (nodes and edges) from separate data sources and import them into Neo4j

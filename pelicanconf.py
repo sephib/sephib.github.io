@@ -40,7 +40,8 @@ from pelican_jupyter import markup as nb_markup
 
 IGNORE_FILES = [".ipynb_checkpoints"]
 
-THEME = "themes/brutalist/brutalist"
+
+THEME = "themes/Flex"
 # THEME = "themes/pelican-blue/pelican-blue"
 # PLUGINS
 PLUGIN_PATHS = ["plugins", "plugins/ibynb", "plugins/pelican-plugins"]
