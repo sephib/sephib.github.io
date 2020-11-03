@@ -1042,13 +1042,8 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 &lt;/style&gt;
-&lt;style type="text/css"&gt;pre { line-height: 125%; margin: 0; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
- .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre  { background: #f8f8f8; }
+&lt;style type="text/css"&gt; .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre   { background: #f8f8f8; }
  .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
  .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
  .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
@@ -1125,14 +1120,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Tidy code makes everyones life easier.&lt;br&gt;
-The code we write will be read many times, so making things easier to mange will be apprciated later on by everyone on the team.&lt;br&gt;
-Some tools that can assist in this cleanliness is the usage of Pipelines and Dataclasses.&lt;/p&gt;
+&lt;h2 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Tidy code makes everyone's life easier.&lt;br&gt;
+The code we write will be read many times, so making our process easier to mange will be appreciated later by everyone on the team.
+During ML projects, we need to access data in a similar manner (throughout our workflow) for training and predicting the data. A clear semantic for accessing teh data allows for easier code management between projects. Addtionally naming conventions are also very important in order to be able to understand and reuse the code.&lt;br&gt;
+There are some tools that can assist in this cleanliness such as the usage of Pipelines and Dataclasses.&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;MLEngineer is 10% ML 90% Engineer.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Pipeline is a &lt;em&gt;meta&lt;/em&gt; object that assists in managing the processes in a ML model.  Pipelines can encapsulat seperate processes which can later on be combined together.&lt;br&gt;
-Forcing to work with &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html"&gt;Pipline objects&lt;/a&gt; can be nuisance at the begining (especially the conversion between  &lt;code&gt;pandas DataFrame&lt;/code&gt; and &lt;code&gt;np.ndarray&lt;/code&gt; ), but it garenties the quility of the model down the line (no data leakage, modularity etc.). Here is &lt;a href="https://www.youtube.com/watch?v=yv4adDGcFE8"&gt;Kevin Markham 4 min. video&lt;/a&gt; explaining the pipeline advantages.&lt;/p&gt;
-&lt;h3 id="Dataclass"&gt;Dataclass&lt;a class="anchor-link" href="#Dataclass"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Another usefull ML coding tool is to use an object to save datasets along the pipeline. Before Python 3.7 you may have been using &lt;a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple"&gt;namedtubple&lt;/a&gt;, however since Python 3.7 &lt;a href="https://docs.python.org/3/library/dataclasses.html"&gt;dataclasses&lt;/a&gt; was introduced, which are a great candidate for storing such data objects. Using dataclasses allows for consistancy while accessing various datasets along the Pipeline.&lt;/p&gt;
+&lt;h3 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Pipeline is a &lt;em&gt;meta&lt;/em&gt; object that assists in managing the processes in a ML model.  Pipelines can encapsulate separate processes which can later on be combined together.&lt;br&gt;
+Forcing a workflow to be implemented within a &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html"&gt;Pipeline objects&lt;/a&gt; can be nuisance at the beginning (especially the conversion between  &lt;code&gt;pandas DataFrame&lt;/code&gt; and &lt;code&gt;np.ndarray&lt;/code&gt; ), but down-the-line it guaranties the quality of the model  (no data leakage, modularity etc.). Here is &lt;a href="https://www.youtube.com/watch?v=yv4adDGcFE8"&gt;Kevin Markham 4 min. video&lt;/a&gt; explaining pipeline advantages.&lt;/p&gt;
+&lt;h3 id="Dataclass"&gt;Dataclass&lt;a class="anchor-link" href="#Dataclass"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Another useful &lt;em&gt;Python object&lt;/em&gt; to save datasets along the pipeline are &lt;code&gt;dataclasses&lt;/code&gt;. Before Python 3.7 you may have been using &lt;a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple"&gt;namedtuple&lt;/a&gt;, however since Python 3.7 &lt;a href="https://docs.python.org/3/library/dataclasses.html"&gt;dataclasses&lt;/a&gt; were introduced, and are a great candidate for storing such data objects. Using dataclasses allows for access consistency to the various datasets throughout the ML Pipeline.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1140,9 +1136,15 @@ Forcing to work with &lt;a href="https://scikit-learn.org/stable/modules/generat
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In this post we will be showing an advance pipeline that incorperates preprocess per column type,  handle the Categorical columns using the &lt;a href="https://github.com/WinVector/pyvtreat"&gt;vtreat&lt;/a&gt; package, and then run a &lt;a href="https://catboost.ai/"&gt;catboost&lt;/a&gt; classifier.&lt;/p&gt;
-&lt;p&gt;Lets assume that we have a classification problem and our data has numeric and categorical column types, so we may build our pipeline as follows:&lt;/p&gt;
-&lt;h3 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;label&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;h2 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Since we are not analysing any dataset, this blog post is an example of an &lt;em&gt;advance&lt;/em&gt; &lt;code&gt;pipeline&lt;/code&gt; that incormperates non standart peaces (none standard &lt;code&gt;sklearn&lt;/code&gt; modules).&lt;br&gt;
+Assuming that we have a classification problem and our data has numeric and categorical column types, the &lt;code&gt;pipeline&lt;/code&gt;  incorporates:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Preprocess data preparation per column type  &lt;/li&gt;
+&lt;li&gt;Handle the &lt;code&gt;categorical&lt;/code&gt; columns using the &lt;a href="https://github.com/WinVector/pyvtreat"&gt;vtreat&lt;/a&gt; package  &lt;/li&gt;
+&lt;li&gt;Run a &lt;a href="https://catboost.ai/"&gt;catboost&lt;/a&gt; classifier.     &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We may build our pipeline as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;label&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;num_pipe&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Pipeline&lt;/span&gt;&lt;span class="p"&gt;([(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;scaler&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;StanderdScaler&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
@@ -1157,10 +1159,14 @@ Forcing to work with &lt;a href="https://scikit-learn.org/stable/modules/generat
                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;vtreat&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BinomiaOutcomeTreatmentPlan&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
 &lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In this &lt;em&gt;psedo code&lt;/em&gt; our Pipeline has some preprocessing to the numeric columns follwing by the processing of the categrical columns with the vtreat package (it will passthrough all the non categorical and numeric columns).&lt;/p&gt;
-&lt;p&gt;Since &lt;code&gt;catboost&lt;/code&gt; does not have a transform method we are going to introduce it leater on.&lt;br&gt;
-Additionaly since we have an imbalanced data set we are going to use the &lt;code&gt;StratifiedShuffleSplit&lt;/code&gt; when splitting our data.&lt;/p&gt;
-&lt;p&gt;So now the time has come to &lt;a href="https://getyarn.io/yarn-clip/2c689f11-6d71-425c-a701-81be09ad034e#llil9DAFRQ.copy"&gt;cut up our data&lt;/a&gt;...&lt;/p&gt;
+&lt;p&gt;In this &lt;em&gt;pseudo code&lt;/em&gt; our Pipeline has some preprocessing to the numeric columns following by the processing of the categorical columns with the vtreat package (it will pass-through all the non categorical and numeric columns).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Since &lt;code&gt;catboost&lt;/code&gt; does not have a transform method we are going to introduce it later on.  &lt;/li&gt;
+&lt;li&gt;The usage of &lt;code&gt;vtreat&lt;/code&gt; is an example of the possiblity to use non standard modules within the classifications (assuming they follow &lt;code&gt;sklearn&lt;/code&gt; paradigms)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So now the time has come to cut up our data...&lt;br&gt;
+&lt;a href="https://getyarn.io/yarn-clip/2c689f11-6d71-425c-a701-81be09ad034e#llil9DAFRQ.copy" rel="Homicidal Barber"&gt;&lt;img src="https://static.wikia.nocookie.net/montypython/images/5/53/The_ant_5.jpg" width=400 height=400 /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1168,12 +1174,13 @@ Additionaly since we have an imbalanced data set we are going to use the &lt;cod
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Test-vs.-Train-vs.-Valid"&gt;Test vs. Train vs. Valid&lt;a class="anchor-link" href="#Test-vs.-Train-vs.-Valid"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A common workflow when developing an ML model is the necessity to split the date into &lt;a href="https://machinelearningmastery.com/difference-test-validation-datasets/"&gt;Test/Train/Valid datasets&lt;/a&gt;.&lt;br&gt;
-In a nut shell the difference between the data are:&lt;/p&gt;
+&lt;h2 id="Test-vs.-Train-vs.-Valid"&gt;Test vs. Train vs. Valid&lt;a class="anchor-link" href="#Test-vs.-Train-vs.-Valid"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;A common workflow when developing an ML model is the necessity to split the date into &lt;a href="https://machinelearningmastery.com/difference-test-validation-datasets/"&gt;Test/Train/Valid datasets&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling" rel="TTV datasets"&gt;&lt;img src="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling/fig-holdout.png" width=600 height=400 /&gt;&lt;/a&gt;  source: Shan-Hung Wu &amp;amp; DataLab, National Tsing Hua University&lt;/p&gt;
+&lt;p&gt;In a nut shell the difference between the data are:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Test - put aside - don't look until final model estimation  &lt;/li&gt;
 &lt;li&gt;Train - dataset to train model   &lt;/li&gt;
-&lt;li&gt;Valid - dataset to validate model during the training phase (this can be via iteration, GridSearch or preventing overfitting )   &lt;/li&gt;
+&lt;li&gt;Valid - dataset to validate model during the training phase (this can be via iteration, GridSearch, etc.)   &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Each dataset will have similar attributes that we will need to save and access throughout the ML workflow.&lt;br&gt;
 In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; to save the datasets in a structured manner.&lt;/p&gt;
@@ -1222,13 +1229,13 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Each &lt;code&gt;dataclass&lt;/code&gt; will have the follwing attributes:&lt;/p&gt;
+&lt;p&gt;Each &lt;code&gt;dataclass&lt;/code&gt; will have the following attributes:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;X&lt;/code&gt; - a numpy ndarray storing all the features   &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;y&lt;/code&gt; - a numpy array storing the labeling classification  &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;idx&lt;/code&gt; - the index for storing the original indexes (usefull for referencing at the end of the pipe line )  &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;idx&lt;/code&gt; - the index for storing the original indexes useful for referencing at the end of the pipe line )  &lt;/li&gt;
 &lt;li&gt;&lt;code&gt;pred_class&lt;/code&gt; - a numpy array storing the predicted classification  &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;pred_proba&lt;/code&gt; - a numpy ndarray for storrying the probabilites of the classificaitons&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pred_proba&lt;/code&gt; - a numpy ndarray for storing the probabilities of the classifications&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Additionally we will store a &lt;code&gt;name&lt;/code&gt; for the dataclass to easily referencing it along the pipeline.&lt;/p&gt;
 
@@ -1238,7 +1245,7 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Splitting-In-Action"&gt;Splitting In Action&lt;a class="anchor-link" href="#Splitting-In-Action"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are several methods that you can split your datasets. When data is imbalenced it is important to split the data with a stratified method,  so in our case we chose to use &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html"&gt;StratifiedShuffleSplit&lt;/a&gt;.  In contrast  to the simple &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split"&gt;train_test_split&lt;/a&gt; which returnes the datasets themselfs, the StratifiedShuffleSplit returnes only the indices for each group.&lt;/p&gt;
+&lt;h3 id="Splitting-In-Action"&gt;Splitting In Action&lt;a class="anchor-link" href="#Splitting-In-Action"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;There are several methods that can be used in order to split the datasets. When data is imbalanced it is important to split the data with a stratified method. In our case we chose to use &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html"&gt;StratifiedShuffleSplit&lt;/a&gt;, however in contrast  to the simple &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split"&gt;train_test_split&lt;/a&gt; which returns the datasets themselves, the StratifiedShuffleSplit returns only the indices for each group, thus we will need an helper function to get the dataset themselves (our helper function is nice and minimal thx for the usage of our &lt;code&gt;dataclasses&lt;/code&gt;).&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1246,15 +1253,13 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;fold_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;StratifiedSplitValid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n_split&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train_size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_split_from_idx&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# a helper function to get all data itslef since the StratifiedSplitValid on returns the indices&lt;/span&gt;
-    &lt;span class="n"&gt;_train_X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fit_transform&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Our helper function is nice and minimal thx for the usage of our &lt;code&gt;dataclasses&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_split_from_idx&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Split&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Split&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;split2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
     &lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iloc&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;split2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split2&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;split1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;split2&lt;/span&gt;  
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;fold_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;StratifiedSplitValid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n_split&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train_size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_split_from_idx&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# a helper function&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1266,12 +1271,12 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;h3 id="Pipeline-in-action"&gt;Pipeline in action&lt;a class="anchor-link" href="#Pipeline-in-action"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Now we can run the first part of our Pipeline&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;_train_X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fit_transform&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once we have fit_transformed our data (allowing for vtreat magic to work), we can introduce &lt;code&gt;catboost&lt;/code&gt; into our Pipeline.&lt;/p&gt;
+&lt;p&gt;Once we have &lt;code&gt;fit_transform&lt;/code&gt; our data (allowing for vtreat magic to work), we can introduce the &lt;code&gt;catboost&lt;/code&gt; classifier into our Pipeline.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;catboost_clf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;CatBoostClassifier&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 &lt;span class="n"&gt;train_vlaid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;train_vlaid&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;vlaid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;vlaid&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;fold_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train_vlaid&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vlaid&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StratifiedSplitValid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_train_X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n_split&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train_size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.9&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;fold_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;train_vlaid&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vlaid&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StratifiedSplitValid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_train_X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n_split&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train_size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.9&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;train_vlaid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vlaid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_split_from_idx&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_train_X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;train_vlaid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vlaid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
     &lt;span class="n"&gt;pipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;steps&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;catboost_clf&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;catboost_clf&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1283,7 +1288,7 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;p&gt;Notice the two following things:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Using &lt;code&gt;pipe.steps.append&lt;/code&gt; we are able to introduce steps into the pipeline that could not be initially part of the workflow.  &lt;/li&gt;
-&lt;li&gt;Adding paramters into the steps within the pipeline requies the usage of double dunder for &lt;a href="https://scikit-learn.org/stable/modules/compose.html#nested-parameters"&gt;nested paramters&lt;/a&gt;.  &lt;/li&gt;
+&lt;li&gt;Adding parameters into the steps within the pipeline requires the usage of double dunder for &lt;a href="https://scikit-learn.org/stable/modules/compose.html#nested-parameters"&gt;nested paramters&lt;/a&gt;.  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;/div&gt;
@@ -1296,7 +1301,7 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pred_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  
 &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pred_proba&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pred_proba&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;)[:,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now lets say we want to analyse our model and analyse some specific observations or generate our confusion_matrix we can run the following code:&lt;/p&gt;
+&lt;p&gt;Now when we analyse our model we can generate our metrics (e.g. confusion_matrix) by easily referensing to the relevant dataset as follows:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;sklearn.metrics&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;confusion_matrix&lt;/span&gt;
 &lt;span class="n"&gt;conf_matrix_test&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;confusion_matrix&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y_true&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y_pred&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pred_class&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1308,7 +1313,7 @@ In order to prevent confusion lets create a &lt;code&gt;dataclass&lt;/code&gt; t
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Conclusion"&gt;Conclusion&lt;a class="anchor-link" href="#Conclusion"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;This blog post outlined the advantages for using Pipelines and Dataclasses.&lt;/p&gt;
-&lt;p&gt;I hope the example illustrated the potentail for such usage and inspires you to try them out.&lt;/p&gt;
+&lt;p&gt;I hope the example illustrated the potential for such usage and inspires you to try them out.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2387,13 +2392,8 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 &lt;/style&gt;
-&lt;style type="text/css"&gt;pre { line-height: 125%; margin: 0; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
- .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre  { background: #f8f8f8; }
+&lt;style type="text/css"&gt; .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre   { background: #f8f8f8; }
  .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
  .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
  .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
@@ -3979,13 +3979,8 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 &lt;/style&gt;
-&lt;style type="text/css"&gt;pre { line-height: 125%; margin: 0; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
- .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre  { background: #f8f8f8; }
+&lt;style type="text/css"&gt; .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre   { background: #f8f8f8; }
  .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
  .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
  .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
