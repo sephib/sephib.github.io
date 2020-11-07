@@ -3,7 +3,13 @@
 
 AUTHOR = "Joseph (Sephi) Berry"
 SITENAME = "Geo Berry"
-SITEURL = ""
+SITEURL = "http://localhost:8000"
+SITETITLE = "Sephi's Blog"
+SITESUBTITLE = "Project Manager | Data Engineer | Geo-Spatial Specialist"
+SITEDESCRIPTION = "Sephi's Thoughts and Writings"
+SITELOGO = SITEURL + "/images/avatar_osnx.png"
+FAVICON = SITEURL + "/images/favicon.ico"
+
 
 PATH = "content"
 
@@ -19,18 +25,19 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (
-    ("Pelican", "https://getpelican.com/"),
-    ("Python.org", "https://www.python.org/"),
-    ("Jinja2", "https://palletsprojects.com/p/jinja/"),
-    ("You can modify those links in your config file", "#"),
-)
+# LINKS = (
+#     ("Pelican", "https://getpelican.com/"),
+#     ("Python.org", "https://www.python.org/"),
+#     ("Jinja2", "https://palletsprojects.com/p/jinja/"),
+#     ("You can modify those links in your config file", "#"),
+# )
 
 # Social widget
-SOCIAL = (
-    ("You can add links in your config file", "#"),
-    ("Another social link", "#"),
-)
+SOCIAL = (('linkedin', 'https://www.linkedin.com/in/berrygis'),
+          ('github', 'https://github.com/sephib'),
+          ('twitter', 'https://twitter.com/geosephi'),
+        #   ('stack-overflow', 'http://stackoverflow.com/story/girisagar46.github.io'),
+          )
 
 DEFAULT_PAGINATION = 10
 
