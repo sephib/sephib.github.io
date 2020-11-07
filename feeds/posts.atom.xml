@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - posts</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2020-07-26T20:00:00+03:00</updated><entry><title>Dataclasses in ML Pipelines</title><link href="https://sephib.github.io/dataclass-pipeline.html" rel="alternate"></link><published>2020-07-26T20:00:00+03:00</published><updated>2020-07-26T20:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-07-26:/dataclass-pipeline.html</id><summary type="html">&lt;p&gt;Tidy your ML pipelines with dataclasses.&lt;/p&gt;</summary><content type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - posts</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2020-07-26T20:00:00+03:00</updated><subtitle>Project Manager | Data Engineer | Geo-Spatial Specialist</subtitle><entry><title>Dataclasses in ML Pipelines</title><link href="https://sephib.github.io/dataclass-pipeline.html" rel="alternate"></link><published>2020-07-26T20:00:00+03:00</published><updated>2020-07-26T20:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-07-26:/dataclass-pipeline.html</id><summary type="html">&lt;p&gt;Tidy your ML pipelines with dataclasses.&lt;/p&gt;</summary><content type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -1121,8 +1121,8 @@ h6:hover .anchor-link {
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Tidy code makes everyone's life easier.&lt;br&gt;
-The code we write will be read many times, so making our process easier to mange will be appreciated later by everyone on the team.
-During ML projects, we need to access data in a similar manner (throughout our workflow) for training and predicting the data. A clear semantic for accessing teh data allows for easier code management between projects. Addtionally naming conventions are also very important in order to be able to understand and reuse the code.&lt;br&gt;
+The code in an ML project will probably be read many times, so making our workflow easier to understand will be appreciated later by everyone on the team.
+During ML projects, we need to access data in a similar manner (throughout our workflow) for training, validating and predicting our model and data. A clear semantic for accessing the data allows for easier code management between projects. Addtionally naming conventions are also very useful in order to be able to understand and reuse the code in an optimal manner.&lt;br&gt;
 There are some tools that can assist in this cleanliness such as the usage of Pipelines and Dataclasses.&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;MLEngineer is 10% ML 90% Engineer.&lt;/p&gt;
 &lt;/blockquote&gt;
