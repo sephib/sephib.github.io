@@ -1206,6 +1206,7 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/postBanner.png" alt="Post Banner" width="650" ></p>
 <h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><ul>
 <li>Working in the Intelligence arena we try to 'connect the dots' to extract meaningful information from data.</li>
 <li>We analyze various datasets to link between them in a logical manner.</li>
@@ -1263,7 +1264,7 @@ h6:hover .anchor-link {
 <li>A <code>pipeline</code> orchestrates the various <code>solids</code> and the data flows.   </li>
 </ul>
 <h4 id="Design-implementation">Design implementation<a class="anchor-link" href="#Design-implementation">&#182;</a></h4><p>The following diagram displays the architecture  outline of the code:<br>
-<img src="../docs/images/architecture_diagram.png" alt="entity model" width="650" ></p>
+<img src="images/architecture_diagram.png" alt="entity model" width="650" ></p>
 <ul>
 <li><p>YAML configurations<br>
 <code>Dagster</code> has many configuration files that assist in managing pipelines and there environments. In this example we will use only 2 configuration types:</p>
@@ -1316,14 +1317,14 @@ Since we have several datasets we will can build each building block to be execu
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2><p>In order to demonstrate our workflow we will use data from <a href="https://statsbomb.com/"><img src="https://raw.githubusercontent.com/statsbomb/open-data/master/stats-bomb-logo.png" alt="StatsBomb logo" width="100"/></a>, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the <strong>original</strong> football - <em><em>soccer</em></em> ) . The company has a free open data API tier that can be accessed using the instructions on <a href="https://github.com/statsbomb/statsbombpy#open-data">their git hub page</a>.</p>
+<h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2><p>In order to demonstrate our workflow we will use data from <a href="https://statsbomb.com/"><img src="https://statsbomb.com/wp-content/themes/statsbomb-2019/images/statsbomb-logo.svg" alt="StatsBomb logo" width="100"/></a>, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the <strong>original</strong> football - <em><em>soccer</em></em> ) . The company has a free open data API tier that can be accessed using the instructions on <a href="https://github.com/statsbomb/statsbombpy#open-data">their git hub page</a>.</p>
 <p>We would like to find the relationships between the players in 2  dimensions:</p>
 <ol>
 <li>Team companionship  </li>
 <li>The number of passes between the players   </li>
 </ol>
 <p>We will be building a graph based on the following entity model:</p>
-<p><img src="../docs/images/entity_model.png" alt="entity model" width="450" ></p>
+<p><img src="images/entity_model.png" alt="entity model" width="450" ></p>
 <p>The <a href="link to github">following script</a> is available to download the data into 2 separate datasets:</p>
 <ol>
 <li>Player lineup as csv  </li>
@@ -1567,7 +1568,7 @@ def read_file(context) -&gt; DataFrame:
 <h3 id="Composite-Solids">Composite Solids<a class="anchor-link" href="#Composite-Solids">&#182;</a></h3><p>A single <code>solid</code> executes a 
 computation, however when wanting to create dependencies between solids we can use a <a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid">composite_solid</a>.</p>
 <p>Here is a screen shot of the <code>composite_solid</code> from <a href="https://docs.dagster.io/tutorial/execute#executing-our-first-pipeline">dagit</a><br>
-<img src="../docs/images/player_pass.png" alt="player_pass composite solid" width="250" ></p>
+<img src="images/passed_to.png" alt="player_pass composite solid" width="250" ></p>
 <p>Lets review the <code>player_pass</code> composite_solid</p>
 
 <pre><code>@composite_solid(
@@ -1608,7 +1609,7 @@ def player_pass():
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Finally we can put everything together in our pipeline. A <a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.pipeline">pipeline</a> builds up a dependency graph between the solids/composite_solids.</p>
-<p><img src="../docs/images/pipeline.png" alt="pipeline" width="550" ></p>
+<p><img src="images/pipeline.png" alt="pipeline" width="550" ></p>
 
 <pre><code>@pipeline(mode_defs=[ModeDefinition(resource_defs={"spark": pyspark_resource})])  
 def statsbomb_pipeline():  
@@ -1627,7 +1628,7 @@ Our final <code>create_neo4j_db composite_solid</code> is dependent on the outpu
 <h2 id="Into-Neo4j">Into Neo4j<a class="anchor-link" href="#Into-Neo4j">&#182;</a></h2><p>The results of the Pipeline can be imported into <code>neo4j</code> .<br>
 In order to import <em>bigData</em> in an optimal manner we will use the <a href="https://neo4j.com/docs/operations-manual/4.1/tools/import/">batch import</a> admin tool.  This allows for loading tens of millions of nodes and billions of relationships  in the matter of hours.</p>
 <p>Here is some data for Liverpool's striker <a href="https://en.wikipedia.org/wiki/Mohamed_Salah">Mohamed Salah</a>:</p>
-<p><img src="../docs/images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" ></p>
+<p><img src="images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" ></p>
 
 </div>
 </div>

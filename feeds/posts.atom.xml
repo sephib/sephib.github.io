@@ -4057,6 +4057,7 @@ h6:hover .anchor-link {
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;img src="images/postBanner.png" alt="Post Banner" width="650" &gt;&lt;/p&gt;
 &lt;h2 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Working in the Intelligence arena we try to 'connect the dots' to extract meaningful information from data.&lt;/li&gt;
 &lt;li&gt;We analyze various datasets to link between them in a logical manner.&lt;/li&gt;
@@ -4114,7 +4115,7 @@ h6:hover .anchor-link {
 &lt;li&gt;A &lt;code&gt;pipeline&lt;/code&gt; orchestrates the various &lt;code&gt;solids&lt;/code&gt; and the data flows.   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id="Design-implementation"&gt;Design implementation&lt;a class="anchor-link" href="#Design-implementation"&gt;&amp;#182;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;The following diagram displays the architecture  outline of the code:&lt;br&gt;
-&lt;img src="../docs/images/architecture_diagram.png" alt="entity model" width="650" &gt;&lt;/p&gt;
+&lt;img src="images/architecture_diagram.png" alt="entity model" width="650" &gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;YAML configurations&lt;br&gt;
 &lt;code&gt;Dagster&lt;/code&gt; has many configuration files that assist in managing pipelines and there environments. In this example we will use only 2 configuration types:&lt;/p&gt;
@@ -4167,14 +4168,14 @@ Since we have several datasets we will can build each building block to be execu
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Data"&gt;Data&lt;a class="anchor-link" href="#Data"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In order to demonstrate our workflow we will use data from &lt;a href="https://statsbomb.com/"&gt;&lt;img src="https://raw.githubusercontent.com/statsbomb/open-data/master/stats-bomb-logo.png" alt="StatsBomb logo" width="100"/&gt;&lt;/a&gt;, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the &lt;strong&gt;original&lt;/strong&gt; football - &lt;em&gt;&lt;em&gt;soccer&lt;/em&gt;&lt;/em&gt; ) . The company has a free open data API tier that can be accessed using the instructions on &lt;a href="https://github.com/statsbomb/statsbombpy#open-data"&gt;their git hub page&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="Data"&gt;Data&lt;a class="anchor-link" href="#Data"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;In order to demonstrate our workflow we will use data from &lt;a href="https://statsbomb.com/"&gt;&lt;img src="https://statsbomb.com/wp-content/themes/statsbomb-2019/images/statsbomb-logo.svg" alt="StatsBomb logo" width="100"/&gt;&lt;/a&gt;, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the &lt;strong&gt;original&lt;/strong&gt; football - &lt;em&gt;&lt;em&gt;soccer&lt;/em&gt;&lt;/em&gt; ) . The company has a free open data API tier that can be accessed using the instructions on &lt;a href="https://github.com/statsbomb/statsbombpy#open-data"&gt;their git hub page&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We would like to find the relationships between the players in 2  dimensions:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Team companionship  &lt;/li&gt;
 &lt;li&gt;The number of passes between the players   &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;We will be building a graph based on the following entity model:&lt;/p&gt;
-&lt;p&gt;&lt;img src="../docs/images/entity_model.png" alt="entity model" width="450" &gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="images/entity_model.png" alt="entity model" width="450" &gt;&lt;/p&gt;
 &lt;p&gt;The &lt;a href="link to github"&gt;following script&lt;/a&gt; is available to download the data into 2 separate datasets:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Player lineup as csv  &lt;/li&gt;
@@ -4418,7 +4419,7 @@ def read_file(context) -&amp;gt; DataFrame:
 &lt;h3 id="Composite-Solids"&gt;Composite Solids&lt;a class="anchor-link" href="#Composite-Solids"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;A single &lt;code&gt;solid&lt;/code&gt; executes a 
 computation, however when wanting to create dependencies between solids we can use a &lt;a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid"&gt;composite_solid&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here is a screen shot of the &lt;code&gt;composite_solid&lt;/code&gt; from &lt;a href="https://docs.dagster.io/tutorial/execute#executing-our-first-pipeline"&gt;dagit&lt;/a&gt;&lt;br&gt;
-&lt;img src="../docs/images/player_pass.png" alt="player_pass composite solid" width="250" &gt;&lt;/p&gt;
+&lt;img src="images/passed_to.png" alt="player_pass composite solid" width="250" &gt;&lt;/p&gt;
 &lt;p&gt;Lets review the &lt;code&gt;player_pass&lt;/code&gt; composite_solid&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;@composite_solid(
@@ -4459,7 +4460,7 @@ def player_pass():
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="Pipeline"&gt;Pipeline&lt;a class="anchor-link" href="#Pipeline"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Finally we can put everything together in our pipeline. A &lt;a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.pipeline"&gt;pipeline&lt;/a&gt; builds up a dependency graph between the solids/composite_solids.&lt;/p&gt;
-&lt;p&gt;&lt;img src="../docs/images/pipeline.png" alt="pipeline" width="550" &gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="images/pipeline.png" alt="pipeline" width="550" &gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;@pipeline(mode_defs=[ModeDefinition(resource_defs={"spark": pyspark_resource})])  
 def statsbomb_pipeline():  
@@ -4478,7 +4479,7 @@ Our final &lt;code&gt;create_neo4j_db composite_solid&lt;/code&gt; is dependent 
 &lt;h2 id="Into-Neo4j"&gt;Into Neo4j&lt;a class="anchor-link" href="#Into-Neo4j"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The results of the Pipeline can be imported into &lt;code&gt;neo4j&lt;/code&gt; .&lt;br&gt;
 In order to import &lt;em&gt;bigData&lt;/em&gt; in an optimal manner we will use the &lt;a href="https://neo4j.com/docs/operations-manual/4.1/tools/import/"&gt;batch import&lt;/a&gt; admin tool.  This allows for loading tens of millions of nodes and billions of relationships  in the matter of hours.&lt;/p&gt;
 &lt;p&gt;Here is some data for Liverpool's striker &lt;a href="https://en.wikipedia.org/wiki/Mohamed_Salah"&gt;Mohamed Salah&lt;/a&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img src="../docs/images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" &gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" &gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
