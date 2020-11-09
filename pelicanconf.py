@@ -3,7 +3,7 @@
 
 AUTHOR = "Joseph (Sephi) Berry"
 SITENAME = "Geo Berry"
-SITEURL = "http://localhost:8000"
+SITEURL = ""  #"http://localhost:8000"
 SITETITLE = "Sephi's Blog"
 SITESUBTITLE = "Project Manager | Data Engineer | Geo-Spatial Specialist"
 SITEDESCRIPTION = "Sephi's Thoughts and Writings"
