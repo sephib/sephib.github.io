@@ -1207,14 +1207,15 @@ h6:hover .anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><p>Tidy code makes everyone's life easier.<br>
-The code in an ML project will probably be read many times, so making our workflow easier to understand will be appreciated later by everyone on the team.
-During ML projects, we need to access data in a similar manner (throughout our workflow) for training, validating and predicting our model and data. A clear semantic for accessing the data allows for easier code management between projects. Addtionally naming conventions are also very useful in order to be able to understand and reuse the code in an optimal manner.<br>
-There are some tools that can assist in this cleanliness such as the usage of Pipelines and Dataclasses.</p>
+The code in an ML project will probably be read many times, so making our workflow easier to understand will be appreciated later by everyone on the team.<br>
+During ML projects, we need to reference and access data, throughout the workflow, in a similar manner - i.e. for training, validating and testing our model. A clear semantic for accessing the data allows for easier code management within and between projects. Addtionally naming conventions are also very useful while team code review and the ability to reuse code in an optimal manner.<br>
+There are some tools that can assist in this cleanliness such as the usage of <code>Pipelines</code> and <code>Dataclasses</code>.</p>
 <blockquote><p>MLEngineer is 10% ML 90% Engineer.</p>
 </blockquote>
-<h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Pipeline is a <em>meta</em> object that assists in managing the processes in a ML model.  Pipelines can encapsulate separate processes which can later on be combined together.<br>
-Forcing a workflow to be implemented within a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">Pipeline objects</a> can be nuisance at the beginning (especially the conversion between  <code>pandas DataFrame</code> and <code>np.ndarray</code> ), but down-the-line it guaranties the quality of the model  (no data leakage, modularity etc.). Here is <a href="https://www.youtube.com/watch?v=yv4adDGcFE8">Kevin Markham 4 min. video</a> explaining pipeline advantages.</p>
-<h3 id="Dataclass">Dataclass<a class="anchor-link" href="#Dataclass">&#182;</a></h3><p>Another useful <em>Python object</em> to save datasets along the pipeline are <code>dataclasses</code>. Before Python 3.7 you may have been using <a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple">namedtuple</a>, however since Python 3.7 <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> were introduced, and are a great candidate for storing such data objects. Using dataclasses allows for access consistency to the various datasets throughout the ML Pipeline.</p>
+<h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Pipeline is a <em>meta object</em> that assists in managing the processes in a ML model.  Pipelines can encapsulate separate processes which can later on be combined together.<br>
+Forcing a workflow to be implemented within a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">scikit-learn Pipeline objects</a> can be nuisance at the beginning (especially managing <code>pandas DataFrame</code> within the workflow), but down-the-line it guaranties the quality of the model (no data leakage, modularity etc.). Here is <a href="https://www.youtube.com/watch?v=yv4adDGcFE8">Kevin Markham 4 min. video</a> explaining pipeline advantages.</p>
+<h3 id="Dataclass">Dataclass<a class="anchor-link" href="#Dataclass">&#182;</a></h3><p>Another useful <em>Python object</em> to save datasets along the pipeline are <code>dataclasses</code>. Before Python 3.7 you may have been using <a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple">namedtuple</a>, however since Python 3.7 <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> were introduced, and are a great candidate for storing such data objects. Using dataclasses allows for access consistency to the various datasets (stored in the <a href="https://docs.python.org/3/library/dataclasses.html#dataclasses.Field">dataclass fields</a>) throughout the ML Pipeline.</p>
+<p>Lets look at an example below</p>
 
 </div>
 </div>
@@ -1222,8 +1223,8 @@ Forcing a workflow to be implemented within a <a href="https://scikit-learn.org/
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h2><p>Since we are not analysing any dataset, this blog post is an example of an <em>advance</em> <code>pipeline</code> that incormperates non standart peaces (none standard <code>sklearn</code> modules).<br>
-Assuming that we have a classification problem and our data has numeric and categorical column types, the <code>pipeline</code>  incorporates:</p>
+<h2 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h2><p>This blog post will describe an <em>advance</em> <code>pipeline</code> that incormperates non standart peaces (none standard <code>sklearn</code> modules). If you are a newbe to Pipelines, I suggest to start by reading the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn-pipeline-pipeline">scikit-learn pipeline</a> documentation.</p>
+<p>Assuming that we have a classification problem and our data has numeric and categorical column types, the <code>pipeline</code> will incorporate:</p>
 <ol>
 <li>Preprocess data preparation per column type  </li>
 <li>Handle the <code>categorical</code> columns using the <a href="https://github.com/WinVector/pyvtreat">vtreat</a> package  </li>
@@ -1233,17 +1234,23 @@ Assuming that we have a classification problem and our data has numeric and cate
 <div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">num_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span><span class="n">StanderdScaler</span><span class="p">()),</span>
-                     <span class="p">(</span><span class="s2">&quot;variance&quot;</span><span class="p">,</span><span class="n">VarianceThreshold</span><span class="p">()),</span>
-                     <span class="p">])</span>
+<span class="n">num_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StanderdScaler</span><span class="p">()),</span>
+        <span class="p">(</span><span class="s2">&quot;variance&quot;</span><span class="p">,</span> <span class="n">VarianceThreshold</span><span class="p">()),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 <span class="n">preprocess_pipe</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
-   <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
-   <span class="n">transformers</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;num_pipe&quot;</span><span class="p">,</span> <span class="n">num_pipe</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">))]</span>
-<span class="p">)</span>                     
+    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;num_pipe&quot;</span><span class="p">,</span> <span class="n">num_pipe</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">))],</span>
+<span class="p">)</span>
 
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">&quot;preprocess_pipe&quot;</span><span class="p">,</span> <span class="n">preprocess_pipe</span><span class="p">),</span>
-               <span class="p">(</span><span class="s2">&quot;vtreat&quot;</span><span class="p">,</span> <span class="n">BinomiaOutcomeTreatmentPlan</span><span class="p">()),</span>
-<span class="p">])</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;preprocess_pipe&quot;</span><span class="p">,</span> <span class="n">preprocess_pipe</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;vtreat&quot;</span><span class="p">,</span> <span class="n">BinomiaOutcomeTreatmentPlan</span><span class="p">()),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 <p>In this <em>pseudo code</em> our Pipeline has some preprocessing to the numeric columns following by the processing of the categorical columns with the vtreat package (it will pass-through all the non categorical and numeric columns).</p>
 <p><strong>Note</strong></p>
@@ -1261,7 +1268,8 @@ Assuming that we have a classification problem and our data has numeric and cate
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Test-vs.-Train-vs.-Valid">Test vs. Train vs. Valid<a class="anchor-link" href="#Test-vs.-Train-vs.-Valid">&#182;</a></h2><p>A common workflow when developing an ML model is the necessity to split the date into <a href="https://machinelearningmastery.com/difference-test-validation-datasets/">Test/Train/Valid datasets</a>.</p>
-<p><a href="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling" rel="TTV datasets"><img src="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling/fig-holdout.png" width=600 height=400 /></a>  source: Shan-Hung Wu &amp; DataLab, National Tsing Hua University</p>
+<p><a href="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling/08_CV_Ensembling.html" rel="TTV datasets"><img src="images/fig-holdout.png" width=600 height=400 /></a><br>
+source: Shan-Hung Wu &amp; DataLab, National Tsing Hua University</p>
 <p>In a nut shell the difference between the data are:</p>
 <ol>
 <li>Test - put aside - don't look until final model estimation  </li>
@@ -1292,7 +1300,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
     <span class="n">pred_proba</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 </pre></div>
 
@@ -1319,11 +1327,11 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <ol>
 <li><code>X</code> - a numpy ndarray storing all the features   </li>
 <li><code>y</code> - a numpy array storing the labeling classification  </li>
-<li><code>idx</code> - the index for storing the original indexes useful for referencing at the end of the pipe line )  </li>
+<li><code>idx</code> - a numpy array for storing the original indices (useful for referencing at the end of the pipe line )  </li>
 <li><code>pred_class</code> - a numpy array storing the predicted classification  </li>
 <li><code>pred_proba</code> - a numpy ndarray for storing the probabilities of the classifications</li>
 </ol>
-<p>Additionally we will store a <code>name</code> for the dataclass to easily referencing it along the pipeline.</p>
+<p>Additionally we will store a <code>name</code> for the dataclass so we can easily reference the dataset along the pipeline.</p>
 
 </div>
 </div>
@@ -1331,7 +1339,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Splitting-In-Action">Splitting In Action<a class="anchor-link" href="#Splitting-In-Action">&#182;</a></h3><p>There are several methods that can be used in order to split the datasets. When data is imbalanced it is important to split the data with a stratified method. In our case we chose to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html">StratifiedShuffleSplit</a>, however in contrast  to the simple <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split">train_test_split</a> which returns the datasets themselves, the StratifiedShuffleSplit returns only the indices for each group, thus we will need an helper function to get the dataset themselves (our helper function is nice and minimal thx for the usage of our <code>dataclasses</code>).</p>
+<h2 id="Splitting-In-Action">Splitting In Action<a class="anchor-link" href="#Splitting-In-Action">&#182;</a></h2><p>There are several methods that can be used in order to split the datasets. When data is imbalanced it is important to split the data with a stratified method. In our case we chose to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html">StratifiedShuffleSplit</a>, however in contrast  to the simple <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split">train_test_split</a> which returns the datasets themselves, the StratifiedShuffleSplit returns only the indices for each group, thus we will need an helper function to get the dataset themselves (our helper function is nice and minimal thx for the usage of our <code>dataclasses</code>).</p>
 
 </div>
 </div>
@@ -1342,9 +1350,12 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">split1</span><span class="p">:</span> <span class="n">Split</span><span class="p">,</span> <span class="n">split2</span><span class="p">:</span> <span class="n">Split</span><span class="p">):</span>
     <span class="n">split1</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
     <span class="n">split1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">split1</span><span class="p">,</span> <span class="n">split2</span>  
+    <span class="k">return</span> <span class="n">split1</span><span class="p">,</span> <span class="n">split2</span>
 
-<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span> <span class="p">):</span>
+
+<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+    <span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="p">):</span>
     <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>  <span class="c1"># a helper function</span>
 </pre></div>
 
@@ -1354,7 +1365,7 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Pipeline-in-action">Pipeline in action<a class="anchor-link" href="#Pipeline-in-action">&#182;</a></h3><p>Now we can run the first part of our Pipeline</p>
+<h2 id="Pipeline-in-action">Pipeline in action<a class="anchor-link" href="#Pipeline-in-action">&#182;</a></h2><p>Now we can run the first part of our Pipeline</p>
 <div class="highlight"><pre><span></span><span class="n">_train_X</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 <p>Once we have <code>fit_transform</code> our data (allowing for vtreat magic to work), we can introduce the <code>catboost</code> classifier into our Pipeline.</p>
@@ -1362,13 +1373,17 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 
 <span class="n">train_vlaid</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;train_vlaid&quot;</span><span class="p">)</span>
 <span class="n">vlaid</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;vlaid&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train_vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">_train_X</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span> <span class="p">):</span>
+<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train_vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+    <span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">_train_X</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="p">):</span>
     <span class="n">train_vlaid</span><span class="p">,</span> <span class="n">vlaid</span> <span class="o">=</span> <span class="n">get_split_from_idx</span><span class="p">(</span><span class="n">_train_X</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">train_vlaid</span><span class="p">,</span> <span class="n">vlaid</span><span class="p">)</span>
 
-    <span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;catboost_clf&quot;</span><span class="p">,</span><span class="n">catboost_clf</span><span class="p">))</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;catboost_clf&quot;</span><span class="p">,</span> <span class="n">catboost_clf</span><span class="p">))</span>
 
-    <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_size</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">train_vlaid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
-            <span class="n">catboost_clf__eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">valid</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">valid</span><span class="o">.</span><span class="n">y</span><span class="p">)],</span>
+    <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">train_size</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+        <span class="n">train_vlaid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">catboost_clf__eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">valid</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">valid</span><span class="o">.</span><span class="n">y</span><span class="p">)],</span>
     <span class="p">)</span>
 </pre></div>
 <p>Notice the two following things:</p>
