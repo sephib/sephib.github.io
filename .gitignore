@@ -130,4 +130,7 @@ dmypy.json
 .pyre/
 
 #vscode
-settings.json
+settings.json  
+
+#pelican
+output/*
