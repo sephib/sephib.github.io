@@ -1,7 +1,7 @@
 Title: Dataclasses in ML Pipelines
 Slug: dataclass-pipeline
 Date: 2020-07-26 20:00
-Category: posts
+Category: pipelines posts
 Tags: python MLpipeline
 author: Sephi Berry 
 Summary: Tidy your ML pipelines with dataclasses.
