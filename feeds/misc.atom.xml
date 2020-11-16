@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - misc</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2020-07-08T00:00:00+03:00</updated><subtitle>Project Manager | Data Engineer | Geo-Spatial Specialist</subtitle><entry><title>First Post on My Sweet New Blog</title><link href="https://sephib.github.io/first-post-on-my-sweet-new-blog.html" rel="alternate"></link><published>2020-07-08T00:00:00+03:00</published><updated>2020-07-08T00:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-07-08:/first-post-on-my-sweet-new-blog.html</id><summary type="html">&lt;h1&gt;Getting started with my online blogging&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - misc</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2020-07-08T00:00:00+03:00</updated><subtitle>Project Manager | Data Engineer | Geo-Spatial Specialist</subtitle><entry><title>Warming up - My First Blog Post</title><link href="https://sephib.github.io/warming-up-my-first-blog-post.html" rel="alternate"></link><published>2020-07-08T00:00:00+03:00</published><updated>2020-07-08T00:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-07-08:/warming-up-my-first-blog-post.html</id><summary type="html">&lt;h1&gt;Getting started with my online blogging&lt;/h1&gt;
 &lt;p&gt;This is my first post on my new blog.&lt;br&gt;
-While not super informative it should convey my sense of excitement and eagerness to engage with you,
-the reader!&lt;/p&gt;
+I hope to be able to share my thoughts and knowledge in the various tech stacks that I'm involved in.&lt;/p&gt;
+&lt;p&gt;I'm going run on Pelican (a python static web site generator). There are numerous resources …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Getting started with my online blogging&lt;/h1&gt;
+&lt;p&gt;This is my first post on my new blog.&lt;br&gt;
+I hope to be able to share my thoughts and knowledge in the various tech stacks that I'm involved in.&lt;/p&gt;
+&lt;p&gt;I'm going run on Pelican (a python static web site generator). There are numerous resources on the web - which may conflict with each other. Here is how I boiled it down (while hosting the site on github).  &lt;/p&gt;
+&lt;p&gt;After setting up your environment (with the required installations)&lt;/p&gt;
+&lt;h2&gt;Initial setup&lt;/h2&gt;
+&lt;p&gt;After the setup (kickstart setup process)[https://docs.getpelican.com/en/stable/install.html#kickstart-your-site], follow the documentation on (Pelican tips)[https://docs.getpelican.com/en/latest/tips.html#user-pages] section to publish the blog as a &lt;code&gt;user page&lt;/code&gt;. Create a &lt;code&gt;dev branch&lt;/code&gt; to commit all the files while the blog itself will be published on the &lt;code&gt;main branch&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Edit the &lt;code&gt;pelicanconf.py&lt;/code&gt; and &lt;code&gt;publishconf.py&lt;/code&gt; as necessary (this will also depends on the &lt;a href="http://www.pelicanthemes.com/"&gt;theme&lt;/a&gt; and &lt;a href="https://github.com/getpelican/pelican-plugins"&gt;plugin&lt;/a&gt; that you will be running with).  &lt;/p&gt;
 &lt;h2&gt;Publish workflow&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;make changes&lt;/li&gt;
-&lt;li&gt;save
-3.1. comment # SITEURL = 'http://sephib.github.io'&lt;br&gt;
-3.2. pelican …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;h1&gt;Getting started with my online blogging&lt;/h1&gt;
-&lt;p&gt;This is my first post on my new blog.&lt;br&gt;
-While not super informative it should convey my sense of excitement and eagerness to engage with you,
-the reader!&lt;/p&gt;
-&lt;h2&gt;Publish workflow&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;make changes&lt;/li&gt;
-&lt;li&gt;save
-3.1. comment # SITEURL = 'http://sephib.github.io'&lt;br&gt;
-3.2. pelican content -o output  &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;3.3  check in draft -&amp;gt;  If local server not running - pelican --listen  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Publish&lt;br&gt;
-4.1    uncomment # SITEURL = 'http://sephib.github.io'&lt;br&gt;
-4.3    pelican content -o output&lt;br&gt;
-    4.2 ghp-import output -b gh-pages -r https://github.com/sephib/sephib.github.io&lt;br&gt;
-    4.2 git push git@github.com:sephib/sephib.github.io.git gh-pages:master  &lt;/li&gt;
+&lt;li&gt;Edit &amp;amp; save changes to file&lt;/li&gt;
+&lt;li&gt;To view on local computer run &lt;code&gt;make html&lt;/code&gt; followed by &lt;code&gt;make serve&lt;/code&gt; &lt;/li&gt;
+&lt;li&gt;Commit changes when necessary (on the &lt;code&gt;dev branch&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Finally when ready you can run &lt;code&gt;make publish&lt;/code&gt; &amp;amp; &lt;code&gt;make github&lt;/code&gt; to push the changes to the &lt;code&gt;github.io&lt;/code&gt; site&lt;/li&gt;
 &lt;/ol&gt;</content><category term="misc"></category></entry></feed>

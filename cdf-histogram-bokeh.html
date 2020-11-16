@@ -24,24 +24,24 @@
 
 
 
-<meta name="author" content="Sephi Berry" />
-<meta name="description" content="Tidy your ML pipelines with dataclasses." />
-<meta name="keywords" content="python MLpipeline">
+<meta name="author" content="Sephi Berry David Katz" />
+<meta name="description" content="How to created a graph (nodes and edges) from separate data sources and import them into Neo4j" />
+<meta name="keywords" content="python data_analysis bokeh">
 
 <meta property="og:site_name" content="Geo Berry"/>
-<meta property="og:title" content="Dataclasses in ML Pipelines"/>
-<meta property="og:description" content="Tidy your ML pipelines with dataclasses."/>
+<meta property="og:title" content="Plotting CDF &amp; Histogram with Bokeh"/>
+<meta property="og:description" content="How to created a graph (nodes and edges) from separate data sources and import them into Neo4j"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="./dataclass-pipeline.html"/>
+<meta property="og:url" content="./cdf-histogram-bokeh.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2020-07-26 20:00:00+03:00"/>
+<meta property="article:published_time" content="2020-07-09 20:00:00+03:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="./author/sephi-berry.html">
-<meta property="article:section" content="pipelines posts"/>
-<meta property="article:tag" content="python MLpipeline"/>
+<meta property="article:author" content="./author/sephi-berry-david-katz.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python data_analysis bokeh"/>
 <meta property="og:image" content="/images/avatar_osnx.png">
 
-  <title>Geo Berry &ndash; Dataclasses in ML Pipelines</title>
+  <title>Geo Berry &ndash; Plotting CDF &amp; Histogram with Bokeh</title>
 
 </head>
 <body>
@@ -75,9 +75,9 @@
 <article class="single">
   <header>
       
-    <h1 id="dataclass-pipeline">Dataclasses in ML Pipelines</h1>
+    <h1 id="cdf-histogram-bokeh">Plotting CDF & Histogram with Bokeh</h1>
     <p>
-          Posted on Sun 26 July 2020 in <a href="./category/pipelines-posts.html">pipelines posts</a>
+          Posted on Thu 09 July 2020 in <a href="./category/posts.html">posts</a>
 
 
     </p>
@@ -1199,86 +1199,7 @@ h6:hover .anchor-link {
  .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Tidying-up-Pipelines-with-DataClasses">Tidying up Pipelines with DataClasses<a class="anchor-link" href="#Tidying-up-Pipelines-with-DataClasses">&#182;</a></h1><p><a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=video&cd=&cad=rja&uact=8&ved=2ahUKEwiS08nM-oftAhWEsaQKHcwtBJ4QtwIwA3oECAIQAg&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D2AxiATxLofk&usg=AOvVaw2usX4kbL3IqvnF5hqmsR_s" rel="Monty Python Pipes"><img src="images/monty_pipelines.jpeg" width=800 height=400 /></a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><p>Tidy code makes everyone's life easier.<br>
-The code in an ML project will probably be read many times, so making our workflow easier to understand will be appreciated later by everyone on the team.
-During ML projects, we need to access data in a similar manner (throughout our workflow) for training, validating and predicting our model and data. A clear semantic for accessing the data allows for easier code management between projects. Additionally naming conventions are also very useful in order to be able to understand and reuse the code in an optimal manner.<br>
-There are some tools that can assist in this cleanliness such as the usage of Pipelines and Dataclasses.</p>
-<blockquote><p>MLEngineer is 10% ML 90% Engineer.</p>
-</blockquote>
-<h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Pipeline is a <em>meta object</em> that assists in managing the processes in a ML model.  Pipelines can encapsulate separate processes which can later on be combined together.<br>
-Forcing a workflow to be implemented within a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">scikit-learn Pipeline objects</a> can be nuisance at the beginning (especially managing <code>pandas DataFrame</code> within the workflow), but down-the-line it guaranties the quality of the model (no data leakage, modularity etc.). Here is <a href="https://www.youtube.com/watch?v=yv4adDGcFE8">Kevin Markham 4 min. video</a> explaining pipeline advantages.</p>
-<h3 id="Dataclass">Dataclass<a class="anchor-link" href="#Dataclass">&#182;</a></h3><p>Another useful <em>Python object</em> to save datasets along the pipeline are <code>dataclasses</code>. Before Python 3.7 you may have been using <a href="https://docs.python.org/3.9/library/collections.html?highlight=namedtuple#collections.namedtuple">namedtuple</a>, however after Python 3.7 <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> were introduced, and are now a great candidate for storing such data objects. Using dataclasses allows for access consistency to the various datasets throughout the ML Pipeline. Additionally you are able to use the auto-complition in your favorite IDE to access all the <a href="https://docs.python.org/3/library/dataclasses.html#dataclasses.Field">feilds</a> within the dataclass.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h2><p>Since we are not analysing any dataset, this blog post is an example of an <em>advance</em> <code>pipeline</code> that incorporates non standard  pieces (none standard <code>sklearn</code> modules).<br>
-Assuming that we have a classification problem and our data has numeric and categorical column types, the <code>pipeline</code>  incorporates:</p>
-<ol>
-<li>Preprocess data preparation per column type  </li>
-<li>Handle the <code>categorical</code> columns using the <a href="https://github.com/WinVector/pyvtreat">vtreat</a> package  </li>
-<li>Run a <a href="https://catboost.ai/">catboost</a> classifier.     </li>
-</ol>
-<p>We may build our pipeline as follows:</p>
-<div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">num_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="p">(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">StanderdScaler</span><span class="p">()),</span>
-        <span class="p">(</span><span class="s2">&quot;variance&quot;</span><span class="p">,</span> <span class="n">VarianceThreshold</span><span class="p">()),</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-<span class="n">preprocess_pipe</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
-    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
-    <span class="n">transformers</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;num_pipe&quot;</span><span class="p">,</span> <span class="n">num_pipe</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">))],</span>
-<span class="p">)</span>
-
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="p">(</span><span class="s2">&quot;preprocess_pipe&quot;</span><span class="p">,</span> <span class="n">preprocess_pipe</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;vtreat&quot;</span><span class="p">,</span> <span class="n">BinomiaOutcomeTreatmentPlan</span><span class="p">()),</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</pre></div>
-<p>In this <em>pseudo code</em> our Pipeline has some preprocessing to the numeric columns followed by the processing of the categorical columns with the vtreat package (it will pass-through all the non-categorical and numeric columns).</p>
-<p><strong>Note</strong></p>
-<ol>
-<li>Since <a href="https://catboost.ai/docs/concepts/python-reference_catboostclassifier.html">catboost</a> does not have a transform method we are going to introduce it later on.  </li>
-<li>The usage of <code>vtreat</code> is an example of the possibility to use nonstandard modules within the classifications (assuming they follow <code>sklearn</code> paradigms)</li>
-</ol>
-<p>So now the time has come to cut up our data...<br>
-<a href="https://getyarn.io/yarn-clip/2c689f11-6d71-425c-a701-81be09ad034e#llil9DAFRQ.copy" rel="Homicidal Barber"><img src="https://static.wikia.nocookie.net/montypython/images/5/53/The_ant_5.jpg" width=400 height=400 /></a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Test-vs.-Train-vs.-Valid">Test vs. Train vs. Valid<a class="anchor-link" href="#Test-vs.-Train-vs.-Valid">&#182;</a></h2><p>A common workflow when developing an ML model is the necessity to split the date into <a href="https://machinelearningmastery.com/difference-test-validation-datasets/">Test/Train/Valid datasets</a>.</p>
-<p><a href="http://www.cs.nthu.edu.tw/~shwu/courses/ml/labs/08_CV_Ensembling/08_CV_Ensembling.html" rel="TTV datasets"><img src="images/fig-holdout.png" width=600 height=400 /></a><br>
-source: Shan-Hung Wu &amp; DataLab, National Tsing Hua University</p>
-<p>In a nut shell the difference between the data are:</p>
-<ol>
-<li>Test - put aside - don't look until final model estimation  </li>
-<li>Train - dataset to train model   </li>
-<li>Valid - dataset to validate model during the training phase (this can be via Cross Validation iteration, GridSearch, etc.)   </li>
-</ol>
-<p>Each dataset will have similar attributes that we will need to save and access throughout the ML workflow.<br>
-In order to prevent confusion lets create a <code>dataclass</code> to save the datasets in a structured manner.</p>
-
+<h1 id="Exploring-data-with-CDF">Exploring data with CDF<a class="anchor-link" href="#Exploring-data-with-CDF">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -1287,21 +1208,13 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># basic dataclass </span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Split</span><span class="p">:</span>
-    <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">idx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">pred_class</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">pred_proba</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.layout</span> <span class="kn">import</span> <span class="n">gridplot</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span>  <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Range1d</span><span class="p">,</span> <span class="n">LinearAxis</span><span class="p">,</span> <span class="n">Hover</span><span class="o">|</span><span class="n">Tool</span>
+<span class="kn">from</span> <span class="nn">bokeh.resources</span> <span class="kn">import</span> <span class="n">INLINE</span>
+<span class="n">output_notebook</span><span class="p">(</span><span class="n">INLINE</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
 </pre></div>
 
     </div>
@@ -1309,116 +1222,19 @@ In order to prevent confusion lets create a <code>dataclass</code> to save the d
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can create the training and test datasets as follows:</p>
-<div class="highlight"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">)</span>   
-<span class="n">test</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">make_plot</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">hist</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">cdf</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">tit</span><span class="p">)</span>
 </pre></div>
 
+    </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Each <code>dataclass</code> will have the following <a href="https://docs.python.org/3/library/dataclasses.html#dataclasses.Field">fields</a>:</p>
-<ol>
-<li><code>X</code> - a numpy ndarray storing all the features   </li>
-<li><code>y</code> - a numpy array storing the labeling classification  </li>
-<li><code>idx</code> - the index for storing the original indexes useful for referencing at the end of the pipe line  </li>
-<li><code>pred_class</code> - a numpy array storing the predicted classification  </li>
-<li><code>pred_proba</code> - a numpy ndarray for storing the probabilities of the classifications</li>
-</ol>
-<p>Additionally we will store a <code>name</code> for the dataclass (in the <em>init</em> function) to easily referencing it along the pipeline.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Splitting-In-Action">Splitting In Action<a class="anchor-link" href="#Splitting-In-Action">&#182;</a></h3><p>There are several methods that can be used to split the datasets. When data are imbalanced it is important to split the data with a stratified method. In our case, we chose to use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html">StratifiedShuffleSplit</a> however, in contrast  to the simple <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html?highlight=train%20split#sklearn.model_selection.train_test_split">train-test split</a> which returns the datasets themselves, the StratifiedShuffleSplit returns only the indices for each group, thus we will need a helper function to get the dataset themselves (our helper function is nice and minimal for the usage of our <code>dataclasses</code>).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">split1</span><span class="p">:</span> <span class="n">Split</span><span class="p">,</span> <span class="n">split2</span><span class="p">:</span> <span class="n">Split</span><span class="p">):</span>
-    <span class="n">split1</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
-    <span class="n">split1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">split2</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split1</span><span class="o">.</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split2</span><span class="o">.</span><span class="n">idx</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">split1</span><span class="p">,</span> <span class="n">split2</span>
-
-
-<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
-    <span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="p">):</span>
-    <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">get_split_from_idx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>  <span class="c1"># a helper function</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pipeline-in-action">Pipeline in action<a class="anchor-link" href="#Pipeline-in-action">&#182;</a></h2><p>Now we can run the first part of our Pipeline</p>
-<div class="highlight"><pre><span></span><span class="n">_train_X</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-<p>Once we have <code>fit_transform</code> our data (allowing for vtreat magic to work), we can introduce the <code>catboost</code> classifier into our Pipeline.</p>
-<div class="highlight"><pre><span></span><span class="n">catboost_clf</span> <span class="o">=</span> <span class="n">CatBoostClassifier</span><span class="p">()</span>
-
-<span class="n">train_vlaid</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;train_vlaid&quot;</span><span class="p">)</span>
-<span class="n">vlaid</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;vlaid&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">fold_name</span><span class="p">,</span> <span class="p">(</span><span class="n">train_vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">vlaid</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
-    <span class="n">StratifiedSplitValid</span><span class="p">(</span><span class="n">_train_X</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">n_split</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="p">):</span>
-    <span class="n">train_vlaid</span><span class="p">,</span> <span class="n">vlaid</span> <span class="o">=</span> <span class="n">get_split_from_idx</span><span class="p">(</span><span class="n">_train_X</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">train_vlaid</span><span class="p">,</span> <span class="n">vlaid</span><span class="p">)</span>
-
-    <span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;catboost_clf&quot;</span><span class="p">,</span> <span class="n">catboost_clf</span><span class="p">))</span>
-
-    <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-        <span class="n">train_size</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
-        <span class="n">train_vlaid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
-        <span class="n">catboost_clf__eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">valid</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">valid</span><span class="o">.</span><span class="n">y</span><span class="p">)],</span>
-    <span class="p">)</span>
-</pre></div>
-<p>Notice the two following points:</p>
-<ol>
-<li>Using <code>pipe.steps.append</code> we are able to introduce steps into the pipeline that could not be initially part of the workflow.  </li>
-<li>Adding parameters into the steps within the pipeline requires the use of double dunder for <a href="https://scikit-learn.org/stable/modules/compose.html#nested-parameters">nested paramters</a>.  </li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally we can get some results</p>
-<div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">pred_class</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>  
-<span class="n">test</span><span class="o">.</span><span class="n">pred_proba</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">pred_proba</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">X</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-<p>Now when we analyse our model we can generate our metrics (e.g. confusion_matrix) by easily referencing to the relevant dataset as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
-<span class="n">conf_matrix_test</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">test</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">test</span><span class="o">.</span><span class="n">pred_class</span> <span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>This blog post outlins the advantages for using Pipelines and Dataclasses.<br>
-Working with the Dataclasses is really a no-brainer since it is very simple and can easily be incorporated into any code base. Pipelines require more effort while integrating them into the code, but the benefits are substantial and well worth it.</p>
-<p>I hope the example illustrated the potential for such usage and will inspire and encourage you to try it out.</p>
-
-</div>
-</div>
 </div>
  
 
@@ -1455,7 +1271,7 @@ Working with the Dataclasses is really a no-brainer since it is very simple and 
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="./tag/python-mlpipeline.html">python MLpipeline</a>
+      <a href="./tag/python-data_analysis-bokeh.html">python data_analysis bokeh</a>
     </p>
   </div>
 
