@@ -3,5 +3,5 @@ Slug: cdf-histogram-bokeh
 Date: 2020-07-09 20:00
 Category: posts
 Tags: python data_analysis bokeh
-author: Sephi Berry David Katz
-Summary: How to created a graph (nodes and edges) from separate data sources and import them into Neo4j
+author: Sephi Berry 
+Summary: How to created a cumulative distributed function overlaid on a histogram with Bokeh
