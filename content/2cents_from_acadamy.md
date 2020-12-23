@@ -1,6 +1,8 @@
-title: My 2cents after reviewing an academic project  
-date: 2020-12-21  
-author: Sephi Berry  
+Title: My 2cents after reviewing an academic project   
+Date: 2020-12-21  
+Author: Sephi Berry  
+Tags: python data_analysis 
+Summary: My 2cents after reviewing an academic project   
 
 # Background
 
@@ -22,10 +24,11 @@ I'm not going to go into the Project Management aspects but rather some tools an
    
 # Running 
 1. CI/CD (low-tec  solution)   
-   This one is a bit more tricky.  CI/CD is a must these days for any company who is shipping any product, but what about for a `Data Science` team? Recently our team decided on a simple CI/CD for our Jupyter Notebooks - which include a `kernel restart run all cells`. This solution allows for picking up any notebook and  knowing that what ever is inside the notebook can run without any errors. We supplement this solution with the following procedures:  
-   * Removing functions into a separate  `.py` file, leaving the notebook clean and more readable. 
-   * Separating each notebook as a single step in the analysis pipeline. 
-   * Complement a set of notebooks with a `README` file describing the general process and specifically the data input/output files.  
+   This one is a bit more tricky.  CI/CD is a must these days for any company who is shipping any product, but what about for a `Data Science` team? Recently our team decided on a simple CI/CD for our Jupyter Notebooks - which include a `kernel restart run all cells`. This solution allows for picking up any notebook and  knowing that what ever is inside the notebook can run without any errors. We supplement this solution with the following procedures:   
+
+     * Removing functions into a separate  `.py` file, leaving the notebook clean and more readable. 
+     * Separating each notebook as a single step in the analysis pipeline. 
+     * Complement a set of notebooks with a `README` file describing the general process and specifically the data input/output files.  
   
     Once the project is mature you can upgrade the pipeline into a designated framework such as [dagster](https://dagster.io/)
   
