@@ -1042,8 +1042,13 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 &lt;/style&gt;
-&lt;style type="text/css"&gt; .highlight pre  .hll { background-color: #ffffcc }
- .highlight pre   { background: #f8f8f8; }
+&lt;style type="text/css"&gt;pre { line-height: 125%; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+ .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre  { background: #f8f8f8; }
  .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
  .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
  .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
@@ -1113,7 +1118,7 @@ h6:hover .anchor-link {
  .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h1 id="Tidying-up-Pipelines-with-DataClasses"&gt;Tidying up Pipelines with DataClasses&lt;a class="anchor-link" href="#Tidying-up-Pipelines-with-DataClasses"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=video&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiS08nM-oftAhWEsaQKHcwtBJ4QtwIwA3oECAIQAg&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D2AxiATxLofk&amp;usg=AOvVaw2usX4kbL3IqvnF5hqmsR_s" rel="Monty Python Pipes"&gt;&lt;img src="images/monty_pipelines.jpeg" width=800 height=400 /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="Tidying-up-Pipelines-with-DataClasses"&gt;Tidying up Pipelines with DataClasses&lt;a class="anchor-link" href="#Tidying-up-Pipelines-with-DataClasses"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=2AxiATxLofk" rel="Monty Python Pipes"&gt;&lt;img src="images/monty_pipelines.jpeg" width=800 height=400 /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
