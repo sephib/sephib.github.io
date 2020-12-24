@@ -133,4 +133,7 @@ dmypy.json
 settings.json  
 
 #pelican
-output/*
+output/
+themes/
+plugins/
+temp/
