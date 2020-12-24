@@ -10,13 +10,12 @@
 
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
 
-  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/font-awesome.min.css">
 
 
-    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
 
 
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
@@ -25,19 +24,20 @@
 
 
 <meta name="author" content="Sephi Berry" />
-<meta name="description" content="Background Recently we had a closer to an R&amp;D project with a prominent university. Although the results of the project were insightful and possibly applicable to our organization, the work processes that the academic R&amp;D team used seemed lacking. In this post I whish to highlight some simple …" />
-<meta name="keywords" content="">
+<meta name="description" content="My 2cents after reviewing an academic project" />
+<meta name="keywords" content="python data_analysis">
 
 <meta property="og:site_name" content="Geo Berry"/>
 <meta property="og:title" content="My 2cents after reviewing an academic project"/>
-<meta property="og:description" content="Background Recently we had a closer to an R&amp;D project with a prominent university. Although the results of the project were insightful and possibly applicable to our organization, the work processes that the academic R&amp;D team used seemed lacking. In this post I whish to highlight some simple …"/>
+<meta property="og:description" content="My 2cents after reviewing an academic project"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="./my-2cents-after-reviewing-an-academic-project.html"/>
+<meta property="og:url" content="/my-2cents-after-reviewing-an-academic-project.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2020-12-21 00:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="./author/sephi-berry.html">
-<meta property="article:section" content="misc"/>
+<meta property="article:author" content="/author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python data_analysis"/>
 <meta property="og:image" content="/images/avatar_osnx.png">
 
   <title>Geo Berry &ndash; My 2cents after reviewing an academic project</title>
@@ -46,15 +46,15 @@
 <body>
   <aside>
     <div>
-      <a href=".">
+      <a href="">
         <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
       </a>
-      <h1><a href=".">Sephi's Blog</a></h1>
+      <h1><a href="">Sephi's Blog</a></h1>
 
 <p>Project Manager | Data Engineer | Geo-Spatial Specialist</p>
       <nav>
         <ul class="list">
-          <li><a href="./pages/about.html#about">About</a></li>
+          <li><a href="/pages/about.html#about">About</a></li>
 
         </ul>
       </nav>
@@ -76,7 +76,7 @@
       
     <h1 id="my-2cents-after-reviewing-an-academic-project">My 2cents after reviewing an academic project</h1>
     <p>
-          Posted on Mon 21 December 2020 in <a href="./category/misc.html">misc</a>
+          Posted on Mon 21 December 2020 in <a href="/category/posts.html">posts</a>
 
 
     </p>
@@ -102,12 +102,16 @@ The template that is used is not really the issue - we use this <a href="(https:
 <p>Yes - still in the year 2020 - teams run projects without a version control system! The entire project was offline - so the team thought that they did not need one. How difficult is it to <a href="https://www.linux.com/training-tutorials/how-run-your-own-git-server/">set up a local git server</a>? Although we did not have a failing disc, we did loose a specific file that somehow went missing...</p>
 <h1>Running</h1>
 <ol>
-<li>CI/CD (low-tec  solution) <br>
-   This one is a bit more tricky.  CI/CD is a must these days for any company who is shipping any product, but what about for a <code>Data Science</code> team? Recently our team decided on a simple CI/CD for our Jupyter Notebooks - which include a <code>kernel restart run all cells</code>. This solution allows for picking up any notebook and  knowing that what ever is inside the notebook can run without any errors. We supplement this solution with the following procedures:  </li>
+<li>
+<p>CI/CD (low-tech  solution) <br>
+   This one is a bit more tricky.  CI/CD is a must these days for any company who is shipping any product, but what about for a <code>Data Science</code> team? This is even more challenging when using <code>Jupyter Notebooks</code> that are not "git friendly".<br>
+   Recently our team decided on a simple CI/CD for our  - which include a <code>kernel restart run all cells</code>. This solution allows for picking up any notebook and  knowing that what ever is inside the notebook can run without any errors.<br>
+   We supplement this solution with the following procedures:   </p>
+<ul>
 <li>Removing functions into a separate  <code>.py</code> file, leaving the notebook clean and more readable. </li>
 <li>Separating each notebook as a single step in the analysis pipeline. </li>
-<li>
-<p>Complement a set of notebooks with a <code>README</code> file describing the general process and specifically the data input/output files.  </p>
+<li>Complement a set of notebooks with a <code>README</code> file describing the general process and specifically the data input/output files.  </li>
+</ul>
 <p>Once the project is mature you can upgrade the pipeline into a designated framework such as <a href="https://dagster.io/">dagster</a></p>
 </li>
 <li>
@@ -122,6 +126,7 @@ These days the <code>MLOps</code> and <code>DataOps</code> tools and guidelines 
   </div>
   <div class="tag-cloud">
     <p>
+      <a href="/tag/python-data_analysis.html">python data_analysis</a>
     </p>
   </div>
 
@@ -145,7 +150,7 @@ These days the <code>MLOps</code> and <code>DataOps</code> tools and guidelines 
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " Geo Berry ",
-  "url" : ".",
+  "url" : "",
   "image": "/images/avatar_osnx.png",
   "description": "Sephi's Thoughts and Writings"
 }

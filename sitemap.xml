@@ -5,35 +5,35 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/</loc>
-<lastmod>2020-12-23T09:45:35-00:00</lastmod>
+<lastmod>2020-12-24T11:01:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://sephib.github.io/tags.html</loc>
-<lastmod>2020-12-23T09:45:35-00:00</lastmod>
+<lastmod>2020-12-24T11:01:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://sephib.github.io/categories.html</loc>
-<lastmod>2020-12-23T09:45:35-00:00</lastmod>
+<lastmod>2020-12-24T11:01:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://sephib.github.io/authors.html</loc>
-<lastmod>2020-12-23T09:45:35-00:00</lastmod>
+<lastmod>2020-12-24T11:01:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://sephib.github.io/archives.html</loc>
-<lastmod>2020-12-23T09:45:35-00:00</lastmod>
+<lastmod>2020-12-24T11:01:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -46,7 +46,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://sephib.github.io/my-2cents-after-reviewing-an-academic-project.html</loc>
+<loc>https://sephib.github.io/my-2cents-worth-after-reviewing-an-academic-project.html</loc>
 <lastmod>2020-12-21T00:00:00+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.99</priority>
@@ -74,24 +74,10 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://sephib.github.io/cdf-histogram-bokeh.html</loc>
-<lastmod>2020-07-09T20:00:00+03:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.99</priority>
-</url>
-
-<url>
 <loc>https://sephib.github.io/warming-up-my-first-blog-post.html</loc>
 <lastmod>2020-07-08T00:00:00+03:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.99</priority>
-</url>
-
-<url>
-<loc>https://sephib.github.io/category/misc.html</loc>
-<lastmod>2020-12-21T00:00:00+02:21</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
 </url>
 
 <url>
@@ -103,7 +89,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/category/posts.html</loc>
-<lastmod>2020-07-26T20:00:00+02:21</lastmod>
+<lastmod>2020-12-21T00:00:00+02:21</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://sephib.github.io/tag/python-data_analysis.html</loc>
+<lastmod>2020-12-21T00:00:00+02:21</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -124,13 +117,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/tag/python-neo4j-dagster.html</loc>
-<lastmod>2020-07-09T20:00:00+02:21</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://sephib.github.io/tag/python-data_analysis-bokeh.html</loc>
 <lastmod>2020-07-09T20:00:00+02:21</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>

@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+
+<meta name="author" content="Sephi Berry" />
+<meta name="description" content="My 2cents after reviewing an academic project" />
+<meta name="keywords" content="python data_analysis">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="My 2cents worth after reviewing an academic project"/>
+<meta property="og:description" content="My 2cents after reviewing an academic project"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./my-2cents-worth-after-reviewing-an-academic-project.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-12-21 00:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python data_analysis"/>
+<meta property="og:image" content="/images/avatar_osnx.png">
+
+  <title>Geo Berry &ndash; My 2cents worth after reviewing an academic project</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href=".">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
+      </a>
+      <h1><a href=".">Sephi's Blog</a></h1>
+
+<p>Project Manager | Data Engineer | Geo-Spatial Specialist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="./pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="my-2cents-worth-after-reviewing-an-academic-project">My 2cents worth after reviewing an academic project</h1>
+    <p>
+          Posted on Mon 21 December 2020 in <a href="./category/posts.html">posts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h1>Background</h1>
+<p>Recently we had a completion of an R&amp;D project with a prominent university. Although the results of the project were insightful and possibly applicable to our organization, the workflow that the academic R&amp;D team used seemed inadequate.   </p>
+<p>In this post, I wish to highlight some simple steps that can assist in running Data Science (DS) projects (from the initiation until the deployment) by DS teams, especially those working without the support of specialized tools.  </p>
+<p>I'm not going to go into the Project Management aspects but rather some tools and tips for any DS project.</p>
+<h1>Setup</h1>
+<ol>
+<li>
+<p>Using <img src="https://miro.medium.com/max/1200/1*wfMxroB_sHsx06lrreeKew.png" alt="drawing" height="30" href="https://cookiecutter.readthedocs.io/en/latest/installation.html" />  for project structure.  </p>
+<p>Although this team included MSc. and PhD. students who are running multiple collaborative projects, they did not have a convention for a DS project structure. While reviewing the deliverables we needed to contact several team members in order to find a specific file. Working with a known template allows all team members to save files easily in designated folders and readily locate files from any project.<br>
+The template that is used is not really the issue - we use this <a href="(https://drivendata.github.io/cookiecutter-data-science/)">Data Science</a> template, which sometimes is an "overkill" for  simple projects, but normally most of the structure is used.  </p>
+</li>
+<li>
+<p>Using <img src="https://camo.githubusercontent.com/6eaaae8defc78f268eaf0824350a66a1dfcb6aa77210d3dca069d1d1cefebc53/68747470733a2f2f6769742d73636d2e636f6d2f696d616765732f6c6f676f732f646f776e6c6f6164732f4769742d4c6f676f2d32436f6c6f722e706e67" alt="drawing" height="40" href="https://git-scm.com/"/>  (!@$#%)  </p>
+</li>
+</ol>
+<p>Yes - still in the year 2020 - teams run projects without a version control system! The entire project was offline - so the team thought that they did not need one. How difficult is it to <a href="https://www.linux.com/training-tutorials/how-run-your-own-git-server/">set up a local git server</a>? Although we did not have a failing disc, we did lose a specific file that somehow went missing...</p>
+<h1>Running</h1>
+<ol>
+<li>
+<p>CI/CD (low-tech  solution) <br>
+   This one is a bit more tricky.  CI/CD is a "must" these days for companies who are shipping a product, but what about for a <code>Data Science</code> team? This is even more challenging when using <code>Jupyter Notebooks</code> that are not "git friendly".<br>
+   Recently our team decided on a simple CI/CD for our  - which include a <code>kernel restart run all cells</code>. This solution allows for picking up any notebook and  knowing that what ever is inside the notebook, and can run without any errors.<br>
+   We supplement this solution with the following procedures:   </p>
+<ul>
+<li>Removing functions into a separate  <code>.py</code> file, leaving the notebook clean and more readable. </li>
+<li>Separating each notebook as a single step in the analysis pipeline. </li>
+<li>Complement a set of notebooks with a <code>README</code> file describing the general process and specifically the data input/output files.  </li>
+</ul>
+<p>Once the project is mature you can upgrade the pipeline into a designated framework such as <a href="https://dagster.io/">dagster</a></p>
+</li>
+<li>
+<p>Monitoring experiments<br>
+   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that <em>"we checked the various parameters and these values were the optimum"</em> is not the best practice unless these can be easily reviewed and reproduced.<br>
+   During the past years, there are many platform/frameworks that have been developed for managing solutions for ML projects. We have settled on <a href="https://mlflow.org">MLFlow</a>, which allows for ease of installation and use even in an offline environment. </p>
+</li>
+</ol>
+<h1>Summary</h1>
+<p>There are many constraints when running a project. However, some minimal infrastructure can get you a long way. Working without any guidelines will normally lead to chaos and inefficiency, while, at the same time, lowering the quality level of the science and of the project.<br>
+Today, <code>MLOps</code> and <code>DataOps</code> tools and guidelines are constantly being developed, so I'm sure we will see ease of use and improvements in the coming years. </p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/python-data_analysis.html">python data_analysis</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : ".",
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>
