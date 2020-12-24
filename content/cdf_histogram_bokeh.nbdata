@@ -5,3 +5,4 @@ Category: posts
 Tags: python data_analysis bokeh
 author: Sephi Berry 
 Summary: How to created a cumulative distributed function overlaid on a histogram with Bokeh
+status: draft

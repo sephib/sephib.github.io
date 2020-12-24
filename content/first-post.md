@@ -1,6 +1,7 @@
 title: Warming up  - My First  Blog Post
 date: 2020-07-08
 author: Sephi Berry
+Category: posts
 
 # Getting started with my online blogging   
 
