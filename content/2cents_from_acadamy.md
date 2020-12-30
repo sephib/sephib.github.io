@@ -30,13 +30,14 @@ I'm not going to go into the Project Management aspects but rather some tools an
    We supplement this solution with the following procedures:   
 
      * Removing functions into a separate  `.py` file, leaving the notebook clean and more readable. 
-     * Separating each notebook as a single step in the analysis pipeline. 
+     * Separating **each** notebook as a single step in the analysis pipeline. 
      * Complement a set of notebooks with a `README` file describing the general process and specifically the data input/output files.  
   
     Once the project is mature you can upgrade the pipeline into a designated framework such as [dagster](https://dagster.io/)
   
 2. Monitoring experiments  
-   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that _"we checked the various parameters and these values were the optimum"_ is not the best practice unless these can be easily reviewed and reproduced.  
+   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that _"we checked the various parameters and these values were the best"_ is not the best practice unless these can be easily reviewed and reproduced.   
+   Running `print` statements without a central `logging` module is also very problematic. Just being able to run the exact same code and get similar logs is very beneficial for understanding how the project runs etc.      
    During the past years, there are many platform/frameworks that have been developed for managing solutions for ML projects. We have settled on [MLFlow](https://mlflow.org), which allows for ease of installation and use even in an offline environment. 
 
 # Summary  
