@@ -110,14 +110,15 @@ The template that is used is not really the issue - we use this <a href="(https:
    We supplement this solution with the following procedures:   </p>
 <ul>
 <li>Removing functions into a separate  <code>.py</code> file, leaving the notebook clean and more readable. </li>
-<li>Separating each notebook as a single step in the analysis pipeline. </li>
+<li>Separating <strong>each</strong> notebook as a single step in the analysis pipeline. </li>
 <li>Complement a set of notebooks with a <code>README</code> file describing the general process and specifically the data input/output files.  </li>
 </ul>
 <p>Once the project is mature you can upgrade the pipeline into a designated framework such as <a href="https://dagster.io/">dagster</a></p>
 </li>
 <li>
 <p>Monitoring experiments<br>
-   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that <em>"we checked the various parameters and these values were the optimum"</em> is not the best practice unless these can be easily reviewed and reproduced.<br>
+   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that <em>"we checked the various parameters and these values were the best"</em> is not the best practice unless these can be easily reviewed and reproduced. <br>
+   Running <code>print</code> statements without a central <code>logging</code> module is also very problematic. Just being able to run the exact same code and get similar logs is very beneficial for understanding how the project runs etc.    <br>
    During the past years, there are many platform/frameworks that have been developed for managing solutions for ML projects. We have settled on <a href="https://mlflow.org">MLFlow</a>, which allows for ease of installation and use even in an offline environment. </p>
 </li>
 </ol>

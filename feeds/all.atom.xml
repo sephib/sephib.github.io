@@ -2310,14 +2310,15 @@ The template that is used is not really the issue - we use this &lt;a href="(htt
    We supplement this solution with the following procedures:   &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Removing functions into a separate  &lt;code&gt;.py&lt;/code&gt; file, leaving the notebook clean and more readable. &lt;/li&gt;
-&lt;li&gt;Separating each notebook as a single step in the analysis pipeline. &lt;/li&gt;
+&lt;li&gt;Separating &lt;strong&gt;each&lt;/strong&gt; notebook as a single step in the analysis pipeline. &lt;/li&gt;
 &lt;li&gt;Complement a set of notebooks with a &lt;code&gt;README&lt;/code&gt; file describing the general process and specifically the data input/output files.  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Once the project is mature you can upgrade the pipeline into a designated framework such as &lt;a href="https://dagster.io/"&gt;dagster&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Monitoring experiments&lt;br&gt;
-   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that &lt;em&gt;"we checked the various parameters and these values were the optimum"&lt;/em&gt; is not the best practice unless these can be easily reviewed and reproduced.&lt;br&gt;
+   As scientists - experimentation and failures are part of our daily life. Working in a systematic manner allows for confidence in the results and for reproducible science.  Stating that &lt;em&gt;"we checked the various parameters and these values were the best"&lt;/em&gt; is not the best practice unless these can be easily reviewed and reproduced. &lt;br&gt;
+   Running &lt;code&gt;print&lt;/code&gt; statements without a central &lt;code&gt;logging&lt;/code&gt; module is also very problematic. Just being able to run the exact same code and get similar logs is very beneficial for understanding how the project runs etc.    &lt;br&gt;
    During the past years, there are many platform/frameworks that have been developed for managing solutions for ML projects. We have settled on &lt;a href="https://mlflow.org"&gt;MLFlow&lt;/a&gt;, which allows for ease of installation and use even in an offline environment. &lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
