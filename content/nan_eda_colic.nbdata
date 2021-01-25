@@ -1,7 +1,7 @@
-Title: NaN Bites 
-Slug: nan-bites
-Date: 2020-12-29 20:00
+title: NaN Bites 
+slug: nan-bites
+date: 2020-12-29 20:00
 Category: dataanalysis posts
-Tags: python dataanalysis 
+tags: python dataanalysis 
 author: Sephi Berry & David Katz
-Summary: Cleaning data from NaN's requires additional inputs especially when trying to work with sparse matrix in classification problems.
+summary: Cleaning data from NaN's requires additional inputs especially when trying to work with sparse matrix in classification problems.
