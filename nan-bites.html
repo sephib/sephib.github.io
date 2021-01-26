@@ -1204,7 +1204,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="images/nan.jpg" alt="Post NaN Banner" width="650" ></p>
 <h1 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h1><p>While working on a health-related classification project we encountered a very large <a href="https://en.wikipedia.org/wiki/Sparse_matrix">sparse metrix</a>, due to the vast amount of health/lab tests that were available. After a meeting with the business domain experts, we understood that our initial data preprocessing for removing missing data (NaN) was faulty.<br>
 In this post, we would like to share the pit-fall that we experienced and share our process for identifying features with missing values related to classification problems.</p>
 <h1 id="The-Pit-Fall">The Pit Fall<a class="anchor-link" href="#The-Pit-Fall">&#182;</a></h1><p>We had over 2K of features across 40K patients. We knew that most of the features had a significant amount of <code>NaN</code>s, so we used the common methods - such as  <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html">scikit-learn's VarianceThreshold</a> and <a href="http://topepo.github.io/caret/pre-processing.html#zero--and-near-zero-variance-predictors">caret's near zero variance</a> functions to remove features with high <code>NaN</code> values.<br>
@@ -1741,7 +1740,7 @@ For this example we will set a threshold of 35% .</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can see that the distribution of the classes is uneven.<br>
 Our class distribution is apporximately  60%, 25%, 15% between the lived, died, euthanized classes (respectively).</p>
-<p><strong>But how are our NaNs distriputed</strong>?</p>
+<p><strong>But how are our NaNs distributed</strong>?</p>
 <p>What is the distribution of <code>NaN</code>s in each feature with relation to our classification field.</p>
 
 </div>

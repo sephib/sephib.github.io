@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+
+<meta name="author" content="Sephi Berry" />
+<meta name="description" content="Design patterns in MLops, pipelines are core for a successful project" />
+<meta name="keywords" content="python mlops">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="Design patterns in ML and MLops"/>
+<meta property="og:description" content="Design patterns in MLops, pipelines are core for a successful project"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./design-patterns-in-ml-and-mlops.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-01-24 00:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python mlops"/>
+<meta property="og:image" content="/images/avatar_osnx.png">
+
+  <title>Geo Berry &ndash; Design patterns in ML and MLops</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href=".">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
+      </a>
+      <h1><a href=".">Sephi's Blog</a></h1>
+
+<p>Project Manager | Data Engineer | Geo-Spatial Specialist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="./pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="design-patterns-in-ml-and-mlops">Design patterns in ML and MLops</h1>
+    <p>
+          Posted on Sun 24 January 2021 in <a href="./category/posts.html">posts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <!-- status: draft -->
+
+<p><img src="https://images-na.ssl-images-amazon.com/images/I/51pSVhMRMkL._SX379_BO1,204,203,200_.jpg" alt="ML Design Patterns" height="500" href="https://www.oreilly.com/library/view/machine-learning-design/9781098115777/" />  </p>
+<p>Listening to <a href="https://www.linkedin.com/in/sara-robinson-40377924/">Sara Robinson</a>, the "Machine Learning Design Patterns" book co-author, on the <a href="https://podcastaddict.com/episode/117142559">MLOps.community podcast</a>, raises some issues related to our growing industry in ML/AI in general and specifically in Data Engineering realm. Although I have not yet read the book, I'm allowing myself to reflect on what I understood from the episode. There are many issues discussed in the book, fortunately they decided to speak about <em>Workflow Pipelines</em> (chapter 25), which is dear to my heart - since I believe that it is a key element for successful ML projects.</p>
+<p>As an industry, we are still evolving and best practices are still emerging. Saying that - there are many simple solutions and practices from project management and software development that can easily put an ML project on the right track. Identifying the business values that are currently most relevant are a key component when understanding the various trade offs in the engineering processes.</p>
+<p>We too enjoy the flexibility of jupyter notebooks, but I disagree with the what Sara said about when to transition from a jupyter notebook to a more structure pipeline. Working methodologically with templates and clear inputs and outputs for each notebook should be implemented from day one. Breaking up notebooks for each step and writing down the logical stages in a markdown file is a key component for saving time and for successful collaboration with any team member. This is even true for yourself - there is nothing better then returning after a weekend to a project and getting up running within a few minutes.  </p>
+<p>Reproducibility is another key component in any ML project. <a href="https://mlflow.org">MLflow</a> is our framework choice for tracking our experiments, which is mentioned as a tool for creating pipelines. However putting <code>MLflow</code> with <code>Airflow</code> as the same solution for <code>Workflow Pipeline</code> (page 284) doesn't seem right.<br>
+In the book they sate that the following stages make up for ML Pipeline:<br>
+1. Data Collection
+2. Data Validation
+3. Data Processing
+4. Model Building
+5. Training &amp; Evaluating
+6. Model Deployment</p>
+<p>While <code>MLflow</code> may be best suited for steps 4-6, <code>Airflow</code> is probably best suited for steps 1-3. 
+Here I think it is worth while pointing out that there are considerable differences between Workflow Pipeline, Data Pipeline and ML (experiment) tracking (a full write up will be in a future blog). I think there are considerable differences between these pipelines, and putting them together is confusing. Additional information about the complex landscape can be read from a blog post <a href="https://a16z.com/2020/10/15/the-emerging-architectures-for-modern-data-infrastructure/">Emerging Architectures for Modern Data Infrastructure</a> by Matt Bornstein, Martin Casado, and Jennifer Li.</p>
+<p>Finally, I totally agree with the excitement that was conveyed by the participant with the understanding that the MLops field is still growing in many directions and understanding that part of the attraction in the field is that we are able to experiment with different methodologies while learning new libraries and designs as we mature the industry. </p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/python-mlops.html">python mlops</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : ".",
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>

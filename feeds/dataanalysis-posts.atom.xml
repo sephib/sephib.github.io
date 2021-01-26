@@ -1118,7 +1118,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;img src="images/nan.jpg" alt="Post NaN Banner" width="650" &gt;&lt;/p&gt;
 &lt;h1 id="Background"&gt;Background&lt;a class="anchor-link" href="#Background"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;While working on a health-related classification project we encountered a very large &lt;a href="https://en.wikipedia.org/wiki/Sparse_matrix"&gt;sparse metrix&lt;/a&gt;, due to the vast amount of health/lab tests that were available. After a meeting with the business domain experts, we understood that our initial data preprocessing for removing missing data (NaN) was faulty.&lt;br&gt;
 In this post, we would like to share the pit-fall that we experienced and share our process for identifying features with missing values related to classification problems.&lt;/p&gt;
 &lt;h1 id="The-Pit-Fall"&gt;The Pit Fall&lt;a class="anchor-link" href="#The-Pit-Fall"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;We had over 2K of features across 40K patients. We knew that most of the features had a significant amount of &lt;code&gt;NaN&lt;/code&gt;s, so we used the common methods - such as  &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html"&gt;scikit-learn's VarianceThreshold&lt;/a&gt; and &lt;a href="http://topepo.github.io/caret/pre-processing.html#zero--and-near-zero-variance-predictors"&gt;caret's near zero variance&lt;/a&gt; functions to remove features with high &lt;code&gt;NaN&lt;/code&gt; values.&lt;br&gt;
@@ -1655,7 +1654,7 @@ For this example we will set a threshold of 35% .&lt;/p&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;We can see that the distribution of the classes is uneven.&lt;br&gt;
 Our class distribution is apporximately  60%, 25%, 15% between the lived, died, euthanized classes (respectively).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;But how are our NaNs distriputed&lt;/strong&gt;?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;But how are our NaNs distributed&lt;/strong&gt;?&lt;/p&gt;
 &lt;p&gt;What is the distribution of &lt;code&gt;NaN&lt;/code&gt;s in each feature with relation to our classification field.&lt;/p&gt;
 
 &lt;/div&gt;
