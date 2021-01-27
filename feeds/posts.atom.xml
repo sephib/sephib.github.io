@@ -15,10 +15,10 @@ In the book they sate that the following stages make up for ML Pipeline:&lt;br&g
 6. Model Deployment  &lt;/p&gt;
 &lt;p&gt;While &lt;code&gt;MLflow&lt;/code&gt; may be best suited for steps 4-6, &lt;code&gt;Airflow&lt;/code&gt; is probably best suited for steps 1-3. 
 Here I think it is worth while pointing out that there are considerable differences between:&lt;br&gt;
-1. Workflow Pipeline (e.g. as described in this chapter - containerizing is the key issue here)&lt;br&gt;
-2. Data Pipeline (e.g Airflow or &lt;a href="https://dagster.io/"&gt;Dagster&lt;/a&gt;)
-3. Model Pipeline (e.g. &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html"&gt;scikit-learn pipeline&lt;/a&gt;)
-4. ML Tracking Pipeline (e.g. experiment tracking - &lt;a href="https://mlflow.org/docs/latest/tracking.html"&gt;MLflow Tracking&lt;/a&gt; )  &lt;/p&gt;
+1. Workflow Pipeline (e.g. as described in this chapter - containerizing is the key issue here) &lt;br&gt;
+2. Data Pipeline (e.g Airflow or &lt;a href="https://dagster.io/"&gt;Dagster&lt;/a&gt;)&lt;br&gt;
+3. Model Pipeline (e.g. &lt;a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html"&gt;scikit-learn pipeline&lt;/a&gt;)&lt;br&gt;
+4. ML Tracking Pipeline (e.g. experiment tracking - &lt;a href="https://mlflow.org/docs/latest/tracking.html"&gt;MLflow Tracking&lt;/a&gt; )   &lt;/p&gt;
 &lt;p&gt;(a full write up will be in a future blog).&lt;br&gt;
 I think there are considerable differences between these pipelines, and putting them together is confusing. Additional information about the complex landscape can be read from a blog post &lt;a href="https://a16z.com/2020/10/15/the-emerging-architectures-for-modern-data-infrastructure/"&gt;Emerging Architectures for Modern Data Infrastructure&lt;/a&gt; by Matt Bornstein, Martin Casado, and Jennifer Li.&lt;/p&gt;
 &lt;p&gt;Finally, I totally agree with the excitement that was conveyed by the participant with the understanding that the MLops field is still growing in many directions and understanding that part of the attraction in the field is that we are able to experiment with different methodologies while learning new libraries and designs as we mature the industry. &lt;/p&gt;</content><category term="posts"></category><category term="python mlops"></category></entry><entry><title>My 2cents worth after reviewing an academic project</title><link href="https://sephib.github.io/my-2cents-worth-after-reviewing-an-academic-project.html" rel="alternate"></link><published>2020-12-21T00:00:00+02:00</published><updated>2020-12-21T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-12-21:/my-2cents-worth-after-reviewing-an-academic-project.html</id><summary type="html">&lt;p&gt;My 2cents after reviewing an academic project&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Background&lt;/h1&gt;
