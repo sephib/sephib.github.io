@@ -2,7 +2,7 @@ Title: Design patterns in ML and MLops
 Date: 2021-01-24  
 Author: Sephi Berry   
 Tags: python mlops  
-Summary: Design patterns in MLops, pipelines are core for a successful project  
+Summary: My thoughts on an interview with Sara Robinson about  Design patterns in ML, especially on pipelines  
 Category: posts  
 <!-- status: draft -->
 
@@ -16,15 +16,22 @@ As an industry, we are still evolving and best practices are still emerging. Say
 We too enjoy the flexibility of jupyter notebooks, but I disagree with the what Sara said about when to transition from a jupyter notebook to a more structure pipeline. Working methodologically with templates and clear inputs and outputs for each notebook should be implemented from day one. Breaking up notebooks for each step and writing down the logical stages in a markdown file is a key component for saving time and for successful collaboration with any team member. This is even true for yourself - there is nothing better then returning after a weekend to a project and getting up running within a few minutes.  
 
 Reproducibility is another key component in any ML project. [MLflow](https://mlflow.org) is our framework choice for tracking our experiments, which is mentioned as a tool for creating pipelines. However putting `MLflow` with `Airflow` as the same solution for `Workflow Pipeline` (page 284) doesn't seem right.  
-In the book they sate that the following stages make up for ML Pipeline:  
-1. Data Collection
-2. Data Validation
-3. Data Processing
-4. Model Building
-5. Training & Evaluating
-6. Model Deployment
+In the book they state that the following stages make up for ML Pipeline:  
+1. Data Collection  
+2. Data Validation  
+3. Data Processing  
+4. Model Building  
+5. Training & Evaluating  
+6. Model Deployment  
 
 While `MLflow` may be best suited for steps 4-6, `Airflow` is probably best suited for steps 1-3. 
-Here I think it is worth while pointing out that there are considerable differences between Workflow Pipeline, Data Pipeline and ML (experiment) tracking (a full write up will be in a future blog). I think there are considerable differences between these pipelines, and putting them together is confusing. Additional information about the complex landscape can be read from a blog post [Emerging Architectures for Modern Data Infrastructure](https://a16z.com/2020/10/15/the-emerging-architectures-for-modern-data-infrastructure/) by Matt Bornstein, Martin Casado, and Jennifer Li.
+Here I think it is worth while pointing out that there are considerable differences between:  
+1. Workflow Pipeline (e.g. as described in this chapter - containerizing is the key issue here)   
+2. Data Pipeline (e.g Airflow or [Dagster](https://dagster.io/))  
+3. Model Pipeline (e.g. [scikit-learn pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html))  
+4. ML Tracking Pipeline (e.g. experiment tracking - [MLflow Tracking](https://mlflow.org/docs/latest/tracking.html) )   
+
+(a full write up will be in a future blog).  
+I think there are considerable differences between these pipelines, and putting them together is confusing. Additional information about the complex landscape can be read in a blog post [Emerging Architectures for Modern Data Infrastructure](https://a16z.com/2020/10/15/the-emerging-architectures-for-modern-data-infrastructure/) by Matt Bornstein, Martin Casado, and Jennifer Li.
 
 Finally, I totally agree with the excitement that was conveyed by the participant with the understanding that the MLops field is still growing in many directions and understanding that part of the attraction in the field is that we are able to experiment with different methodologies while learning new libraries and designs as we mature the industry. 
