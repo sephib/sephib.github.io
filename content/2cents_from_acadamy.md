@@ -40,6 +40,9 @@ I'm not going to go into the Project Management aspects but rather some tools an
    Running `print` statements without a central `logging` module is also very problematic. Just being able to run the exact same code and get similar logs is very beneficial for understanding how the project runs etc.      
    During the past years, there are many platform/frameworks that have been developed for managing solutions for ML projects. We have settled on [MLFlow](https://mlflow.org), which allows for ease of installation and use even in an offline environment. 
 
+3. Code design  
+   When a code is full of [iterrows](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html) while transforming data in dataframes, there is a serious [code smell](https://en.wikipedia.org/wiki/Code_smell). Running within loops instead of utilizing the [vectorization computation](https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6) is a serious efficiency problem and most likely displays miss understanding of the Python and Pandas paradigm. 
+
 # Summary  
 
 There are many constraints when running a project. However, some minimal infrastructure can get you a long way. Working without any guidelines will normally lead to chaos and inefficiency, while, at the same time, lowering the quality level of the science and of the project.  
