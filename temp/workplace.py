@@ -44,3 +44,16 @@ for fold_name, (train_vlaid.idx, vlaid.idx) in enumerate(
         train_vlaid.y,
         catboost_clf__eval_set=[(valid.X, valid.y)],
     )
+
+"""
+1. Define the data pipelines and reliable
+2. Define labels
+3. Define evaluation metrics
+4. Data cleaning
+. Outlier not z base throughout more the 3 QR (what do you do with outlier?)
+. Iteration of models 
+5. Principle way how to add new features 
+what delivers value?
+kologrnove sper
+
+"""
