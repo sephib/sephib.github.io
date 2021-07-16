@@ -80,3 +80,11 @@ github: publish
 
 
 .PHONY: html help clean regenerate serve serve-global devserver publish github
+
+venv-create:
+	python3 -m venv .venv
+
+venv-req:
+	. .venv/bin/activate && pip install -r requirements.txt
+
+venv: venv-create venv-req
