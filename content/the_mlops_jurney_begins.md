@@ -14,16 +14,54 @@ status: draft
 4. tools
 
 # Introduction
-Joing [artlist](artlist.io) is a wonderfull opertunity for me. Artlist is a fast growing company with many processes that are beeing developed. The AI team is in the R&D devision while we serve a wide range of teams from the marketing to the content curators. In addition there are many data consumers that are our (potential) clients, thus we need to put inplace a ML foundations, that will allow us to iterate in a robust manner when we iterate over the various AI models.
+Joining [artlist](artlists.io) is a wonderful opportunity for me. Artlist is a fast growing company with many processes that are being developed. The AI team is in the R&D division while we serve a wide range of teams from the marketing to the content curators. In addition there are many data consumers that are our (potential) clients, thus we need to put in-place a ML foundations, that will allow us to iterate in a robust manner when we iterate over the various AI models.
 
 # Challenges
-Working in a small team requires to be self sufficient. we need to manage our infenstructure, easily trace our logs and increase collborations among team mates. This may sound simple and common, but holds many challenges. Here are the elements that we required for our team work:
+Working in a small team requires to be self sufficient. we need to manage our infrastructure, easily trace our logs and increase collaboration among team mates. This may sound simple and common, but holds many challenges. Here are the core elements that we came up for our team work:
 
+4. Standardize  project structure & development
 1. Manage configurations and setting  
 2. Unity in logging  
 3. CI/CD for development process
-4. Standerdize development project structure
-5. Standerdize Kubeflow  (Components, usibility)
+5. Standerdize Kubeflow  (Components, usability)
+
+Lets dive into the verious above elements
+## Project Structure
+Working in a team requires collaboration on many levels. In a software team takes this real collaboration to a higher level, since it requires the ability to easily jump into the creation/ יצירה with minimal friction.
+In order to allow for such case it is important to understand the structure of the project, how to execute it and the various elements that can easily allow for contribution. this is crucial for fast iterations and reducing the fear when diving into a colleagues code. Once established, code reviews and other collaboration processes are easier and constructive.
+
+## Kubeflow component
+Intro to kubeflow?  
+
+We have strategically decided to go-all-in into the Kubeflow framework for ML processes. I will not elaborate on the framework (see docs link), however for this post all you need to know that there are 3 core elements to Kubeflow:
+  1. Components - the basic working unit that runs within a dockerfile
+  2. Pipeline - an element for connecting between the components and managing dependencies and artifacts
+  3. Kubernetis - the computation framework for running the Components
+Put KF diagram 
+
+
+## We are very hungry - let's eat some cookies
+Now that we have our ML framework, we can design our building blocks. Inspired by [scikit-lego](https://scikit-lego.readthedocs.io/en/latest/), we also want to play with lego, lets work on our basic building cube.
+The standard lego block is 2 * 3 [image of lego block] - so here are our 6 pillars for our common development:
+
+  1. Mange configuration - 
+    Sharing the same code base is obvious with `git` like solutions, however how to manage the configuration is a bit more of an art. This friction point can be both frustrating and potential for leakage of sensitive information  (see also our secrets management solution ).
+    After reviewing several solutions we landed on [dynaconf](https://dynaconf.readthedocs.io) ![dynacof](https://www.dynaconf.com/img/logo_400.svg?sanitize=true) - and cannot look back. The library is well documented and 
+    1. dynaconf
+      1. project s
+  2. src code
+  3. Dockerfile
+  4. venv
+  5. tests
+  6. CICD - 
+    1. Makefile
+    2. 
+
+
+
+
+
+
 
 
 # Road Map
