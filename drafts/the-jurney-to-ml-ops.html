@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="../theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+
+<meta name="author" content="Sephi Berry" />
+<meta name="description" content="The stages that our team is taking towards and ML infenstructure" />
+<meta name="keywords" content="python mlops">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="The Jurney to ML ops"/>
+<meta property="og:description" content="The stages that our team is taking towards and ML infenstructure"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../drafts/the-jurney-to-ml-ops.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-07-16 00:00:00+03:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="../author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="python mlops"/>
+<meta property="og:image" content="/images/avatar_osnx.png">
+
+  <title>Geo Berry &ndash; The Jurney to ML ops</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="..">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
+      </a>
+      <h1><a href="..">Sephi's Blog</a></h1>
+
+<p>Data Engineer | Project Manager | Geo-Spatial Specialist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="../pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="the-jurney-to-ml-ops">The Jurney to ML ops</h1>
+    <p>
+      Posted on Fri 16 July 2021 in <a href="../category/posts.html">posts</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <h1>Outline</h1>
+<ol>
+<li>Intro</li>
+<li>Challenges</li>
+<li>road map</li>
+<li>tools</li>
+</ol>
+<h1>Introduction</h1>
+<p>Joining <a href="artlists.io">artlist</a> is a wonderful opportunity for me. Artlist is a fast growing company with many processes that are being developed. The AI team is in the R&amp;D division while we serve a wide range of teams from the marketing to the content curators. In addition there are many data consumers that are our (potential) clients, thus we need to put in-place a ML foundations, that will allow us to iterate in a robust manner when we iterate over the various AI models.</p>
+<h1>Challenges</h1>
+<p>Working in a small team requires to be self sufficient. we need to manage our infrastructure, easily trace our logs and increase collaboration among team mates. This may sound simple and common, but holds many challenges. Here are the core elements that we came up for our team work:</p>
+<ol>
+<li>Standardize  project structure &amp; development</li>
+<li>Manage configurations and setting  </li>
+<li>Unity in logging  </li>
+<li>CI/CD for development process</li>
+<li>Standerdize Kubeflow  (Components, usability)</li>
+</ol>
+<p>Lets dive into the verious above elements</p>
+<h2>Project Structure</h2>
+<p>Working in a team requires collaboration on many levels. In a software team takes this real collaboration to a higher level, since it requires the ability to easily jump into the creation/ יצירה with minimal friction.
+In order to allow for such case it is important to understand the structure of the project, how to execute it and the various elements that can easily allow for contribution. this is crucial for fast iterations and reducing the fear when diving into a colleagues code. Once established, code reviews and other collaboration processes are easier and constructive.</p>
+<h2>Kubeflow component</h2>
+<p>Intro to kubeflow?  </p>
+<p>We have strategically decided to go-all-in into the Kubeflow framework for ML processes. I will not elaborate on the framework (see docs link), however for this post all you need to know that there are 3 core elements to Kubeflow:</p>
+<ol>
+<li>Components - the basic working unit that runs within a dockerfile</li>
+<li>Pipeline - an element for connecting between the components and managing dependencies and artifacts</li>
+<li>Kubernetis - the computation framework for running the Components
+Put KF diagram</li>
+</ol>
+<h2>We are very hungry - let's eat some cookies</h2>
+<p>Now that we have our ML framework, we can design our building blocks. Inspired by <a href="https://scikit-lego.readthedocs.io/en/latest/">scikit-lego</a>, we also want to play with lego, lets work on our basic building block.
+The standard lego block is 2 * 3 [image of lego block] - so here are our 6 pillars for our common development:</p>
+<ol>
+<li>Mange configuration -
+    Sharing the same codebase is obvious with <code>git</code> like solutions, however how to manage the configuration is a bit more of an art. This friction point can be both frustrating and potential for leakage of sensitive information  (see also our secrets management solution).
+    After reviewing several solutions we landed on <a href="https://dynaconf.readthedocs.io">dynaconf</a> <img alt="dynacof" src="https://www.dynaconf.com/img/logo_400.svg?sanitize=true"> - and cannot look back. The library is well documented and can be customized to most use cases. Our main twig included incorporating <em>Pipeline</em> configs in addition to the <em>Component</em> configs, so when ever we are building a new project both sets of configs are loaded, the shared configs (pipeline) with the dedicated configs (component). in addition to Pipeline configs<ol>
+<li>dynaconf</li>
+<li>project s</li>
+</ol>
+</li>
+<li>
+<p>Project structure
+    <strong>Lost in Translation</strong> is a nice film, but certainly not something you want to encounter whenever opening a teams project or using a common component. Building a cookiecutter with a boiler plat is a great way to start - but doing so requires a robust project structure. After some experience building some KF components we came up with the following structure.</p>
+<ol>
+<li>
+<p>component structure
+  <component_name>-
+                    |
+                    config
+                          |
+                          - settings.toml
+                          - settings.local.toml
+                    src
+                        |
+                        _ lib
+                            |
+                            - <lib_files>.py
+                        - run.py
+                    tests
+                        |
+                        - test_run.py</p>
+</li>
+<li>
+<p>project/pipeline structure&lt;&gt;
+  src code</p>
+</li>
+<li>Dockerfile</li>
+<li>venv</li>
+<li>tests</li>
+<li>CICD -</li>
+<li>Makefile
+2.</li>
+</ol>
+</li>
+</ol>
+<h1>Road Map</h1>
+<ol>
+<li>Development</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="../tag/python-mlops.html">python mlops</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : "..",
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>
