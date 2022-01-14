@@ -4,7 +4,7 @@ Author: Sephi Berry
 Tags: career  
 Summary: Reflecting on the my 2021 journey
 Category: posts  
-Status: draft
+<!-- Status: draft -->
 
 # Background
 
