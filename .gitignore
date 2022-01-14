@@ -136,5 +136,7 @@ settings.json
 output/
 themes/
 plugins/
+pelican-plugins/
 temp/
 .history/
+.direnv/

@@ -11,7 +11,7 @@ git push git@github.com:sephib/sephib.github.io.git gh-pages:master
 
 ## create not
 
-make html && make serve
+`make html && make serve`
 
 make publish
 

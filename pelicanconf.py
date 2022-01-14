@@ -51,7 +51,7 @@ IGNORE_FILES = [".ipynb_checkpoints"]
 THEME = "themes/Flex"
 # THEME = "themes/pelican-blue/pelican-blue"
 # PLUGINS
-PLUGIN_PATHS = ["plugins", "plugins/ibynb", "plugins/pelican-plugins"]
+PLUGIN_PATHS = ["pelican-plugins", "pelican-plugins/ibynb", "pelican-plugins/pelican-plugins"]
 PLUGINS = [
     nb_markup,
     "sitemap",
@@ -59,8 +59,11 @@ PLUGINS = [
     # "w3c_validate",
     "optimize_images",
     "gzip_cache",
+    'i18n_subsites'
 ]
-
+JINJA_ENVIRONMENT = {
+    'extensions': ['jinja2.ext.i18n'],
+}
 ## SITEMAP PLUGIN
 SITEMAP = {
     "format": "xml",
