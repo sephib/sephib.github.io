@@ -5,7 +5,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/</loc>
-<lastmod>2022-01-14T16:01:22-00:00</lastmod>
+<lastmod>2022-07-17T15:53:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -18,8 +18,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>https://sephib.github.io/when-pytorch-datapipes-meets-gcs.html</loc>
+<lastmod>2022-07-06T00:00:00+03:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.99</priority>
+</url>
+
+<url>
 <loc>https://sephib.github.io/reflection-on-2021.html</loc>
-<lastmod>2022-01-14T00:00:00+02:00</lastmod>
+<lastmod>2022-01-17T00:00:00+02:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.99</priority>
 </url>
@@ -89,14 +96,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/category/posts.html</loc>
-<lastmod>2022-01-14T00:00:00+02:21</lastmod>
+<lastmod>2022-01-17T00:00:00+02:21</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://sephib.github.io/category/posts-pipeline.html</loc>
+<lastmod>2022-07-06T00:00:00+02:21</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://sephib.github.io/tag/python-pytorch-gcp.html</loc>
+<lastmod>2022-07-06T00:00:00+02:21</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://sephib.github.io/tag/career.html</loc>
-<lastmod>2022-01-14T00:00:00+02:21</lastmod>
+<lastmod>2022-01-17T00:00:00+02:21</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -145,7 +166,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sephib.github.io/author/sephi-berry.html</loc>
-<lastmod>2022-01-14T00:00:00+02:21</lastmod>
+<lastmod>2022-07-06T00:00:00+02:21</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
