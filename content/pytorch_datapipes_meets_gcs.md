@@ -10,9 +10,9 @@ Category: posts pipeline
 
 # Background
 
-Working in the ML arena requires a smart usage of data, in addition to maximum flexibility while manipulation of datasets. A common way to do so is to use `pipeline`s that allow for a structural framework to manage these processes.  
+Working in the ML arena requires optimal usage of data, in addition to maximum flexibility while manipulating of datasets. A common way to do so is to use `pipeline`s that allow for a structural framework to manage these processes.  
 
-Lately we wanted to run some image manipulation using the [pytorch framework](https://pytorch.org). Since our data is stored in Google Cloud Storage (GCS), we thought that we will be able to use [pytorch datapipes](https://pytorch.org/data/main/index.html) as our pipeline framework.  Of-the-bat it seems simple since the [IO datapipes](https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes) seems to be comprehensive, however as usual - once the implementation starts we were challenged with some issue.  
+Lately at  <a rel="Artlist logo" href="https://artlist.io"><img src="images/Artlist Logo 64px.png" height=20 /></a>   we  wanted to run some image manipulation using the [pytorch framework](https://pytorch.org). Since our data is stored in Google Cloud Storage (GCS), we thought that we will be able to use [pytorch datapipes](https://pytorch.org/data/main/index.html) as our pipeline framework.  Of-the-bat it seems simple since the [IO datapipes](https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes) seems to be comprehensive, however as usual - once the implementation starts we were challenged with some issue.  
 
 # Our Use Case
 
