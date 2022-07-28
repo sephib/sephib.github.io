@@ -140,3 +140,4 @@ pelican-plugins/
 temp/
 .history/
 .direnv/
+.DS_Store

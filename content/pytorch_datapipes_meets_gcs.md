@@ -12,11 +12,11 @@ Category: posts pipeline
 
 Working in the ML arena requires optimal usage of data, in addition to maximum flexibility while manipulating of datasets. A common way to do so is to use `pipeline`s that allow for a structural framework to manage these processes.  
 
-Lately at  <a rel="Artlist logo" href="https://artlist.io"><img src="images/Artlist Logo 64px.png" height=20 /></a>   we  wanted to run some image manipulation using the [pytorch framework](https://pytorch.org). Since our data is stored in Google Cloud Storage (GCS), we thought that we will be able to use [pytorch datapipes](https://pytorch.org/data/main/index.html) as our pipeline framework.  Of-the-bat it seems simple since the [IO datapipes](https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes) seems to be comprehensive, however as usual - once the implementation starts we were challenged with some issue.  
+Lately at  <a rel="Artlist logo" href="https://artlist.io"><img src="images/Artlist Logo 64px.png" height=20 /></a>   we  wanted to run some image manipulations using the [pytorch framework](https://pytorch.org). Since our data are stored in Google Cloud Storage (GCS), we thought that we would be able to use [pytorch datapipes](https://pytorch.org/data/main/index.html) as our pipeline framework.  Of-the-bat it seem simple since the [IO datapipes](https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes) seems to be comprehensive, however, as usual and to be expected - once the implementation started we were challenged with some technical issues.  
 
 # Our Use Case
 
-We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration of [the documented examples](https://pytorch.org/data/main/examples.html) we built our `pytorch datapipe` as follows:  
+We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration and stimulus of [the documented examples](https://pytorch.org/data/main/examples.html) we built our `pytorch datapipe` as follows:  
 
 ```python
 def image_datapipe(root_dir):
@@ -33,7 +33,7 @@ Lets go over the various steps in the pipeline.
 
 ## Who care's about security
 
-`FSSpecFileLister` is an object in charge for accessing the files in a filesystem.
+`FSSpecFileLister` is an object responsible for accessing the files in a filesystem.
 
 In order to access the `GCS` filesystem, Pytorch's `open_file_by_fsspec` function uses the  [fsspec](https://filesystem-spec.readthedocs.io/en/latest/) library with [following code](https://github.com/pytorch/data/blob/cd38927904836f6f67ce33bfaee094fff4078402/torchdata/datapipes/iter/load/fsspec.py#L128)  
 
@@ -72,7 +72,7 @@ def PIL_open(data):
 The `gfs` is using the implementation of `fsspec` for GCS - [gcsfs](https://gcsfs.readthedocs.io/en/latest/)
 
 
-- In the next step we will create embeddings from our image stream. We used a wrapped [CLIP model](https://github.com/openai/CLIP) (`image_processor`). It is always a good practice to wrap modular functionality in order to allow for future replacement with a new model version.  
+- In the next step we will create embeddings from our image stream. We used a wrapped [CLIP model](https://github.com/openai/CLIP) (`image_processor`). Note: it is always good practice to wrap modular functionality in order to allow for future replacement with a new model version.  
 
 ```python
 def row_emb_processor(data):
@@ -92,7 +92,7 @@ def post_process(data):
 return (data, df.to_parquet())
 ```  
 
-- Lastly, on our final step we will use the `save_by_fsspec` method to save the embeddings back into a GCS bucket. Since we already fixed the `url_to_fs` accessing the bucket is straight forward. All we need is to supply the target name of the file.  
+- Lastly, in our final step we will use the `save_by_fsspec` method to save the embeddings back into a GCS bucket. Since we already fixed the `url_to_fs` accessing the bucket is straight forward. All we need is to supply the target name of the file.  
 
 ```python
 def filepath_fn(data):
@@ -101,7 +101,7 @@ def filepath_fn(data):
 
 # Additional Thoughts
 
-- Moving the data between the various pipe steps can be easier when defining a `dataclass` object - thus easily referencing the required property of the image in the various stages.  
+- Moving the data between the various pipe steps can be made easier when defining a `dataclass` object - by simply referencing the required property of the image in the various stages.  
 e.g. instead of calling `data[1]` for the embedding - way not use *`data.file_stream`*. Hopefully this will be elaborated in a different post.
 
 - The issue of accessing the bucket securely has been addressed in [this issue](https://github.com/pytorch/data/issues/497).
