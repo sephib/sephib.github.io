@@ -89,9 +89,9 @@
 <p><a rel="pytorch_gcs_logo"><img src="images/Pytorch_GCS_logo.png" width=700 height=300 /></a>  </p>
 <h1>Background</h1>
 <p>Working in the ML arena requires optimal usage of data, in addition to maximum flexibility while manipulating of datasets. A common way to do so is to use <code>pipeline</code>s that allow for a structural framework to manage these processes.  </p>
-<p>Lately at  <a rel="Artlist logo" href="https://artlist.io"><img src="images/Artlist Logo 64px.png" height=20 /></a>   we  wanted to run some image manipulation using the <a href="https://pytorch.org">pytorch framework</a>. Since our data is stored in Google Cloud Storage (GCS), we thought that we will be able to use <a href="https://pytorch.org/data/main/index.html">pytorch datapipes</a> as our pipeline framework.  Of-the-bat it seems simple since the <a href="https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes">IO datapipes</a> seems to be comprehensive, however as usual - once the implementation starts we were challenged with some issue.  </p>
+<p>Lately at  <a rel="Artlist logo" href="https://artlist.io"><img src="images/Artlist Logo 64px.png" height=20 /></a>   we  wanted to run some image manipulations using the <a href="https://pytorch.org">pytorch framework</a>. Since our data are stored in Google Cloud Storage (GCS), we thought that we would be able to use <a href="https://pytorch.org/data/main/index.html">pytorch datapipes</a> as our pipeline framework.  Of-the-bat it seem simple since the <a href="https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes">IO datapipes</a> seems to be comprehensive, however, as usual and to be expected - once the implementation started we were challenged with some technical issues.  </p>
 <h1>Our Use Case</h1>
-<p>We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration of <a href="https://pytorch.org/data/main/examples.html">the documented examples</a> we built our <code>pytorch datapipe</code> as follows:  </p>
+<p>We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration and stimulus of <a href="https://pytorch.org/data/main/examples.html">the documented examples</a> we built our <code>pytorch datapipe</code> as follows:  </p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">image_datapipe</span><span class="p">(</span><span class="n">root_dir</span><span class="p">):</span>
     <span class="n">datapipe</span> <span class="o">=</span> <span class="n">FSSpecFileLister</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root_dir</span><span class="p">)</span>
     <span class="n">datapipe</span> <span class="o">=</span> <span class="n">datapipe</span><span class="o">.</span><span class="n">open_file_by_fsspec</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
@@ -105,7 +105,7 @@
 
 <p>Lets go over the various steps in the pipeline.</p>
 <h2>Who care's about security</h2>
-<p><code>FSSpecFileLister</code> is an object in charge for accessing the files in a filesystem.</p>
+<p><code>FSSpecFileLister</code> is an object responsible for accessing the files in a filesystem.</p>
 <p>In order to access the <code>GCS</code> filesystem, Pytorch's <code>open_file_by_fsspec</code> function uses the  <a href="https://filesystem-spec.readthedocs.io/en/latest/">fsspec</a> library with <a href="https://github.com/pytorch/data/blob/cd38927904836f6f67ce33bfaee094fff4078402/torchdata/datapipes/iter/load/fsspec.py#L128">following code</a>  </p>
 <div class="highlight"><pre><span></span><code><span class="n">fs</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">url_to_fs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
@@ -142,7 +142,7 @@
 
 <p>The <code>gfs</code> is using the implementation of <code>fsspec</code> for GCS - <a href="https://gcsfs.readthedocs.io/en/latest/">gcsfs</a></p>
 <ul>
-<li>In the next step we will create embeddings from our image stream. We used a wrapped <a href="https://github.com/openai/CLIP">CLIP model</a> (<code>image_processor</code>). It is always a good practice to wrap modular functionality in order to allow for future replacement with a new model version.  </li>
+<li>In the next step we will create embeddings from our image stream. We used a wrapped <a href="https://github.com/openai/CLIP">CLIP model</a> (<code>image_processor</code>). Note: it is always good practice to wrap modular functionality in order to allow for future replacement with a new model version.  </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">row_emb_processor</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_processor</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -164,7 +164,7 @@
 
 
 <ul>
-<li>Lastly, on our final step we will use the <code>save_by_fsspec</code> method to save the embeddings back into a GCS bucket. Since we already fixed the <code>url_to_fs</code> accessing the bucket is straight forward. All we need is to supply the target name of the file.  </li>
+<li>Lastly, in our final step we will use the <code>save_by_fsspec</code> method to save the embeddings back into a GCS bucket. Since we already fixed the <code>url_to_fs</code> accessing the bucket is straight forward. All we need is to supply the target name of the file.  </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">filepath_fn</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;gs://bucket/folder/asset_</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">.parq&quot;</span>
@@ -174,7 +174,7 @@
 <h1>Additional Thoughts</h1>
 <ul>
 <li>
-<p>Moving the data between the various pipe steps can be easier when defining a <code>dataclass</code> object - thus easily referencing the required property of the image in the various stages.<br>
+<p>Moving the data between the various pipe steps can be made easier when defining a <code>dataclass</code> object - by simply referencing the required property of the image in the various stages.<br>
 e.g. instead of calling <code>data[1]</code> for the embedding - way not use <em><code>data.file_stream</code></em>. Hopefully this will be elaborated in a different post.</p>
 </li>
 <li>

@@ -4,9 +4,9 @@
 &lt;p&gt;&lt;a rel="pytorch_gcs_logo"&gt;&lt;img src="images/Pytorch_GCS_logo.png" width=700 height=300 /&gt;&lt;/a&gt;  &lt;/p&gt;
 &lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;Working in the ML arena requires optimal usage of data, in addition to maximum flexibility while manipulating of datasets. A common way to do so is to use &lt;code&gt;pipeline&lt;/code&gt;s that allow for a structural framework to manage these processes.  &lt;/p&gt;
-&lt;p&gt;Lately at  &lt;a rel="Artlist logo" href="https://artlist.io"&gt;&lt;img src="images/Artlist Logo 64px.png" height=20 /&gt;&lt;/a&gt;   we  wanted to run some image manipulation using the &lt;a href="https://pytorch.org"&gt;pytorch framework&lt;/a&gt;. Since our data is stored in Google Cloud Storage (GCS), we thought that we will be able to use &lt;a href="https://pytorch.org/data/main/index.html"&gt;pytorch datapipes&lt;/a&gt; as our pipeline framework.  Of-the-bat it seems simple since the &lt;a href="https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes"&gt;IO datapipes&lt;/a&gt; seems to be comprehensive, however as usual - once the implementation starts we were challenged with some issue.  &lt;/p&gt;
+&lt;p&gt;Lately at  &lt;a rel="Artlist logo" href="https://artlist.io"&gt;&lt;img src="images/Artlist Logo 64px.png" height=20 /&gt;&lt;/a&gt;   we  wanted to run some image manipulations using the &lt;a href="https://pytorch.org"&gt;pytorch framework&lt;/a&gt;. Since our data are stored in Google Cloud Storage (GCS), we thought that we would be able to use &lt;a href="https://pytorch.org/data/main/index.html"&gt;pytorch datapipes&lt;/a&gt; as our pipeline framework.  Of-the-bat it seem simple since the &lt;a href="https://pytorch.org/data/main/torchdata.datapipes.iter.html#io-datapipes"&gt;IO datapipes&lt;/a&gt; seems to be comprehensive, however, as usual and to be expected - once the implementation started we were challenged with some technical issues.  &lt;/p&gt;
 &lt;h1&gt;Our Use Case&lt;/h1&gt;
-&lt;p&gt;We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration of &lt;a href="https://pytorch.org/data/main/examples.html"&gt;the documented examples&lt;/a&gt; we built our &lt;code&gt;pytorch datapipe&lt;/code&gt; as follows:  &lt;/p&gt;
+&lt;p&gt;We had some images that we needed to convert into embeddings and save them into a bucket. With the inspiration and stimulus of &lt;a href="https://pytorch.org/data/main/examples.html"&gt;the documented examples&lt;/a&gt; we built our &lt;code&gt;pytorch datapipe&lt;/code&gt; as follows:  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;image_datapipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root_dir&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;datapipe&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;FSSpecFileLister&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;root_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;datapipe&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;datapipe&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open_file_by_fsspec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;rb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -20,7 +20,7 @@
 
 &lt;p&gt;Lets go over the various steps in the pipeline.&lt;/p&gt;
 &lt;h2&gt;Who care's about security&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;FSSpecFileLister&lt;/code&gt; is an object in charge for accessing the files in a filesystem.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;FSSpecFileLister&lt;/code&gt; is an object responsible for accessing the files in a filesystem.&lt;/p&gt;
 &lt;p&gt;In order to access the &lt;code&gt;GCS&lt;/code&gt; filesystem, Pytorch's &lt;code&gt;open_file_by_fsspec&lt;/code&gt; function uses the  &lt;a href="https://filesystem-spec.readthedocs.io/en/latest/"&gt;fsspec&lt;/a&gt; library with &lt;a href="https://github.com/pytorch/data/blob/cd38927904836f6f67ce33bfaee094fff4078402/torchdata/datapipes/iter/load/fsspec.py#L128"&gt;following code&lt;/a&gt;  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fsspec&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;url_to_fs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -57,7 +57,7 @@
 
 &lt;p&gt;The &lt;code&gt;gfs&lt;/code&gt; is using the implementation of &lt;code&gt;fsspec&lt;/code&gt; for GCS - &lt;a href="https://gcsfs.readthedocs.io/en/latest/"&gt;gcsfs&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;In the next step we will create embeddings from our image stream. We used a wrapped &lt;a href="https://github.com/openai/CLIP"&gt;CLIP model&lt;/a&gt; (&lt;code&gt;image_processor&lt;/code&gt;). It is always a good practice to wrap modular functionality in order to allow for future replacement with a new model version.  &lt;/li&gt;
+&lt;li&gt;In the next step we will create embeddings from our image stream. We used a wrapped &lt;a href="https://github.com/openai/CLIP"&gt;CLIP model&lt;/a&gt; (&lt;code&gt;image_processor&lt;/code&gt;). Note: it is always good practice to wrap modular functionality in order to allow for future replacement with a new model version.  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;row_emb_processor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;image_processor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;embed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
@@ -79,7 +79,7 @@
 
 
 &lt;ul&gt;
-&lt;li&gt;Lastly, on our final step we will use the &lt;code&gt;save_by_fsspec&lt;/code&gt; method to save the embeddings back into a GCS bucket. Since we already fixed the &lt;code&gt;url_to_fs&lt;/code&gt; accessing the bucket is straight forward. All we need is to supply the target name of the file.  &lt;/li&gt;
+&lt;li&gt;Lastly, in our final step we will use the &lt;code&gt;save_by_fsspec&lt;/code&gt; method to save the embeddings back into a GCS bucket. Since we already fixed the &lt;code&gt;url_to_fs&lt;/code&gt; accessing the bucket is straight forward. All we need is to supply the target name of the file.  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;filepath_fn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;gs://bucket/folder/asset_&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.parq&amp;quot;&lt;/span&gt;
@@ -89,7 +89,7 @@
 &lt;h1&gt;Additional Thoughts&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Moving the data between the various pipe steps can be easier when defining a &lt;code&gt;dataclass&lt;/code&gt; object - thus easily referencing the required property of the image in the various stages.&lt;br&gt;
+&lt;p&gt;Moving the data between the various pipe steps can be made easier when defining a &lt;code&gt;dataclass&lt;/code&gt; object - by simply referencing the required property of the image in the various stages.&lt;br&gt;
 e.g. instead of calling &lt;code&gt;data[1]&lt;/code&gt; for the embedding - way not use &lt;em&gt;&lt;code&gt;data.file_stream&lt;/code&gt;&lt;/em&gt;. Hopefully this will be elaborated in a different post.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;

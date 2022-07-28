@@ -84,7 +84,22 @@
 
 
   <div>
-    
+    <h1>Intro</h1>
+<p>working with data many times requires generating a collection of data as some sort of object with internal relationship.
+A useful tool for managing such objects are <code>dataclass</code>
+<code>Protobuf</code> is a protocol (introduced by Google) for transferring data between different entities, in a reliable and efficient manner.</p>
+<p>In this blog post I want to review the relationship between protobuf and dataclass.</p>
+<h1>Dataclasses Background</h1>
+<p>The Dataclasses are able to be used in two contexts:
+1. working with data in a usefull maner
+2. Working with Classes that can generate allot of the boiler plate that otherwise would require to work on.</p>
+<p>In an essence the dataclass is a combination of a NamedTuple and a Class.
+The convenience of retriving data like NamedTuple while supercharging it with Class capabilities.</p>
+<h1>Initiation</h1>
+<p>Adding the <code>@dataclass</code> decorator to class gives the following capabilities.
+1. mutable / immutable -&gt; frozen=False/True</p>
+<p>Additional properties since Python 3.10
+1. slots -&gt;</p>
   </div>
   <div class="tag-cloud">
     <p>
