@@ -1,14 +1,15 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- #
+
+from pelican_jupyter import markup as nb_markup
 
 AUTHOR = "Joseph (Sephi) Berry"
 SITENAME = "Geo Berry"
-SITEURL = ""  #"http://localhost:8000"
+SITEURL = ""
 SITETITLE = "Sephi's Blog"
 SITESUBTITLE = "Data Engineer | Project Manager | Geo-Spatial Specialist"
 SITEDESCRIPTION = "Sephi's Thoughts and Writings"
-SITELOGO = SITEURL + "/images/avatar_osnx.png"
-FAVICON = SITEURL + "/images/favicon.ico"
+SITELOGO = f"{SITEURL}/images/avatar_osnx.png"
+FAVICON = f"{SITEURL}/images/favicon.ico"
 
 
 PATH = "content"
@@ -33,17 +34,15 @@ AUTHOR_FEED_RSS = None
 # )
 
 # Social widget
-SOCIAL = (('linkedin', 'https://www.linkedin.com/in/berrygis'),
-          ('github', 'https://github.com/sephib'),
-          ('twitter', 'https://twitter.com/geosephi'),
-        #   ('stack-overflow', 'http://stackoverflow.com/story/girisagar46.github.io'),
-          )
+SOCIAL = (
+    ('linkedin', 'https://www.linkedin.com/in/berrygis'),
+    ('github', 'https://github.com/sephib'),
+    ('twitter', 'https://twitter.com/geosephi'),
+)
 
 DEFAULT_PAGINATION = 10
 
 MARKUP = ("md", "ipynb")
-
-from pelican_jupyter import markup as nb_markup
 
 IGNORE_FILES = [".ipynb_checkpoints"]
 
@@ -55,15 +54,7 @@ PLUGIN_PATHS = ["pelican-plugins", "pelican-plugins/ibynb", "pelican-plugins/pel
 PLUGINS = [
     nb_markup,
     "sitemap",
-    # "category_order",
-    # "w3c_validate",
-    "optimize_images",
-    "gzip_cache",
-    'i18n_subsites'
 ]
-JINJA_ENVIRONMENT = {
-    'extensions': ['jinja2.ext.i18n'],
-}
 ## SITEMAP PLUGIN
 SITEMAP = {
     "format": "xml",
