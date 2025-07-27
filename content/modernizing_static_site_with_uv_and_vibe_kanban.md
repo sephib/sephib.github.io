@@ -46,13 +46,13 @@ create a new branch before making any changes
 ```
 
 ### 3. Let the AI Assistant Plan and Execute
-The AI breaks down your task into manageable todos:
-- Create new branch for upgrade
-- Analyze current project structure  
-- Review existing dependencies and configuration
-- Migrate to uv package management
-- Update Python code to be more pythonic
-- Test the upgraded project
+The AI breaks down your task into manageable todos:   
+- Create new branch for upgrade.  
+- Analyze current project structure.   
+- Review existing dependencies and configuration.  
+- Migrate to uv package management.  
+- Update Python code to be more pythonic.  
+- Test the upgraded project.  
 
 ### 4. Monitor Progress
 The AI provides real-time updates on task completion, ensuring nothing is missed.
