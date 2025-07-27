@@ -1,5 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/all.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2022-07-06T00:00:00+03:00</updated><subtitle>Data Engineer | Project Manager | Geo-Spatial Specialist</subtitle><entry><title>When Pytorch Datapipes Meets GCS</title><link href="https://sephib.github.io/when-pytorch-datapipes-meets-gcs.html" rel="alternate"></link><published>2022-07-06T00:00:00+03:00</published><updated>2022-07-06T00:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-07-06:/when-pytorch-datapipes-meets-gcs.html</id><summary type="html">&lt;p&gt;The reality when using pipeline infrastructure&lt;/p&gt;</summary><content type="html">&lt;!-- status: draft --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/all.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2025-01-27T00:00:00+02:00</updated><subtitle>Data Engineer | Project Manager | Geo-Spatial Specialist</subtitle><entry><title>Modernizing a Static Site with UV and Vibe-Kanban: A Developer's Journey</title><link href="https://sephib.github.io/modernizing-static-site-with-uv-and-vibe-kanban.html" rel="alternate"></link><published>2025-01-27T00:00:00+02:00</published><updated>2025-01-27T00:00:00+02:00</updated><author><name>Joseph (Sephi) Berry</name></author><id>tag:sephib.github.io,2025-01-27:/modernizing-static-site-with-uv-and-vibe-kanban.html</id><summary type="html">&lt;p&gt;How I used Vibe-Kanban to upgrade my static site from traditional pip to modern UV package management while making the code more pythonic.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Recently, I discovered &lt;a href="https://www.vibekanban.com/"&gt;Vibe-Kanban&lt;/a&gt;, a fascinating approach to task management that leverages AI assistance for project development. Today, I'll share how I used it to modernize my Pelican-based static website, transitioning from traditional Python package management to the modern UV tool while making the codebase more pythonic.&lt;/p&gt;
+&lt;p&gt;In my daily work - I already use code assistance in many ways - mainly by giving context (building an outline of the tasks in a markdown document), and then executy the tasks (mainly using Claude and &lt;a href="https://aider.chat/"&gt;Aider&lt;/a&gt;). &lt;/p&gt;
+&lt;p&gt;Working with the Vibe-Kanban was a very pleasant experience, here is what i was able to accomplish in aprox. 15 min (including this blog post). &lt;/p&gt;
+&lt;h2&gt;What is Vibe-Kanban?&lt;/h2&gt;
+&lt;p&gt;Vibe-Kanban is an AI-powered development workflow that combines task management with intelligent code assistance. It helps break down complex projects into manageable tasks while providing context-aware development support. The key benefit is having an AI assistant that understands your project structure and can execute multi-step tasks autonomously.&lt;/p&gt;
+&lt;h2&gt;The Challenge: Legacy Python Project Setup&lt;/h2&gt;
+&lt;p&gt;My static site was running on a typical legacy Python setup:&lt;br&gt;
+- &lt;code&gt;requirements.txt&lt;/code&gt; for dependencies&lt;br&gt;
+- Python 3.12 (causing compatibility issues)&lt;br&gt;
+- Old-style string formatting and code patterns&lt;br&gt;
+- Manual dependency management  &lt;/p&gt;
+&lt;p&gt;The goal was to modernize this setup using UV, Python's fastest package manager, while improving code quality.&lt;/p&gt;
+&lt;h2&gt;Basic Steps to Use Vibe-Kanban&lt;/h2&gt;
+&lt;p&gt;Here's how to get started with Vibe-Kanban for your own projects:&lt;/p&gt;
+&lt;h3&gt;1. Set Up the Environment&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Clone or access your project&lt;/span&gt;
+&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;your-project
+
+&lt;span class="c1"&gt;# Ensure you have Claude Code CLI available&lt;/span&gt;
+&lt;span class="c1"&gt;# Follow the setup instructions at https://docs.anthropic.com/claude-code&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;2. Define Your Upgrade Task&lt;/h3&gt;
+&lt;p&gt;Instead of manually planning every step, you provide a high-level description:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Task title: upgrade static site
+Task description: Using UV update the project to be pythonic and updated.
+create a new branch before making any changes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;3. Let the AI Assistant Plan and Execute&lt;/h3&gt;
+&lt;p&gt;The AI breaks down your task into manageable todos: &lt;br&gt;
+- Create new branch for upgrade.&lt;br&gt;
+- Analyze current project structure. &lt;br&gt;
+- Review existing dependencies and configuration.&lt;br&gt;
+- Migrate to uv package management.&lt;br&gt;
+- Update Python code to be more pythonic.&lt;br&gt;
+- Test the upgraded project.  &lt;/p&gt;
+&lt;h3&gt;4. Monitor Progress&lt;/h3&gt;
+&lt;p&gt;The AI provides real-time updates on task completion, ensuring nothing is missed.&lt;/p&gt;
+&lt;h3&gt;5. Iterate&lt;/h3&gt;
+&lt;p&gt;Add additional instructions as part of the review and let the agent run.&lt;/p&gt;
+&lt;h2&gt;The Modernization Process&lt;/h2&gt;
+&lt;p&gt;Here's what the AI accomplished during my website upgrade:&lt;/p&gt;
+&lt;h3&gt;Branch Creation and Analysis&lt;/h3&gt;
+&lt;p&gt;First, it created a new branch &lt;code&gt;upgrade-to-uv-pythonic&lt;/code&gt; and analyzed the existing project structure, identifying:
+- Python files that needed updating
+- Dependency management files
+- Configuration files requiring modernization&lt;/p&gt;
+&lt;h3&gt;UV Migration&lt;/h3&gt;
+&lt;p&gt;The most significant change was migrating from &lt;code&gt;requirements.txt&lt;/code&gt; to a modern &lt;code&gt;pyproject.toml&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[project]&lt;/span&gt;
+&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;sephib-github-io&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;0.1.0&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Static site generator for Sephi&amp;#39;s blog using Pelican&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;requires-python&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;gt;=3.10,&amp;lt;3.12&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;dependencies&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;pelican&amp;lt;=4.9.1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;pelican-jupyter&amp;gt;=0.10.1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;]&lt;/span&gt;
+
+&lt;span class="k"&gt;[tool.uv]&lt;/span&gt;
+&lt;span class="n"&gt;dev-dependencies&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;pytest&amp;gt;=7.0.0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ruff&amp;gt;=0.1.0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Code Modernization&lt;/h3&gt;
+&lt;p&gt;The AI systematically updated the codebase to be more pythonic, for example:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Before:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="s2"&gt;&amp;quot;commit_message&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;#39;Publish site on &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;today&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isoformat&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;After:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="s2"&gt;&amp;quot;commit_message&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;#39;Publish site on &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;today&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isoformat&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Before:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFIG&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;deploy_path&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]):&lt;/span&gt;
+    &lt;span class="n"&gt;shutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rmtree&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFIG&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;deploy_path&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;makedirs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFIG&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;deploy_path&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;After:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;deploy_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFIG&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;deploy_path&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;deploy_path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;shutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rmtree&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;deploy_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;deploy_path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;parents&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;exist_ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Dependency Resolution&lt;/h3&gt;
+&lt;p&gt;One of the trickiest parts was resolving version conflicts between packages. The AI:&lt;br&gt;
+- Identified compatibility issues between Jinja2, Pelican, and nbconvert &lt;br&gt;
+- Adjusted Python version requirements from 3.12 to 3.10-3.11 &lt;br&gt;
+- Fixed plugin configurations that were causing build failures   &lt;/p&gt;
+&lt;h3&gt;Testing and Validation&lt;/h3&gt;
+&lt;p&gt;Finally, the AI tested the entire setup:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;uv&lt;span class="w"&gt; &lt;/span&gt;sync&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.11&lt;span class="w"&gt; &lt;/span&gt;--index-strategy&lt;span class="w"&gt; &lt;/span&gt;unsafe-best-match
+uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;build
+uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Key Benefits of This Approach&lt;/h2&gt;
+&lt;h3&gt;1. &lt;strong&gt;Systematic Task Management&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Instead of ad-hoc changes, every modification was tracked and purposeful.&lt;/p&gt;
+&lt;h3&gt;2. &lt;strong&gt;Modern Tooling&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;UV provides faster dependency resolution  &lt;/li&gt;
+&lt;li&gt;Better dependency locking with &lt;code&gt;uv.lock&lt;/code&gt;  &lt;/li&gt;
+&lt;li&gt;Improved virtual environment management  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. &lt;strong&gt;Code Quality Improvements&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;F-strings for better performance and readability  &lt;/li&gt;
+&lt;li&gt;Pathlib for modern file operations  &lt;/li&gt;
+&lt;li&gt;Proper import ordering  &lt;/li&gt;
+&lt;li&gt;Removed unused imports  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;4. &lt;strong&gt;Version Compatibility&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;The AI automatically resolved complex version conflicts that would have taken hours to debug manually.&lt;/p&gt;
+&lt;h2&gt;Running the Development Server&lt;/h2&gt;
+&lt;p&gt;With the modernized setup, running the development server is straightforward:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Build and serve the site&lt;/span&gt;
+uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;reserve
+
+&lt;span class="c1"&gt;# Or for live reload during development&lt;/span&gt;
+uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;livereload
+
+&lt;span class="c1"&gt;# Just build&lt;/span&gt;
+uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;invoke&lt;span class="w"&gt; &lt;/span&gt;build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The site now serves at &lt;code&gt;http://localhost:8000&lt;/code&gt; with automatic rebuilding capabilities.&lt;/p&gt;
+&lt;h2&gt;Lessons Learned&lt;/h2&gt;
+&lt;h3&gt;1. &lt;strong&gt;AI-Assisted Development is Powerful&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Having an AI that understands project context and can execute multi-step tasks is incredibly valuable for modernization projects.&lt;/p&gt;
+&lt;h3&gt;2. &lt;strong&gt;Systematic Approaches Work&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Breaking down complex upgrades into discrete, trackable tasks prevents mistakes and ensures completeness.&lt;/p&gt;
+&lt;h2&gt;Future Improvements&lt;/h2&gt;
+&lt;p&gt;With this foundation in place, future enhancements could include:&lt;br&gt;
+- Implementing automated testing for content. 
+- Adding GitHub Actions for deployment. 
+- Exploring newer Pelican themes. 
+- Adding MCP servers&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Vibe-Kanban transformed what could have been a tedious, error-prone modernization process into a systematic, well-documented upgrade. The combination of AI assistance and modern Python tooling like UV creates a powerful development workflow.&lt;/p&gt;
+&lt;p&gt;The key is providing clear goals and letting the AI handle the detailed implementation while maintaining oversight of the process. This approach scales well for any Python project modernization effort.&lt;/p&gt;</content><category term="Development"></category><category term="python"></category><category term="uv"></category><category term="pelican"></category><category term="static-site"></category><category term="vibe-kanban"></category><category term="modernization"></category></entry><entry><title>When Pytorch Datapipes Meets GCS</title><link href="https://sephib.github.io/when-pytorch-datapipes-meets-gcs.html" rel="alternate"></link><published>2022-07-06T00:00:00+03:00</published><updated>2022-07-06T00:00:00+03:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-07-06:/when-pytorch-datapipes-meets-gcs.html</id><summary type="html">&lt;p&gt;The reality when using pipeline infrastructure&lt;/p&gt;</summary><content type="html">&lt;!-- status: draft --&gt;
 
 &lt;p&gt;&lt;a rel="pytorch_gcs_logo"&gt;&lt;img src="images/Pytorch_GCS_logo.png" width=700 height=300 /&gt;&lt;/a&gt;  &lt;/p&gt;
 &lt;h1&gt;Background&lt;/h1&gt;
@@ -17,14 +165,12 @@
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;datapipe&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;Lets go over the various steps in the pipeline.&lt;/p&gt;
 &lt;h2&gt;Who care's about security&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;FSSpecFileLister&lt;/code&gt; is an object responsible for accessing the files in a filesystem.&lt;/p&gt;
 &lt;p&gt;In order to access the &lt;code&gt;GCS&lt;/code&gt; filesystem, Pytorch's &lt;code&gt;open_file_by_fsspec&lt;/code&gt; function uses the  &lt;a href="https://filesystem-spec.readthedocs.io/en/latest/"&gt;fsspec&lt;/a&gt; library with &lt;a href="https://github.com/pytorch/data/blob/cd38927904836f6f67ce33bfaee094fff4078402/torchdata/datapipes/iter/load/fsspec.py#L128"&gt;following code&lt;/a&gt;  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fsspec&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;url_to_fs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;The problem with this function is that it does not take into account the option to access secured buckets, i.e. how to pass credential for authentication in order to access private buckets - &lt;a href="https://discuss.pytorch.org/t/using-a-google-cloud-storage-bucket-for-dataset/146253"&gt;see thread on pytorch discuss forum&lt;/a&gt;.&lt;/li&gt;
@@ -37,7 +183,6 @@
         &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;protocol&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;protocol&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;BTW for &lt;code&gt;AWS S3&lt;/code&gt; there is a dedicated &lt;a href="https://pytorch.org/data/main/generated/torchdata.datapipes.iter.S3FileLister.html#torchdata.datapipes.iter.S3FileLister"&gt;S3FileListener handler&lt;/a&gt;&lt;/li&gt;
@@ -54,7 +199,6 @@
         &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;The &lt;code&gt;gfs&lt;/code&gt; is using the implementation of &lt;code&gt;fsspec&lt;/code&gt; for GCS - &lt;a href="https://gcsfs.readthedocs.io/en/latest/"&gt;gcsfs&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;In the next step we will create embeddings from our image stream. We used a wrapped &lt;a href="https://github.com/openai/CLIP"&gt;CLIP model&lt;/a&gt; (&lt;code&gt;image_processor&lt;/code&gt;). Note: it is always good practice to wrap modular functionality in order to allow for future replacement with a new model version.  &lt;/li&gt;
@@ -64,7 +208,6 @@
     &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;squeeze&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;numpy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tolist&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;Since we want to save the embeddings in a &lt;code&gt;parquet&lt;/code&gt; format, we will use the &lt;code&gt;post_process&lt;/code&gt; step for this purpose, while allowing to consume the embeddings as &lt;code&gt;pandas dataframe&lt;/code&gt;s.  &lt;/li&gt;
@@ -77,14 +220,12 @@
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_parquet&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;ul&gt;
 &lt;li&gt;Lastly, in our final step we will use the &lt;code&gt;save_by_fsspec&lt;/code&gt; method to save the embeddings back into a GCS bucket. Since we already fixed the &lt;code&gt;url_to_fs&lt;/code&gt; accessing the bucket is straight forward. All we need is to supply the target name of the file.  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;filepath_fn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;gs://bucket/folder/asset_&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.parq&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h1&gt;Additional Thoughts&lt;/h1&gt;
 &lt;ul&gt;
@@ -98,7 +239,7 @@ e.g. instead of calling &lt;code&gt;data[1]&lt;/code&gt; for the embedding - way
 &lt;/ul&gt;
 &lt;h1&gt;Summary&lt;/h1&gt;
 &lt;p&gt;As a strong advocate for embracing &lt;em&gt;pipelines&lt;/em&gt; whenever possible, the implementation of the various pipeline stages can be challenging.  &lt;/p&gt;
-&lt;p&gt;There is no place to accumulate any technical debt in the security realm - thus solving the secure access between &lt;code&gt;pytorch datapipe&lt;/code&gt;s  and &lt;code&gt;GCS&lt;/code&gt; will allow for code reuse and agility in future projects.&lt;/p&gt;</content><category term="posts pipeline"></category><category term="python pytorch GCP"></category></entry><entry><title>Reflection on 2021</title><link href="https://sephib.github.io/reflection-on-2021.html" rel="alternate"></link><published>2022-01-28T00:00:00+02:00</published><updated>2022-01-28T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-01-28:/reflection-on-2021.html</id><summary type="html">&lt;p&gt;Reflecting on the my 2021 journey&lt;/p&gt;</summary><content type="html">&lt;!-- Status: draft --&gt;
+&lt;p&gt;There is no place to accumulate any technical debt in the security realm - thus solving the secure access between &lt;code&gt;pytorch datapipe&lt;/code&gt;s  and &lt;code&gt;GCS&lt;/code&gt; will allow for code reuse and agility in future projects.&lt;/p&gt;</content><category term="posts pipeline"></category><category term="python pytorch GCP"></category></entry><entry><title>Reflection on 2021</title><link href="https://sephib.github.io/reflection-on-2021.html" rel="alternate"></link><published>2022-01-27T00:00:00+02:00</published><updated>2022-01-27T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-01-27:/reflection-on-2021.html</id><summary type="html">&lt;p&gt;Reflecting on the my 2021 journey&lt;/p&gt;</summary><content type="html">&lt;!-- Status: draft --&gt;
 
 &lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;The year 2021 has ended, and I thought that it is a good opportunity to reflect on the past year and the journey that I had taken. Since this time of year his also co-insides with my Birthday - so it is a double opportunity for such reflection.&lt;/p&gt;
@@ -1209,6 +1350,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
  .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
  .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
  .highlight pre  .gr { color: #E40000 } /* Generic.Error */
  .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
  .highlight pre  .gi { color: #008400 } /* Generic.Inserted */
@@ -2433,7 +2575,7 @@ Our class distribution is apporximately  60%, 25%, 15% between the lived, died, 
 }
 &lt;/script&gt;
 </content><category term="dataanalysis posts"></category><category term="python dataanalysis"></category></entry><entry><title>My 2cents worth after reviewing an academic project</title><link href="https://sephib.github.io/my-2cents-worth-after-reviewing-an-academic-project.html" rel="alternate"></link><published>2020-12-21T00:00:00+02:00</published><updated>2020-12-21T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2020-12-21:/my-2cents-worth-after-reviewing-an-academic-project.html</id><summary type="html">&lt;p&gt;My 2cents after reviewing an academic project&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Background&lt;/h1&gt;
-&lt;p&gt;Recently we had a completion of an R&amp;amp;D project with a prominent university. Although the results of the project were insightful and possibly applicable to our organization, the workflow that the academic R&amp;amp;D team used seemed inadequate.  &lt;/p&gt;
+&lt;p&gt;Recently we had a completion of an R&amp;amp;D project with a prominent university. Although the results of the project were insightful and possibly applicable to our organization, the workflow that the academic R&amp;amp;D team used seemed inadequate.   &lt;/p&gt;
 &lt;p&gt;In this post, I wish to highlight some simple steps that can assist in running Data Science (DS) projects (from the initiation until the deployment) by DS teams, especially those working without the support of specialized tools.  &lt;/p&gt;
 &lt;p&gt;I'm not going to go into the Project Management aspects but rather some tools and tips for any DS project.&lt;/p&gt;
 &lt;h1&gt;Setup&lt;/h1&gt;
@@ -3537,6 +3679,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
  .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
  .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
  .highlight pre  .gr { color: #E40000 } /* Generic.Error */
  .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
  .highlight pre  .gi { color: #008400 } /* Generic.Inserted */
@@ -4908,6 +5051,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
  .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
  .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
  .highlight pre  .gr { color: #E40000 } /* Generic.Error */
  .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
  .highlight pre  .gi { color: #008400 } /* Generic.Inserted */
@@ -6483,6 +6627,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
  .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
  .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
  .highlight pre  .gr { color: #E40000 } /* Generic.Error */
  .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
  .highlight pre  .gi { color: #008400 } /* Generic.Inserted */

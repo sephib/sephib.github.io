@@ -17,14 +17,12 @@
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;datapipe&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;Lets go over the various steps in the pipeline.&lt;/p&gt;
 &lt;h2&gt;Who care's about security&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;FSSpecFileLister&lt;/code&gt; is an object responsible for accessing the files in a filesystem.&lt;/p&gt;
 &lt;p&gt;In order to access the &lt;code&gt;GCS&lt;/code&gt; filesystem, Pytorch's &lt;code&gt;open_file_by_fsspec&lt;/code&gt; function uses the  &lt;a href="https://filesystem-spec.readthedocs.io/en/latest/"&gt;fsspec&lt;/a&gt; library with &lt;a href="https://github.com/pytorch/data/blob/cd38927904836f6f67ce33bfaee094fff4078402/torchdata/datapipes/iter/load/fsspec.py#L128"&gt;following code&lt;/a&gt;  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fsspec&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;url_to_fs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;The problem with this function is that it does not take into account the option to access secured buckets, i.e. how to pass credential for authentication in order to access private buckets - &lt;a href="https://discuss.pytorch.org/t/using-a-google-cloud-storage-bucket-for-dataset/146253"&gt;see thread on pytorch discuss forum&lt;/a&gt;.&lt;/li&gt;
@@ -37,7 +35,6 @@
         &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;protocol&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;protocol&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;BTW for &lt;code&gt;AWS S3&lt;/code&gt; there is a dedicated &lt;a href="https://pytorch.org/data/main/generated/torchdata.datapipes.iter.S3FileLister.html#torchdata.datapipes.iter.S3FileLister"&gt;S3FileListener handler&lt;/a&gt;&lt;/li&gt;
@@ -54,7 +51,6 @@
         &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;The &lt;code&gt;gfs&lt;/code&gt; is using the implementation of &lt;code&gt;fsspec&lt;/code&gt; for GCS - &lt;a href="https://gcsfs.readthedocs.io/en/latest/"&gt;gcsfs&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;In the next step we will create embeddings from our image stream. We used a wrapped &lt;a href="https://github.com/openai/CLIP"&gt;CLIP model&lt;/a&gt; (&lt;code&gt;image_processor&lt;/code&gt;). Note: it is always good practice to wrap modular functionality in order to allow for future replacement with a new model version.  &lt;/li&gt;
@@ -64,7 +60,6 @@
     &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;squeeze&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;numpy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tolist&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;ul&gt;
 &lt;li&gt;Since we want to save the embeddings in a &lt;code&gt;parquet&lt;/code&gt; format, we will use the &lt;code&gt;post_process&lt;/code&gt; step for this purpose, while allowing to consume the embeddings as &lt;code&gt;pandas dataframe&lt;/code&gt;s.  &lt;/li&gt;
@@ -77,14 +72,12 @@
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_parquet&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;ul&gt;
 &lt;li&gt;Lastly, in our final step we will use the &lt;code&gt;save_by_fsspec&lt;/code&gt; method to save the embeddings back into a GCS bucket. Since we already fixed the &lt;code&gt;url_to_fs&lt;/code&gt; accessing the bucket is straight forward. All we need is to supply the target name of the file.  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;filepath_fn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;gs://bucket/folder/asset_&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.parq&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 
 &lt;h1&gt;Additional Thoughts&lt;/h1&gt;
 &lt;ul&gt;

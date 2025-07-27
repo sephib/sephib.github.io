@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+
+<meta name="author" content="Joseph (Sephi) Berry" />
+<meta name="description" content="How I used Vibe-Kanban to upgrade my static site from traditional pip to modern UV package management while making the code more pythonic." />
+<meta name="keywords" content="python, uv, pelican, static-site, vibe-kanban, modernization">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="Modernizing a Static Site with UV and Vibe-Kanban: A Developer&#39;s Journey"/>
+<meta property="og:description" content="How I used Vibe-Kanban to upgrade my static site from traditional pip to modern UV package management while making the code more pythonic."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./modernizing-static-site-with-uv-and-vibe-kanban.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2025-01-27 00:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/joseph-sephi-berry.html">
+<meta property="article:section" content="Development"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="uv"/>
+<meta property="article:tag" content="pelican"/>
+<meta property="article:tag" content="static-site"/>
+<meta property="article:tag" content="vibe-kanban"/>
+<meta property="article:tag" content="modernization"/>
+<meta property="og:image" content="/images/avatar_osnx.png">
+
+  <title>Geo Berry &ndash; Modernizing a Static Site with UV and Vibe-Kanban: A Developer&#39;s Journey</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href=".">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
+      </a>
+      <h1><a href=".">Sephi's Blog</a></h1>
+
+<p>Data Engineer | Project Manager | Geo-Spatial Specialist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="./pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="modernizing-static-site-with-uv-and-vibe-kanban">Modernizing a Static Site with UV and Vibe-Kanban: A Developer's Journey</h1>
+    <p>
+          Posted on Mon 27 January 2025 in <a href="./category/development.html">Development</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h1>Introduction</h1>
+<p>Recently, I discovered <a href="https://www.vibekanban.com/">Vibe-Kanban</a>, a fascinating approach to task management that leverages AI assistance for project development. Today, I'll share how I used it to modernize my Pelican-based static website, transitioning from traditional Python package management to the modern UV tool while making the codebase more pythonic.</p>
+<p>In my daily work - I already use code assistance in many ways - mainly by giving context (building an outline of the tasks in a markdown document), and then executy the tasks (mainly using Claude and <a href="https://aider.chat/">Aider</a>). </p>
+<p>Working with the Vibe-Kanban was a very pleasant experience, here is what i was able to accomplish in aprox. 15 min (including this blog post). </p>
+<h2>What is Vibe-Kanban?</h2>
+<p>Vibe-Kanban is an AI-powered development workflow that combines task management with intelligent code assistance. It helps break down complex projects into manageable tasks while providing context-aware development support. The key benefit is having an AI assistant that understands your project structure and can execute multi-step tasks autonomously.</p>
+<h2>The Challenge: Legacy Python Project Setup</h2>
+<p>My static site was running on a typical legacy Python setup:<br>
+- <code>requirements.txt</code> for dependencies<br>
+- Python 3.12 (causing compatibility issues)<br>
+- Old-style string formatting and code patterns<br>
+- Manual dependency management  </p>
+<p>The goal was to modernize this setup using UV, Python's fastest package manager, while improving code quality.</p>
+<h2>Basic Steps to Use Vibe-Kanban</h2>
+<p>Here's how to get started with Vibe-Kanban for your own projects:</p>
+<h3>1. Set Up the Environment</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clone or access your project</span>
+<span class="nb">cd</span><span class="w"> </span>your-project
+
+<span class="c1"># Ensure you have Claude Code CLI available</span>
+<span class="c1"># Follow the setup instructions at https://docs.anthropic.com/claude-code</span>
+</code></pre></div>
+
+<h3>2. Define Your Upgrade Task</h3>
+<p>Instead of manually planning every step, you provide a high-level description:</p>
+<div class="highlight"><pre><span></span><code>Task title: upgrade static site
+Task description: Using UV update the project to be pythonic and updated.
+create a new branch before making any changes
+</code></pre></div>
+
+<h3>3. Let the AI Assistant Plan and Execute</h3>
+<p>The AI breaks down your task into manageable todos: <br>
+- Create new branch for upgrade.<br>
+- Analyze current project structure. <br>
+- Review existing dependencies and configuration.<br>
+- Migrate to uv package management.<br>
+- Update Python code to be more pythonic.<br>
+- Test the upgraded project.  </p>
+<h3>4. Monitor Progress</h3>
+<p>The AI provides real-time updates on task completion, ensuring nothing is missed.</p>
+<h3>5. Iterate</h3>
+<p>Add additional instructions as part of the review and let the agent run.</p>
+<h2>The Modernization Process</h2>
+<p>Here's what the AI accomplished during my website upgrade:</p>
+<h3>Branch Creation and Analysis</h3>
+<p>First, it created a new branch <code>upgrade-to-uv-pythonic</code> and analyzed the existing project structure, identifying:
+- Python files that needed updating
+- Dependency management files
+- Configuration files requiring modernization</p>
+<h3>UV Migration</h3>
+<p>The most significant change was migrating from <code>requirements.txt</code> to a modern <code>pyproject.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sephib-github-io&quot;</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Static site generator for Sephi&#39;s blog using Pelican&quot;</span>
+<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.10,&lt;3.12&quot;</span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;pelican&lt;=4.9.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;pelican-jupyter&gt;=0.10.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="err">]</span>
+
+<span class="k">[tool.uv]</span>
+<span class="n">dev-dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;pytest&gt;=7.0.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;ruff&gt;=0.1.0&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3>Code Modernization</h3>
+<p>The AI systematically updated the codebase to be more pythonic, for example:</p>
+<p><strong>Before:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;commit_message&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;Publish site on </span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()),</span>
+</code></pre></div>
+
+<p><strong>After:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;commit_message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&#39;Publish site on </span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+</code></pre></div>
+
+<p><strong>Before:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;deploy_path&quot;</span><span class="p">]):</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;deploy_path&quot;</span><span class="p">])</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;deploy_path&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<p><strong>After:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">deploy_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">[</span><span class="s2">&quot;deploy_path&quot;</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">deploy_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">deploy_path</span><span class="p">)</span>
+    <span class="n">deploy_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Dependency Resolution</h3>
+<p>One of the trickiest parts was resolving version conflicts between packages. The AI:<br>
+- Identified compatibility issues between Jinja2, Pelican, and nbconvert <br>
+- Adjusted Python version requirements from 3.12 to 3.10-3.11 <br>
+- Fixed plugin configurations that were causing build failures   </p>
+<h3>Testing and Validation</h3>
+<p>Finally, the AI tested the entire setup:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.11<span class="w"> </span>--index-strategy<span class="w"> </span>unsafe-best-match
+uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>build
+uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>serve
+</code></pre></div>
+
+<h2>Key Benefits of This Approach</h2>
+<h3>1. <strong>Systematic Task Management</strong></h3>
+<p>Instead of ad-hoc changes, every modification was tracked and purposeful.</p>
+<h3>2. <strong>Modern Tooling</strong></h3>
+<ul>
+<li>UV provides faster dependency resolution  </li>
+<li>Better dependency locking with <code>uv.lock</code>  </li>
+<li>Improved virtual environment management  </li>
+</ul>
+<h3>3. <strong>Code Quality Improvements</strong></h3>
+<ul>
+<li>F-strings for better performance and readability  </li>
+<li>Pathlib for modern file operations  </li>
+<li>Proper import ordering  </li>
+<li>Removed unused imports  </li>
+</ul>
+<h3>4. <strong>Version Compatibility</strong></h3>
+<p>The AI automatically resolved complex version conflicts that would have taken hours to debug manually.</p>
+<h2>Running the Development Server</h2>
+<p>With the modernized setup, running the development server is straightforward:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build and serve the site</span>
+uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>reserve
+
+<span class="c1"># Or for live reload during development</span>
+uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>livereload
+
+<span class="c1"># Just build</span>
+uv<span class="w"> </span>run<span class="w"> </span>invoke<span class="w"> </span>build
+</code></pre></div>
+
+<p>The site now serves at <code>http://localhost:8000</code> with automatic rebuilding capabilities.</p>
+<h2>Lessons Learned</h2>
+<h3>1. <strong>AI-Assisted Development is Powerful</strong></h3>
+<p>Having an AI that understands project context and can execute multi-step tasks is incredibly valuable for modernization projects.</p>
+<h3>2. <strong>Systematic Approaches Work</strong></h3>
+<p>Breaking down complex upgrades into discrete, trackable tasks prevents mistakes and ensures completeness.</p>
+<h2>Future Improvements</h2>
+<p>With this foundation in place, future enhancements could include:<br>
+- Implementing automated testing for content. 
+- Adding GitHub Actions for deployment. 
+- Exploring newer Pelican themes. 
+- Adding MCP servers</p>
+<h2>Conclusion</h2>
+<p>Vibe-Kanban transformed what could have been a tedious, error-prone modernization process into a systematic, well-documented upgrade. The combination of AI assistance and modern Python tooling like UV creates a powerful development workflow.</p>
+<p>The key is providing clear goals and letting the AI handle the detailed implementation while maintaining oversight of the process. This approach scales well for any Python project modernization effort.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/python.html">python</a>
+      <a href="./tag/uv.html">uv</a>
+      <a href="./tag/pelican.html">pelican</a>
+      <a href="./tag/static-site.html">static-site</a>
+      <a href="./tag/vibe-kanban.html">vibe-kanban</a>
+      <a href="./tag/modernization.html">modernization</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : ".",
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>

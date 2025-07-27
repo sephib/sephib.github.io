@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="../theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+
+
+<meta name="author" content="Sephi Berry" />
+<meta name="description" content="GeoSpatial infrestructure elemtnst to take into account in 2024" />
+<meta name="keywords" content="geospatial">
+
+<meta property="og:site_name" content="Geo Berry"/>
+<meta property="og:title" content="GeoSpatial Infrestructure in 2024"/>
+<meta property="og:description" content="GeoSpatial infrestructure elemtnst to take into account in 2024"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../drafts/geospatial-infrestructure-in-2024.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-11-05 00:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="../author/sephi-berry.html">
+<meta property="article:section" content="posts"/>
+<meta property="article:tag" content="geospatial"/>
+<meta property="og:image" content="/images/avatar_osnx.png">
+
+  <title>Geo Berry &ndash; GeoSpatial Infrestructure in 2024</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="..">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
+      </a>
+      <h1><a href="..">Sephi's Blog</a></h1>
+
+<p>Data Engineer | Project Manager | Geo-Spatial Specialist</p>
+      <nav>
+        <ul class="list">
+          <li><a href="../pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="geospatial-infrestructure-in-2024">GeoSpatial Infrestructure in 2024</h1>
+    <p>
+          Posted on Tue 05 November 2024 in <a href="../category/posts.html">posts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h1>Outline</h1>
+<ol>
+<li>Intro</li>
+<li>Challenges</li>
+<li>road map</li>
+<li>tools</li>
+</ol>
+<h1>Introduction</h1>
+<p>Joining <a href="fairmatic.com">fairmatic</a> allowed me to come back to work on geospatail data. In this post i'll go over the various elements that need to be taken into account when building an insfrestructure that needs to support ML models.<br>
+Building a robust and scalable geospatial infrastructure is crucial for processing and analyzing location-based data. In this design, we'll create an efficient system for handling GPS data and enriching it with geospatial information.</p>
+<h1>Data Sources</h1>
+<h2>Trip data</h2>
+<p>As mentioned, the raw data consists of GPS/trip data from various sources, including raw telematics data and data providers - e.g. <a href="https://www.withterminal.com/">terminal</a>. This heterogeneous data needs to be validated, standardized, and organized into a consistent format for further processing.</p>
+<h2>Geospatial Data</h2>
+<p>To enrich the GPS data, we'll initially use geospatial data from sources like OpenStreetMap (OSM). This data will provide information about the road network, infrastructure, zonal usage, and other relevant features that can be used to enhance the GPS data.</p>
+<h1>Data Processing</h1>
+<h2>GPS processing</h2>
+<p><strong>Stage 1: Data Validation and Standardization</strong>
+- Ingest the raw GPS data and perform initial validation and basic statistics, such as checking for missing values, outliers, and inconsistencies. ( Use python DuckDB ?)
+- Standardize the data format to a common FM schema that will be used throughout the processing pipeline.</p>
+<p><strong>Stage 2: Trip &amp; Event Identification</strong>
+Using the processed GPS data, we can engineer various features that provide insights into the trips and driver behavior, such as:</p>
+<ul>
+<li>Detect <em>events</em> in the data. (Does this require external data?)</li>
+<li>Group the GPS points into valid trips based on the road network.</li>
+<li>Speed profiles (average speed, max speed, acceleration, deceleration)</li>
+<li>Driving patterns (sudden turns, lane changes, stop-start behavior)</li>
+<li>Temporal features (time of day, day of week, holiday/weekend)</li>
+<li>Route characteristics (distance, duration, route complexity)</li>
+</ul>
+<p><strong>Stage 3: Data Enrichment</strong>
+To further enrich the GPS data, we can join it with the geospatial data from sources like OpenStreetMap (OSM) to add contextual features, such as:</p>
+<ul>
+<li>Perform spatial operations and intersections with the road network data to identify trip boundaries.</li>
+<li>Generate trip stats with internal GPS properties, such as speed, acceleration, and direction.</li>
+<li>Join the trip data with the geospatial data (e.g., OSM) to add contextual information about the trip, such as road type, land use, and points of interest.</li>
+<li>Road type (highway, residential, etc.)</li>
+<li>Road geometry (curvature, slope, number of lanes)</li>
+<li>Land use (residential, commercial, industrial, etc.)</li>
+<li>Points of interest (proximity to restaurants, stores, schools, etc.)</li>
+<li>Traffic patterns (congestion levels, speed limits)</li>
+</ul>
+<h2>Geospatial Processing</h2>
+<p>we should design the system to allow for other spatial data providers (decoupling the infrustracutre).
+- Standerdize  geospatial data (e.g., OSM data) into FM standard.
+- Query and process the geospatial data, taking advantage of its efficient columnar storage and SQL-based interface.
+- Perform spatial operations and analysis on the geospatial data, such as spatial joins, buffer calculations, and network analysis.</p>
+<h2>Nate idea Ideas</h2>
+<ol>
+<li>enrich with the data attributes with the telematics experience</li>
+<li>land use - type of business - ESRI density of type of business or density of repare shops</li>
+<li>Road features  - road condistions - topographic/slope/</li>
+<li>Vegitation - line of sight</li>
+<li>census block group - zipcode code</li>
+<li></li>
+</ol>
+<p>Data Access Tooling
+1. IO access to redshift / s3
+  2. DWH
+  3. Data LAKE
+  4. Data Lenieage - from ML experiment to file</p>
+<h3>Data platform/tiers for the team</h3>
+<ol>
+<li>Extract Business Logic / experiments into DWH</li>
+<li>
+<p>How to tap into companies DBT</p>
+</li>
+<li>
+<p>Data quality enhancement</p>
+</li>
+<li>Greate Expectations</li>
+<li></li>
+</ol>
+<h3>Data processing + practice for storing the outputs</h3>
+<ol>
+<li>Data exploration</li>
+<li>If required for heavy </li>
+</ol>
+<h3>Model experimentation</h3>
+<ol>
+<li>tracking and evaluation workflow</li>
+<li>Model training </li>
+</ol>
+<h2>Orchestration tool to enable more capabilities</h2>
+<ol>
+<li>How do bring the benefits of CICD to our ML team workflow (genkins)</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="../tag/geospatial.html">geospatial</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Geo Berry ",
+  "url" : "..",
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
+}
+</script>
+
+</body>
+</html>
