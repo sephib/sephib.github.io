@@ -1,65 +1,72 @@
-#%%
-msg = "hello"
-print(msg)
-
-#%%
-import numpy as np
+# %%
 import matplotlib.pyplot as plt
-
-# Generate a mixture of two normal distributions, but with
-# very few data points.
-np.random.seed(3)
-mx1 = np.random.normal(loc=0, scale=1, size=20)
-mx2 = np.random.normal(loc=2, scale=1, size=20)
-mx = np.concatenate([mx1, mx2, [5], [-4]])  # one outlier
-
-def ecdf(data):
-    x, y = np.sort(data), np.arange(1, len(data)+1) / len(data)
-    return x, y
-
-fig = plt.figure(figsize=(8, 4))
-ax_ecdf = fig.add_subplot(121)
-ax_hist = fig.add_subplot(122)
-ax_hist.set_title('histogram')
-
-ax_hist.hist(mx)
-
-x, y = ecdf(mx)
-ax_ecdf.scatter(x, y)
-ax_ecdf.set_title('ecdf')
+import numpy as np
+import pandas as pd
+from bokeh.plotting import figure
 
 # %%
-# make plot ONLY with bokeh
+np.random.seed(3)
+distribution_1 = np.random.normal(loc=0, scale=1, size=20)
+distribution_2 = np.random.normal(loc=2, scale=1, size=20)
+mixed_data = np.concatenate([distribution_1, distribution_2, [5], [-4]])
 
-def make_plot(title, hist, edges, x,  cdf):
-    p = figure(title=title, tools='', background_fill_color="#fafafa")
-    p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
-           fill_color="navy", line_color="white", alpha=0.5)
-    p.line(x, cdf, line_color="orange", line_width=2, alpha=0.7, legend_label="CDF")
 
-    p.y_range.start = 0
-    p.legend.location = "center_right"
-    p.legend.background_fill_color = "#fefefe"
-    p.xaxis.axis_label = 'x'
-    p.yaxis.axis_label = 'Pr(x)'
-    p.grid.grid_line_color="white"
-    return p
+def empirical_cdf(data):
+    """Calculate empirical cumulative distribution function."""
+    sorted_data = np.sort(data)
+    cumulative_prob = np.arange(1, len(data) + 1) / len(data)
+    return sorted_data, cumulative_prob
 
-#%%
-# primary = hv.Curve((df.index, df.cdf), label='CDF').opts(width=400, show_grid=True, framewise=True)
 
-secondary =(hv.Histogram((df.index, df["values_in_bin"].tolist()), )).opts(width=400, color='red', show_grid=True, framewise=True, hooks=[plot_secondary])
-# primary
-secondary
+fig, (ax_ecdf, ax_hist) = plt.subplots(1, 2, figsize=(12, 4))
 
-pd.cut(autompg.mpg, bins=30).map(lambda x: x.left)
+ax_hist.hist(mixed_data)
+ax_hist.set_title('Histogram')
 
-out, bins  = pd.cut(autompg.mpg, bins=30, include_lowest=True, right=False, retbins=True)
-out, bins
+x_values, y_values = empirical_cdf(mixed_data)
+ax_ecdf.scatter(x_values, y_values)
+ax_ecdf.set_title('Empirical CDF')
 
-label = "Normal Distribution (μ=0, σ=0.5)"
-mu, sigma = 0, 0.5
+# %%
 
-measured = np.random.normal(mu, sigma, 1000)
-hist = np.histogram(measured, density=False, bins=50)
-pd.DataFrame.from_records(hist).T
+
+def create_bokeh_plot(title, histogram_data, bin_edges, x_data, cdf_data):
+    """Create a bokeh plot with histogram and CDF overlay."""
+    plot = figure(title=title, tools='', background_fill_color="#fafafa")
+    
+    plot.quad(
+        top=histogram_data, 
+        bottom=0, 
+        left=bin_edges[:-1], 
+        right=bin_edges[1:],
+        fill_color="navy", 
+        line_color="white", 
+        alpha=0.5
+    )
+    
+    plot.line(
+        x_data, 
+        cdf_data, 
+        line_color="orange", 
+        line_width=2, 
+        alpha=0.7, 
+        legend_label="CDF"
+    )
+    
+    plot.y_range.start = 0
+    plot.legend.location = "center_right"
+    plot.legend.background_fill_color = "#fefefe"
+    plot.xaxis.axis_label = 'x'
+    plot.yaxis.axis_label = 'Pr(x)'
+    plot.grid.grid_line_color = "white"
+    
+    return plot
+
+
+# %%
+NORMAL_DIST_LABEL = "Normal Distribution (μ=0, σ=0.5)"
+MU, SIGMA = 0, 0.5
+
+normal_samples = np.random.normal(MU, SIGMA, 1000)
+histogram_data, bin_edges = np.histogram(normal_samples, density=False, bins=50)
+histogram_df = pd.DataFrame({'histogram': histogram_data, 'bins': bin_edges[:-1]})
