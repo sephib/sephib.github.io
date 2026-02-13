@@ -141,3 +141,4 @@ temp/
 .history/
 .direnv/
 .DS_Store
+docs/AUTHOR_PERSONA.md
