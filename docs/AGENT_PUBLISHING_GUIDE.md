@@ -11,10 +11,15 @@ on this Pelican-based static site.
 
 | Action | Command |
 |--------|---------|
-| Build site | `make html` |
-| Preview locally | `make serve` (http://localhost:8000) |
-| Build for production | `make publish` |
-| Deploy to GitHub Pages | `make github` |
+| Build site | `just build` |
+| Preview locally | `just serve` (http://localhost:8000) |
+| Build for production | `just publish` |
+| Deploy to GitHub Pages | `just deploy` |
+| Spell check all files | `just spellcheck` (or `just sp`) |
+| Spell check specific file | `just sp content/my_post.md` |
+| Spell check with fixes | `just spellcheck-fix` (or `just spf`) |
+| Review (spellcheck + build) | `just review` |
+| Full deploy workflow | `just deploy-full` |
 
 ---
 
@@ -152,25 +157,13 @@ Two methods to mark a post as draft:
 
 ```bash
 # Build the site
-make html
+just build
 
-# Serve locally with auto-rebuild
-make devserver
-
-# Or build and serve separately
-make html && make serve
+# Serve locally with live reload
+just serve
 ```
 
 Visit http://localhost:8000 to preview.
-
-### Alternative (using invoke/uv)
-
-```bash
-uv run invoke build
-uv run invoke serve
-# Or with live reload
-uv run invoke livereload
-```
 
 ---
 
@@ -179,20 +172,21 @@ uv run invoke livereload
 ### Step-by-Step
 
 1. **Create/edit content** in `/content/`
-2. **Preview locally:** `make html && make serve`
+2. **Preview locally:** `just serve`
 3. **Verify** the post renders correctly at http://localhost:8000
 4. **Commit changes** to the `dev` branch
 5. **Publish:**
 
 ```bash
-make publish   # Build with production settings
-make github    # Deploy to GitHub Pages
+just deploy        # Build with production settings and deploy
+# Or with spell check:
+just deploy-full   # Spell check, build, and deploy
 ```
 
 ### What Happens on Publish
 
-1. `make publish` - Generates site with `publishconf.py` (enables feeds, sets SITEURL)
-2. `make github` - Uses `ghp-import` to push `/output/` to `master` branch
+1. `just publish` - Generates site with `publishconf.py` (enables feeds, sets SITEURL)
+2. `just deploy` - Uses `ghp-import` to push `/output/` to `master` branch
 3. GitHub Pages serves content from `master` at https://sephib.github.io
 
 ---
@@ -211,7 +205,35 @@ Before committing:
 - [ ] Post has valid frontmatter (Title, Date, Author, Category)
 - [ ] Local preview renders correctly
 - [ ] No broken links or missing images
-- [ ] Spell-check content
+- [ ] Spell-check content (`just sp` or automated via pre-commit)
+
+### Pre-commit Hooks
+
+This project uses pre-commit hooks for automated spell checking.
+
+**Setup (one-time):**
+
+```bash
+uv sync
+uv run pre-commit install
+```
+
+**Manual spell check:**
+
+```bash
+just spellcheck              # Check all content files
+just sp content/my_post.md   # Check specific file
+just spellcheck-fix          # Interactive fix mode (or just spf)
+```
+
+**Adding words to ignore list:**
+
+Edit `.pre-commit-config.yaml` and add words to `--ignore-words-list`:
+
+```yaml
+args:
+  - --ignore-words-list=word1,word2
+```
 
 ---
 
@@ -252,8 +274,8 @@ Before committing:
 
 ```bash
 # Clean and rebuild
-make clean
-make html
+just clean
+just build
 ```
 
 ---
@@ -265,7 +287,7 @@ make html
 | `pelicanconf.py` | Development settings |
 | `publishconf.py` | Production settings (extends pelicanconf) |
 | `pyproject.toml` | Python dependencies |
-| `Makefile` | Build commands |
+| `justfile` | Build commands (run with `just <command>`) |
 
 ---
 
@@ -276,11 +298,12 @@ When publishing a new post:
 ```
 [ ] 1. Create markdown file in /content/ with proper frontmatter
 [ ] 2. Add any images to /content/images/
-[ ] 3. Run: make html && make serve
-[ ] 4. Verify post at http://localhost:8000
-[ ] 5. Git commit changes to dev branch
-[ ] 6. Run: make publish && make github
-[ ] 7. Verify live at https://sephib.github.io
+[ ] 3. Run: just sp content/my_post.md (spell check)
+[ ] 4. Run: just serve
+[ ] 5. Verify post at http://localhost:8000
+[ ] 6. Git commit changes to dev branch
+[ ] 7. Run: just deploy
+[ ] 8. Verify live at https://sephib.github.io
 ```
 
 ---
@@ -302,15 +325,18 @@ Summary: A brief summary of this post.
 This is my new blog post content...
 EOF
 
-# 2. Preview
-make html && make serve
+# 2. Spell check
+just sp content/my_new_post.md
 
-# 3. After verification, commit
+# 3. Preview
+just serve
+
+# 4. After verification, commit
 git add content/my_new_post.md
 git commit -m "feat(blog): add new post about topic
 
 Assisted-by: Claude"
 
-# 4. Publish
-make publish && make github
+# 5. Deploy
+just deploy
 ```
