@@ -1,6 +1,6 @@
 ---
 Title: Agent Dailies and the Flipped Development Cycle
-Date: 2025-01-22
+Date: 2026-02-15
 Author: Sephi Berry
 Category: posts
 Tags: ai-agents, agile, scrum, workflow, agentic engineer
