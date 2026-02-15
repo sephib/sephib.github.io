@@ -8,14 +8,13 @@ Summary: Why your daily standup needs to include what your AI agents did last ni
 status: draft
 ---
 
-# TLDR - 
-After my nightly rest and while thinking about my day ahead, I realized that the usage of dailies in the current paradigm may need to be flipped.
-Human still must be in the gate for reviewes - but in this transition times we need to verify that our workflows and effort are directed into the right place . we need to Report about the agents work during the night and our work during the day. This will verify that all the resources are utilized in the optimal manner.
+# TL;DR - 
+After my nightly rest and while thinking about my day ahead, I realized that the current "daily standup meetings" in the current paradigm may need to be flipped. We are used to update on our (developer) progress , but we probably need now to report on the progress of the agents that have been running for the past 24 ours. 
+Our currnet challange is to optimize the _Human In The Loop_ workflow and provide the relevant context to the agent in an efficient and timely manner.
 
 
 # My Aaha moment in my morning shower
 
-After my nightly rest and while thinking about my day ahead, I realized that the usage of dailies in the current paradigm may need to be flipped.
 If you're still treating AI coding agents as glorified autocomplete, you're missing the architectural shift: agents don't sleep, don't take weekends, and don't have "flow state" limitations. The real productivity unlock isn't making developers faster during their 8-hour window—it's inverting the workflow so human "prime time" is spent on verification, steering, and complex decision-making while agents churn through backlogged tasks overnight.
 
 # Historical Context: From Scrum Rituals to Asynchronous Collaboration
