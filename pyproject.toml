@@ -37,4 +37,6 @@ only-include = ["tasks.py", "pelicanconf.py", "publishconf.py", "content/", "the
 dev-dependencies = [
     "pytest>=7.0.0",
     "ruff>=0.1.0",
+    "pre-commit>=3.6.0",
+    "codespell>=2.2.6",
 ]

@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        files: ^content/.*\.(md|rst)$
+        args:
+          - --skip=*.ipynb,*.html
+          # Add false positives to ignore list as needed:
+          # - --ignore-words-list=word1,word2
