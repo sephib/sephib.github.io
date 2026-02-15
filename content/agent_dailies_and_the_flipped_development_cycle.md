@@ -3,9 +3,9 @@ Title: Agent Dailies and the Flipped Development Cycle
 Date: 2025-01-22
 Author: Sephi Berry
 Category: posts
-Tags: ai-agents, agile, scrum, workflow, automation
+Tags: ai-agents, agile, scrum, workflow, agentic engineer
 Summary: Why your daily standup needs to include what your AI agents did last night—and how inverting the developer-agent workflow mirrors the flipped classroom revolution.
-status: draft
+status: published
 ---
 
 # TL;DR - 
