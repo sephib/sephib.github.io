@@ -41,7 +41,7 @@ The problem emerges when you have:
 - **Automated worktree creation** (CI/CD, orchestration platforms)
 - **Bare repositories** (modern tooling like Agor, GitLab runners, GitHub Actions)
 
-We used to solve "environment per branch" by checking in `.env.example` and copying it manually. Then once the `.env` was configured - any brachn in that was in the folder had an up-to-date `.env` file. But now when we have a seperate folder for each branch - we need to manually copy th `.env` whenever we create a new _git worktree_
+We used to solve "environment per branch" by checking in `.env.example` and copying it manually. Then once the `.env` was configured - any branch in that was in the folder had an up-to-date `.env` file. But now when we have a separate folder for each branch - we need to manually copy the `.env` whenever we create a new _git worktree_
 
 Let's fix it.
 
