@@ -5,7 +5,6 @@ Author: Sephi Berry
 Category: posts
 Tags: git, worktrees, automation, devops, agor
 Summary: Git worktrees respect .gitignore — which means they don't have .env files from the bare git cloned repo. Here's a bash hook that fixed this.
-status: draft
 ---
 
 # The Moment I Automated Away
