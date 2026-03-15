@@ -1,5 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - posts</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2026-02-15T00:00:00+02:00</updated><subtitle>ML / Data Engineer | Project Manager | Geo-Spatial Specialist</subtitle><entry><title>Agent Dailies and the Flipped Development Cycle</title><link href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html" rel="alternate"></link><published>2026-02-15T00:00:00+02:00</published><updated>2026-02-15T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2026-02-15:/agent-dailies-and-the-flipped-development-cycle.html</id><summary type="html">&lt;p&gt;Why your daily standup needs to include what your AI agents did last night—and how inverting the developer-agent workflow mirrors the flipped classroom revolution.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TL;DR -&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geo Berry - posts</title><link href="https://sephib.github.io/" rel="alternate"></link><link href="https://sephib.github.io/feeds/posts.atom.xml" rel="self"></link><id>https://sephib.github.io/</id><updated>2026-03-12T00:00:00+02:00</updated><subtitle>ML / Data Engineer | Project Manager | Geo-Spatial Specialist</subtitle><entry><title>Automating .env Files in Git Worktrees</title><link href="https://sephib.github.io/automating-env-files-in-git-worktrees.html" rel="alternate"></link><published>2026-03-12T00:00:00+02:00</published><updated>2026-03-12T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2026-03-12:/automating-env-files-in-git-worktrees.html</id><summary type="html">&lt;p&gt;Git worktrees respect .gitignore — which means they don't have .env files from the bare git cloned repo. Here's a bash hook that fixed this.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Moment I Automated Away&lt;/h1&gt;
+&lt;p&gt;It's 11:47 PM. I've just spun up my fourth worktree of the day to review a PR before bed. Run the tests. They fail.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Error&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DATABASE_URL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;is&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;defined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Again.&lt;/p&gt;
+&lt;p&gt;For the fourth time today, I've forgotten to copy &lt;code&gt;.env&lt;/code&gt; files to the new worktree. I spend 90 seconds finding the repository path (because Agor uses bare repos), another 30 seconds copying the files, and—crucially—I've lost the mental thread of what I was reviewing.&lt;/p&gt;
+&lt;p&gt;When you're using tools like &lt;a href="https://agor.live"&gt;Agor&lt;/a&gt; that create git worktrees automatically for each agent task, manual environment propagation becomes untenable.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1&gt;Why Git Worktrees Don't Copy .env Files (And Why That's Correct)&lt;/h1&gt;
+&lt;p&gt;Git worktrees solve a problem we've had since 2010: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;project/
+├── main/           # main branch worktree
+├── feature-auth/   # feature branch worktree
+└── .git/           # shared git metadata
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But worktrees inherit a design decision from &lt;code&gt;git checkout&lt;/code&gt;: &lt;strong&gt;they respect &lt;code&gt;.gitignore&lt;/code&gt;&lt;/strong&gt;. This is architecturally correct—gitignored files are local configuration, not source code. They shouldn't propagate automatically.&lt;/p&gt;
+&lt;p&gt;The problem emerges when you have:
+- &lt;strong&gt;Multiple environment files&lt;/strong&gt; (&lt;code&gt;.env&lt;/code&gt;, &lt;code&gt;.env.test&lt;/code&gt;, &lt;code&gt;.env.staging&lt;/code&gt;)
+- &lt;strong&gt;Automated worktree creation&lt;/strong&gt; (CI/CD, orchestration platforms)
+- &lt;strong&gt;Bare repositories&lt;/strong&gt; (modern tooling like Agor, GitLab runners, GitHub Actions)&lt;/p&gt;
+&lt;p&gt;We used to solve "environment per branch" by checking in &lt;code&gt;.env.example&lt;/code&gt; and copying it manually. Then once the &lt;code&gt;.env&lt;/code&gt; was configured - any branch in that was in the folder had an up-to-date &lt;code&gt;.env&lt;/code&gt; file. But now when we have a separate folder for each branch - we need to manually copy the &lt;code&gt;.env&lt;/code&gt; whenever we create a new &lt;em&gt;git worktree&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Let's fix it.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1&gt;Global Git Hook (Zero-Touch Automation)&lt;/h1&gt;
+&lt;p&gt;A &lt;code&gt;post-checkout&lt;/code&gt; hook that runs automatically when worktrees are created.&lt;/p&gt;
+&lt;h3&gt;The Hook Architecture&lt;/h3&gt;
+&lt;p&gt;Git provides hooks—scripts that run at specific lifecycle events. &lt;code&gt;post-checkout&lt;/code&gt; runs after any checkout operation, including worktree creation. We can detect worktrees by comparing two git internals:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;--git-common-dir&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="c1"&gt;# The shared .git directory (main repo)&lt;/span&gt;
+--git-dir&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="c1"&gt;# The current .git directory (worktree-specific)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In a regular repo, these paths are identical. In a worktree, they differ:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;# Main repo
+$ git rev-parse --git-common-dir
+~/.agor/repos/my-repo/.git
+
+$ git rev-parse --git-dir
+~/.agor/repos/my-repo/.git  # Same!
+
+# Worktree
+$ git rev-parse --git-common-dir
+~/.agor/repos/my-repo/.git  # Points to main
+
+$ git rev-parse --git-dir
+~/.agor/worktrees/my-repo/feature-x/.git  # Different!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When they differ, we know we're in a worktree. Then we can copy &lt;code&gt;.env&lt;/code&gt; files from the main repo.&lt;/p&gt;
+&lt;h3&gt;Setup (One-Time)&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Create global hooks directory&lt;/span&gt;
+mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;~/.git-hooks
+
+&lt;span class="c1"&gt;# Tell git to use it for all repos&lt;/span&gt;
+git&lt;span class="w"&gt; &lt;/span&gt;config&lt;span class="w"&gt; &lt;/span&gt;--global&lt;span class="w"&gt; &lt;/span&gt;core.hooksPath&lt;span class="w"&gt; &lt;/span&gt;~/.git-hooks
+
+&lt;span class="c1"&gt;# Create the hook&lt;/span&gt;
+touch&lt;span class="w"&gt; &lt;/span&gt;~/.git-hooks/post-checkout
+chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;~/.git-hooks/post-checkout
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;The Hook Implementation&lt;/h3&gt;
+&lt;p&gt;Here's the full script with inline commentary on the critical decisions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="c1"&gt;# Global git hook: automatically copy .env files to new worktrees&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Get paths to git directories&lt;/span&gt;
+&lt;span class="nv"&gt;MAIN_REPO_PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;rev-parse&lt;span class="w"&gt; &lt;/span&gt;--git-common-dir&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;CURRENT_PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;rev-parse&lt;span class="w"&gt; &lt;/span&gt;--git-dir&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Detect if we&amp;#39;re in a worktree (paths differ)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$MAIN_REPO_PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;!&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$CURRENT_PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Get filesystem paths (not .git internals)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;MAIN_REPO_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;dirname&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$MAIN_REPO_PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;WORKTREE_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;rev-parse&lt;span class="w"&gt; &lt;/span&gt;--show-toplevel&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;🔧 Git worktree detected - checking for .env files to copy...&amp;quot;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Find all .env files in main repo&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# maxdepth 3: prevents performance death in monorepos&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# 2&amp;gt;/dev/null: suppress errors in repos without .env files&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;env_files&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;find&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$MAIN_REPO_ROOT&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-maxdepth&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-name&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.env*&amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-type&lt;span class="w"&gt; &lt;/span&gt;f&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$env_files&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;read&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;env_file&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# Get relative path (e.g., &amp;quot;.env&amp;quot; or &amp;quot;apps/web/.env&amp;quot;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;rel_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;env_file&lt;/span&gt;&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="nv"&gt;$MAIN_REPO_ROOT&lt;/span&gt;&lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# CRITICAL: Check gitignore from worktree context&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# This is the line that makes it work with bare repositories&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$WORKTREE_ROOT&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;check-ignore&lt;span class="w"&gt; &lt;/span&gt;-q&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$rel_path&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nv"&gt;target&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$WORKTREE_ROOT&lt;/span&gt;&lt;span class="s2"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;$rel_path&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="c1"&gt;# Only copy if file doesn&amp;#39;t exist (respect manual configs)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;!&lt;span class="w"&gt; &lt;/span&gt;-f&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$target&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;-p&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;dirname&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$target&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;cp&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$env_file&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$target&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;  ✓ Copied &lt;/span&gt;&lt;span class="nv"&gt;$rel_path&lt;/span&gt;&lt;span class="s2"&gt; to worktree&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;✅ .env setup complete for worktree&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Why the &lt;code&gt;cd $WORKTREE_ROOT&lt;/code&gt; Matters&lt;/h3&gt;
+&lt;p&gt;The most important line in this script is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$WORKTREE_ROOT&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;check-ignore&lt;span class="w"&gt; &lt;/span&gt;-q&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$rel_path&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Why run &lt;code&gt;git check-ignore&lt;/code&gt; from the worktree context instead of the current directory?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bare repositories don't have a working tree.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you're using Agor, GitLab CI, or GitHub Actions with worktrees, you're dealing with bare repos:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="na"&gt;.agor&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;repos&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;my-repo&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;.git&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="c1"&gt;# Bare repo (no checkout)&lt;/span&gt;
+&lt;span class="na"&gt;.agor&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;worktrees&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;my-repo&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;main&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Worktree (has checkout)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If you try to run &lt;code&gt;git check-ignore&lt;/code&gt; from a bare repo directory, git fails:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;.agor/repos/my-repo/.git
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;check-ignore&lt;span class="w"&gt; &lt;/span&gt;.env
+fatal:&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&gt;operation&lt;span class="w"&gt; &lt;/span&gt;must&lt;span class="w"&gt; &lt;/span&gt;be&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;a&lt;span class="w"&gt; &lt;/span&gt;work&lt;span class="w"&gt; &lt;/span&gt;tree
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;By switching to the worktree context with &lt;code&gt;cd "$WORKTREE_ROOT"&lt;/code&gt;, we sidestep this entirely. The worktree &lt;em&gt;does&lt;/em&gt; have a working tree, so it can evaluate &lt;code&gt;.gitignore&lt;/code&gt; rules.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lesson:&lt;/strong&gt; Always validate that your automation did what you think it did. Don't trust exit codes—check the filesystem.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1&gt;The Battle Scars: What They Don't Tell You About Global Hooks&lt;/h1&gt;
+&lt;h2&gt;5. Global Hooks Break Team Onboarding&lt;/h2&gt;
+&lt;p&gt;If you rely on this hook and forget to document it, new team members will waste hours debugging why worktrees "just work" on your machine but fail on theirs.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solutions:&lt;/strong&gt;
+- Add hook setup to your team's onboarding docs
+- Commit a project-local hook to &lt;code&gt;.git/hooks/&lt;/code&gt; and teach people to symlink it
+- Consider using a dotfiles manager that installs hooks automatically&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1&gt;Conclusion: Automate Friction, But Measure the Cost&lt;/h1&gt;
+&lt;p&gt;Developer experience is measured in &lt;strong&gt;friction removed&lt;/strong&gt;, not features added.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The principle:&lt;/strong&gt; Automate the things you do frequently, but measure the cost.&lt;/p&gt;
+&lt;p&gt;Global hooks are powerful.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1&gt;Next Steps&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;To implement this yourself:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Create the global hooks directory:&lt;/strong&gt;
+   &lt;code&gt;bash
+   mkdir -p ~/.git-hooks
+   git config --global core.hooksPath ~/.git-hooks&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Copy the hook script&lt;/strong&gt; (from the "Hook Implementation" section above) to &lt;code&gt;~/.git-hooks/post-checkout&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Make it executable:&lt;/strong&gt;
+   &lt;code&gt;bash
+   chmod +x ~/.git-hooks/post-checkout&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Test with a bare repo:&lt;/strong&gt;
+   &lt;code&gt;bash
+   git clone --bare &amp;lt;your-repo-url&amp;gt; test-bare
+   cd test-bare
+   git worktree add ../test-worktree
+   ls ../test-worktree/.env*  # Verify files copied&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Add to your team docs&lt;/strong&gt; so onboarding doesn't break&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Further reading:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://git-scm.com/docs/git-worktree"&gt;Git Worktrees Official Docs&lt;/a&gt; - The canonical reference&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/"&gt;Working with Git Worktrees - Chris DiCarlo&lt;/a&gt; - Practical workflows&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/therohitdas/copy-env"&gt;therohitdas/copy-env&lt;/a&gt; - Similar approach as a standalone tool&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://git-scm.com/docs/githooks"&gt;Git Hooks Documentation&lt;/a&gt; - All available hook types&lt;/li&gt;
+&lt;/ul&gt;</content><category term="posts"></category><category term="git"></category><category term="worktrees"></category><category term="automation"></category><category term="devops"></category><category term="agor"></category></entry><entry><title>Agent Dailies and the Flipped Development Cycle</title><link href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html" rel="alternate"></link><published>2026-02-15T00:00:00+02:00</published><updated>2026-02-15T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2026-02-15:/agent-dailies-and-the-flipped-development-cycle.html</id><summary type="html">&lt;p&gt;Why your daily standup needs to include what your AI agents did last night—and how inverting the developer-agent workflow mirrors the flipped classroom revolution.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TL;DR -&lt;/h1&gt;
 &lt;p&gt;After my nightly rest and while thinking about my day ahead, I realized that the our "daily standup meetings" in the current paradigm may need to be flipped. We are used to update on our progress (human centric), but we probably need now to report on the progress of the agents that have been running for the past 24 hours. 
 Our current challenge is to optimize the &lt;em&gt;Human In The Loop&lt;/em&gt; workflow and provide the relevant context to the agent in an efficient and timely manner, transforming us into &lt;em&gt;Agentic Engineers&lt;/em&gt; .&lt;/p&gt;
 &lt;h1&gt;My Aaha moment in my morning shower&lt;/h1&gt;
