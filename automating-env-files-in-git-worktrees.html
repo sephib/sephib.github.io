@@ -99,7 +99,7 @@
 <p>When you're using tools like <a href="https://agor.live">Agor</a> that create git worktrees automatically for each agent task, manual environment propagation becomes untenable.</p>
 <hr>
 <h1>Why Git Worktrees Don't Copy .env Files (And Why That's Correct)</h1>
-<p>Git worktrees solve a problem we've had since 2010: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:</p>
+<p>Git worktrees solve a problem we've had in the past: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:</p>
 <div class="highlight"><pre><span></span><code>project/
 ├── main/           # main branch worktree
 ├── feature-auth/   # feature branch worktree
@@ -216,14 +216,6 @@ fatal:<span class="w"> </span>this<span class="w"> </span>operation<span class="
 <p>By switching to the worktree context with <code>cd "$WORKTREE_ROOT"</code>, we sidestep this entirely. The worktree <em>does</em> have a working tree, so it can evaluate <code>.gitignore</code> rules.</p>
 <p><strong>Lesson:</strong> Always validate that your automation did what you think it did. Don't trust exit codes—check the filesystem.</p>
 <hr>
-<h1>The Battle Scars: What They Don't Tell You About Global Hooks</h1>
-<h2>5. Global Hooks Break Team Onboarding</h2>
-<p>If you rely on this hook and forget to document it, new team members will waste hours debugging why worktrees "just work" on your machine but fail on theirs.</p>
-<p><strong>Solutions:</strong>
-- Add hook setup to your team's onboarding docs
-- Commit a project-local hook to <code>.git/hooks/</code> and teach people to symlink it
-- Consider using a dotfiles manager that installs hooks automatically</p>
-<hr>
 <h1>Conclusion: Automate Friction, But Measure the Cost</h1>
 <p>Developer experience is measured in <strong>friction removed</strong>, not features added.</p>
 <p><strong>The principle:</strong> Automate the things you do frequently, but measure the cost.</p>
@@ -260,10 +252,10 @@ fatal:<span class="w"> </span>this<span class="w"> </span>operation<span class="
 </ol>
 <p><strong>Further reading:</strong></p>
 <ul>
-<li><a href="https://git-scm.com/docs/git-worktree">Git Worktrees Official Docs</a> - The canonical reference</li>
-<li><a href="https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/">Working with Git Worktrees - Chris DiCarlo</a> - Practical workflows</li>
-<li><a href="https://github.com/therohitdas/copy-env">therohitdas/copy-env</a> - Similar approach as a standalone tool</li>
-<li><a href="https://git-scm.com/docs/githooks">Git Hooks Documentation</a> - All available hook types</li>
+<li><a href="https://github.com/therohitdas/copy-env">therohitdas/copy-env</a> - Similar approach - was the inspiration for this solution</li>
+<li><a href="https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/">Working with Git Worktrees - Chris DiCarlo</a> - A different solution based on a stand alone script</li>
+<li><a href="https://git-scm.com/docs/git-worktree">Git Worktrees Official Docs</a> </li>
+<li><a href="https://git-scm.com/docs/githooks">Git Hooks Official Docs</a> </li>
 </ul>
   </div>
   <div class="tag-cloud">

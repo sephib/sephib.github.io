@@ -9,7 +9,7 @@
 &lt;p&gt;When you're using tools like &lt;a href="https://agor.live"&gt;Agor&lt;/a&gt; that create git worktrees automatically for each agent task, manual environment propagation becomes untenable.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1&gt;Why Git Worktrees Don't Copy .env Files (And Why That's Correct)&lt;/h1&gt;
-&lt;p&gt;Git worktrees solve a problem we've had since 2010: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:&lt;/p&gt;
+&lt;p&gt;Git worktrees solve a problem we've had in the past: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;project/
 ├── main/           # main branch worktree
 ├── feature-auth/   # feature branch worktree
@@ -126,14 +126,6 @@ fatal:&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&g
 &lt;p&gt;By switching to the worktree context with &lt;code&gt;cd "$WORKTREE_ROOT"&lt;/code&gt;, we sidestep this entirely. The worktree &lt;em&gt;does&lt;/em&gt; have a working tree, so it can evaluate &lt;code&gt;.gitignore&lt;/code&gt; rules.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Lesson:&lt;/strong&gt; Always validate that your automation did what you think it did. Don't trust exit codes—check the filesystem.&lt;/p&gt;
 &lt;hr&gt;
-&lt;h1&gt;The Battle Scars: What They Don't Tell You About Global Hooks&lt;/h1&gt;
-&lt;h2&gt;5. Global Hooks Break Team Onboarding&lt;/h2&gt;
-&lt;p&gt;If you rely on this hook and forget to document it, new team members will waste hours debugging why worktrees "just work" on your machine but fail on theirs.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Solutions:&lt;/strong&gt;
-- Add hook setup to your team's onboarding docs
-- Commit a project-local hook to &lt;code&gt;.git/hooks/&lt;/code&gt; and teach people to symlink it
-- Consider using a dotfiles manager that installs hooks automatically&lt;/p&gt;
-&lt;hr&gt;
 &lt;h1&gt;Conclusion: Automate Friction, But Measure the Cost&lt;/h1&gt;
 &lt;p&gt;Developer experience is measured in &lt;strong&gt;friction removed&lt;/strong&gt;, not features added.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The principle:&lt;/strong&gt; Automate the things you do frequently, but measure the cost.&lt;/p&gt;
@@ -170,10 +162,10 @@ fatal:&lt;span class="w"&gt; &lt;/span&gt;this&lt;span class="w"&gt; &lt;/span&g
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Further reading:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://git-scm.com/docs/git-worktree"&gt;Git Worktrees Official Docs&lt;/a&gt; - The canonical reference&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/"&gt;Working with Git Worktrees - Chris DiCarlo&lt;/a&gt; - Practical workflows&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/therohitdas/copy-env"&gt;therohitdas/copy-env&lt;/a&gt; - Similar approach as a standalone tool&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://git-scm.com/docs/githooks"&gt;Git Hooks Documentation&lt;/a&gt; - All available hook types&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/therohitdas/copy-env"&gt;therohitdas/copy-env&lt;/a&gt; - Similar approach - was the inspiration for this solution&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/"&gt;Working with Git Worktrees - Chris DiCarlo&lt;/a&gt; - A different solution based on a stand alone script&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://git-scm.com/docs/git-worktree"&gt;Git Worktrees Official Docs&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://git-scm.com/docs/githooks"&gt;Git Hooks Official Docs&lt;/a&gt; &lt;/li&gt;
 &lt;/ul&gt;</content><category term="posts"></category><category term="git"></category><category term="worktrees"></category><category term="automation"></category><category term="devops"></category><category term="agor"></category></entry><entry><title>Agent Dailies and the Flipped Development Cycle</title><link href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html" rel="alternate"></link><published>2026-02-15T00:00:00+02:00</published><updated>2026-02-15T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2026-02-15:/agent-dailies-and-the-flipped-development-cycle.html</id><summary type="html">&lt;p&gt;Why your daily standup needs to include what your AI agents did last night—and how inverting the developer-agent workflow mirrors the flipped classroom revolution.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TL;DR -&lt;/h1&gt;
 &lt;p&gt;After my nightly rest and while thinking about my day ahead, I realized that the our "daily standup meetings" in the current paradigm may need to be flipped. We are used to update on our progress (human centric), but we probably need now to report on the progress of the agents that have been running for the past 24 hours. 
 Our current challenge is to optimize the &lt;em&gt;Human In The Loop&lt;/em&gt; workflow and provide the relevant context to the agent in an efficient and timely manner, transforming us into &lt;em&gt;Agentic Engineers&lt;/em&gt; .&lt;/p&gt;
@@ -442,7 +434,7 @@ e.g. instead of calling &lt;code&gt;data[1]&lt;/code&gt; for the embedding - way
 &lt;/ul&gt;
 &lt;h1&gt;Summary&lt;/h1&gt;
 &lt;p&gt;As a strong advocate for embracing &lt;em&gt;pipelines&lt;/em&gt; whenever possible, the implementation of the various pipeline stages can be challenging.  &lt;/p&gt;
-&lt;p&gt;There is no place to accumulate any technical debt in the security realm - thus solving the secure access between &lt;code&gt;pytorch datapipe&lt;/code&gt;s  and &lt;code&gt;GCS&lt;/code&gt; will allow for code reuse and agility in future projects.&lt;/p&gt;</content><category term="posts pipeline"></category><category term="python pytorch GCP"></category></entry><entry><title>Reflection on 2021</title><link href="https://sephib.github.io/reflection-on-2021.html" rel="alternate"></link><published>2022-01-15T00:00:00+02:00</published><updated>2022-01-15T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-01-15:/reflection-on-2021.html</id><summary type="html">&lt;p&gt;Reflecting on the my 2021 journey&lt;/p&gt;</summary><content type="html">&lt;!-- Status: draft --&gt;
+&lt;p&gt;There is no place to accumulate any technical debt in the security realm - thus solving the secure access between &lt;code&gt;pytorch datapipe&lt;/code&gt;s  and &lt;code&gt;GCS&lt;/code&gt; will allow for code reuse and agility in future projects.&lt;/p&gt;</content><category term="posts pipeline"></category><category term="python pytorch GCP"></category></entry><entry><title>Reflection on 2021</title><link href="https://sephib.github.io/reflection-on-2021.html" rel="alternate"></link><published>2022-01-16T00:00:00+02:00</published><updated>2022-01-16T00:00:00+02:00</updated><author><name>Sephi Berry</name></author><id>tag:sephib.github.io,2022-01-16:/reflection-on-2021.html</id><summary type="html">&lt;p&gt;Reflecting on the my 2021 journey&lt;/p&gt;</summary><content type="html">&lt;!-- Status: draft --&gt;
 
 &lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;The year 2021 has ended, and I thought that it is a good opportunity to reflect on the past year and the journey that I had taken. Since this time of year his also co-insides with my Birthday - so it is a double opportunity for such reflection.&lt;/p&gt;
