@@ -25,7 +25,7 @@ When you're using tools like [Agor](https://agor.live) that create git worktrees
 
 # Why Git Worktrees Don't Copy .env Files (And Why That's Correct)
 
-Git worktrees solve a problem we've had since 2010: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:
+Git worktrees solve a problem we've had in the past: the branch-switching dance. Before worktrees, switching branches meant stashing work, hoping the checkout didn't break, and watching your IDE rebuild indexes. Worktrees give each branch its own isolated working directory:
 
 ```
 project/
@@ -174,19 +174,6 @@ By switching to the worktree context with `cd "$WORKTREE_ROOT"`, we sidestep thi
 
 ---
 
-# The Battle Scars: What They Don't Tell You About Global Hooks
-
-## 5. Global Hooks Break Team Onboarding
-
-If you rely on this hook and forget to document it, new team members will waste hours debugging why worktrees "just work" on your machine but fail on theirs.
-
-**Solutions:**
-- Add hook setup to your team's onboarding docs
-- Commit a project-local hook to `.git/hooks/` and teach people to symlink it
-- Consider using a dotfiles manager that installs hooks automatically
-
----
-
 
 # Conclusion: Automate Friction, But Measure the Cost
 
@@ -227,7 +214,7 @@ Global hooks are powerful.
 
 **Further reading:**
 
-- [Git Worktrees Official Docs](https://git-scm.com/docs/git-worktree) - The canonical reference
-- [Working with Git Worktrees - Chris DiCarlo](https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/) - Practical workflows
-- [therohitdas/copy-env](https://github.com/therohitdas/copy-env) - Similar approach as a standalone tool
-- [Git Hooks Documentation](https://git-scm.com/docs/githooks) - All available hook types
+- [therohitdas/copy-env](https://github.com/therohitdas/copy-env) - Similar approach - was the inspiration for this solution
+- [Working with Git Worktrees - Chris DiCarlo](https://chrisdicarlo.ca/blog/working-with-git-worktrees-part-2/) - A different solution based on a stand alone script
+- [Git Worktrees Official Docs](https://git-scm.com/docs/git-worktree) 
+- [Git Hooks Official Docs](https://git-scm.com/docs/githooks) 
