@@ -34,12 +34,12 @@ More than 95% of the route is paved with asphalt, so almost any touring bike wou
 I took the liberty to move away from the EV9 route (around [Mistelbach](https://maps.app.goo.gl/N2vGe22kJ7LMozTk6)) - to save some 20KM allowing me some ease of mind and relaxation for my legs.
 I used the E-bike's motor only toward the end of the day when I wanted to save some energy for the following day. 
 
-The stop over at Mikulov (Arriving around 17:00) turned out to be a great decision. The local winery with comfortable guest rooms made for an ideal overnight stop.
+The stop over at Mikulov (Arriving around 17:00) turned out to be a great decision. The [local winery](https://maps.app.goo.gl/Yt2ccRoQLMd7dCym6) with comfortable guest rooms made for an ideal overnight stop.
 
 ## Day 2: Mikulov to Brno
 Refreshed and ready, I hit the road by 08:00, and had a short tour of Mikulov - which surprisingly has a historical castle and an old synagogue.
 Getting back onto the route felt effortless, and after an hour I arrived at the lake [Vodní Nádrž Nové Mlýny-horní](https://maps.app.goo.gl/8Jh2PQpX9ZMzNtS56) - unfortunately the weather was not warm enough for a quick dip. Despite some headwinds, colder temperatures, and a few construction detours (thanks again, OSM!), I made great time.
-Starting early allowed me to reach the Red Hat Brno office with enough time to get a couple of working hours in and meet some colleagues.
+Starting early allowed me to reach the [Red Hat Brno office](https://maps.app.goo.gl/AW7xi9W3nPFMEZ9j7) with enough time to get a couple of working hours in and meet some colleagues.
 
 
 ## Day 3: The NHCE 
