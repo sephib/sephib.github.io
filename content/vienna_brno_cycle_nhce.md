@@ -4,7 +4,7 @@ Author: Sephi Berry
 Category: posts
 Tags: cycling, travel, red-hat, brno, vienna, nhce, ev9
 Summary: Joining Red Hat's NHCE in Brno? Skip the train. The EV9 cycling route from Vienna is 160km of vineyards, villages, and surprisingly good asphalt — and it'll give you more cultural context than any onboarding deck.
-status: draft
+status: published
 
 # TL;DR
 
