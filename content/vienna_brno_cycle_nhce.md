@@ -25,6 +25,9 @@ Navigation: I highly recommend downloading the GPX route onto a mobile app - I u
 
 
 ## Day 1: Vienna to Mikulov
+
+![Cycling along EV9 between Vienna and Brno]({static}/images/cycle_vienna_brno.jpg)
+
 I set off around 11:00 AM after hiering the bicycle and quick tour of Vienna (to verify that the bicycle is comfortable). Navigating out of the city was the most complex part of the first day, but once I hit the trail, it was smooth sailing.
 
 More than 95% of the route is paved with asphalt, so almost any touring bike would work well.  The route largely takes care of itself through villages, vineyards, and open Moravian farmland. 
