@@ -1,8 +1,8 @@
-Title: Two Wheels, One EV9: Cycling Vienna to Brno for Red Hat's NHCE
+Title: Two Wheels, One EV9: Cycling from Vienna to Brno for Red Hat's NHCE
 Date: 2026-05-14
 Author: Sephi Berry
 Category: posts
-Tags: cycling, travel, red-hat, brno, vienna, nhce, ev9
+Tags: cycling, travel, red-hat
 Summary: Joining Red Hat's NHCE in Brno? Skip the train. The EV9 cycling route from Vienna is 160km of vineyards, villages, and surprisingly good asphalt — and it'll give you more cultural context than any onboarding deck.
 status: published
 
