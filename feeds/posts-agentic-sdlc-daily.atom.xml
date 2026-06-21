@@ -43,5 +43,5 @@
 &lt;ol&gt;
 &lt;li&gt;The FullSend framework mentioned above: &lt;a href="https://github.com/fullsend-ai/fullsend"&gt;https://github.com/fullsend-ai/fullsend&lt;/a&gt; — worth reading as a design document even if you're not adopting it wholesale.&lt;/li&gt;
 &lt;li&gt;Prior post on the flipped development cycle: &lt;a href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html"&gt;Agent Dailies and the Flipped Development Cycle&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Spec-driven development as a methodology for intent authoring: &lt;a href="https://en.wikipedia.org/wiki/Spec-driven_development"&gt;Spec-driven development on Wikipedia&lt;/a&gt; and &lt;a href="https://github.com/github/spec-kit"&gt;speckit workflows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;My current &lt;em&gt;Go To&lt;/em&gt; spec driven workflow - &lt;a href="https://github.com/flightctl/ai-workflows"&gt;flightctl ai-workflows&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</content><category term="posts, agentic sdlc, daily"></category></entry></feed>
