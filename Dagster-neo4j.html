@@ -19,6 +19,8 @@
     <link href="https://sephib.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geo Berry Atom">
 
 
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
 
 
@@ -37,7 +39,7 @@
 <meta property="article:author" content="./author/sephi-berry-david-katz.html">
 <meta property="article:section" content="posts"/>
 <meta property="article:tag" content="python neo4j dagster"/>
-<meta property="og:image" content="">
+<meta property="og:image" content="/images/avatar_osnx.png">
 
   <title>Geo Berry &ndash; Implementing a graph network pipeline with Dagster</title>
 
@@ -46,25 +48,22 @@
   <aside>
     <div>
       <a href=".">
-        <img src="./theme/img/profile.png" alt="" title="">
+        <img src="/images/avatar_osnx.png" alt="Sephi's Blog" title="Sephi's Blog">
       </a>
-      <h1><a href="."></a></h1>
+      <h1><a href=".">Sephi's Blog</a></h1>
 
-
+<p>ML / Data Engineer | Project Manager | Geo-Spatial Specialist</p>
       <nav>
         <ul class="list">
           <li><a href="./pages/about.html#about">About</a></li>
 
-          <li><a href="https://getpelican.com/" target="_blank">Pelican</a></li>
-          <li><a href="https://www.python.org/" target="_blank">Python.org</a></li>
-          <li><a href="https://palletsprojects.com/p/jinja/" target="_blank">Jinja2</a></li>
-          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
         </ul>
       </nav>
 
       <ul class="social">
-        <li><a class="sc-You can add links in your config file" href="#" target="_blank"><i class="fa fa-You can add links in your config file"></i></a></li>
-        <li><a class="sc-Another social link" href="#" target="_blank"><i class="fa fa-Another social link"></i></a></li>
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/berrygis" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/sephib" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/geosephi" target="_blank"><i class="fa fa-twitter"></i></a></li>
       </ul>
     </div>
 
@@ -1129,29 +1128,30 @@ h6:hover .anchor-link {
   font-style: italic;
 }
 </style>
-<style type="text/css">pre { line-height: 125%; margin: 0; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+<style type="text/css">pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
  .highlight pre  .hll { background-color: #ffffcc }
  .highlight pre  { background: #f8f8f8; }
- .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
+ .highlight pre  .c { color: #3D7B7B; font-style: italic } /* Comment */
  .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
  .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
  .highlight pre  .o { color: #666666 } /* Operator */
- .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
- .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
- .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
- .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
- .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
- .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
+ .highlight pre  .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+ .highlight pre  .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+ .highlight pre  .cp { color: #9C6500 } /* Comment.Preproc */
+ .highlight pre  .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+ .highlight pre  .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+ .highlight pre  .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
  .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
  .highlight pre  .ge { font-style: italic } /* Generic.Emph */
- .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
+ .highlight pre  .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+ .highlight pre  .gr { color: #E40000 } /* Generic.Error */
  .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
- .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
- .highlight pre  .go { color: #888888 } /* Generic.Output */
+ .highlight pre  .gi { color: #008400 } /* Generic.Inserted */
+ .highlight pre  .go { color: #717171 } /* Generic.Output */
  .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
  .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
  .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -1164,15 +1164,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
  .highlight pre  .m { color: #666666 } /* Literal.Number */
  .highlight pre  .s { color: #BA2121 } /* Literal.String */
- .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
+ .highlight pre  .na { color: #687822 } /* Name.Attribute */
  .highlight pre  .nb { color: #008000 } /* Name.Builtin */
  .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
  .highlight pre  .no { color: #880000 } /* Name.Constant */
  .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
- .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
- .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+ .highlight pre  .ni { color: #717171; font-weight: bold } /* Name.Entity */
+ .highlight pre  .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
  .highlight pre  .nf { color: #0000FF } /* Name.Function */
- .highlight pre  .nl { color: #A0A000 } /* Name.Label */
+ .highlight pre  .nl { color: #767600 } /* Name.Label */
  .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
  .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
  .highlight pre  .nv { color: #19177C } /* Name.Variable */
@@ -1189,11 +1189,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
  .highlight pre  .dl { color: #BA2121 } /* Literal.String.Delimiter */
  .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
  .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
- .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+ .highlight pre  .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
  .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
- .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+ .highlight pre  .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
  .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
- .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
+ .highlight pre  .sr { color: #A45A77 } /* Literal.String.Regex */
  .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
  .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
  .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -1212,6 +1212,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/postBanner.png" alt="Post Banner" width="650" ></p>
 <h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><ul>
 <li>Working in the Intelligence arena we try to 'connect the dots' to extract meaningful information from data.</li>
 <li>We analyze various datasets to link between them in a logical manner.</li>
@@ -1269,7 +1270,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <li>A <code>pipeline</code> orchestrates the various <code>solids</code> and the data flows.   </li>
 </ul>
 <h4 id="Design-implementation">Design implementation<a class="anchor-link" href="#Design-implementation">&#182;</a></h4><p>The following diagram displays the architecture  outline of the code:<br>
-<img src="../docs/images/architecture_diagram.png" alt="entity model" width="650" ></p>
+<img src="images/architecture_diagram.png" alt="entity model" width="650" ></p>
 <ul>
 <li><p>YAML configurations<br>
 <code>Dagster</code> has many configuration files that assist in managing pipelines and there environments. In this example we will use only 2 configuration types:</p>
@@ -1322,14 +1323,14 @@ Since we have several datasets we will can build each building block to be execu
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2><p>In order to demonstrate our workflow we will use data from <a href="https://statsbomb.com/"><img src="https://raw.githubusercontent.com/statsbomb/open-data/master/stats-bomb-logo.png" alt="StatsBomb logo" width="100"/></a>, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the <strong>original</strong> football - <em><em>soccer</em></em> ) . The company has a free open data API tier that can be accessed using the instructions on <a href="https://github.com/statsbomb/statsbombpy#open-data">their git hub page</a>.</p>
+<h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2><p>In order to demonstrate our workflow we will use data from <a href="https://statsbomb.com/"><img src="https://statsbomb.com/wp-content/themes/statsbomb-2019/images/statsbomb-logo.svg" alt="StatsBomb logo" width="100"/></a>, a football analytics company that provides data from various leagues and competitions (for those American readers - we talking about the <strong>original</strong> football - <em><em>soccer</em></em> ) . The company has a free open data API tier that can be accessed using the instructions on <a href="https://github.com/statsbomb/statsbombpy#open-data">their git hub page</a>.</p>
 <p>We would like to find the relationships between the players in 2  dimensions:</p>
 <ol>
 <li>Team companionship  </li>
 <li>The number of passes between the players   </li>
 </ol>
 <p>We will be building a graph based on the following entity model:</p>
-<p><img src="../docs/images/entity_model.png" alt="entity model" width="450" ></p>
+<p><img src="images/entity_model.png" alt="entity model" width="450" ></p>
 <p>The <a href="link to github">following script</a> is available to download the data into 2 separate datasets:</p>
 <ol>
 <li>Player lineup as csv  </li>
@@ -1573,7 +1574,7 @@ def read_file(context) -&gt; DataFrame:
 <h3 id="Composite-Solids">Composite Solids<a class="anchor-link" href="#Composite-Solids">&#182;</a></h3><p>A single <code>solid</code> executes a 
 computation, however when wanting to create dependencies between solids we can use a <a href="https://docs.dagster.io/docs/apidocs/solids#dagster.composite_solid">composite_solid</a>.</p>
 <p>Here is a screen shot of the <code>composite_solid</code> from <a href="https://docs.dagster.io/tutorial/execute#executing-our-first-pipeline">dagit</a><br>
-<img src="../docs/images/player_pass.png" alt="player_pass composite solid" width="250" ></p>
+<img src="images/passed_to.png" alt="player_pass composite solid" width="250" ></p>
 <p>Lets review the <code>player_pass</code> composite_solid</p>
 
 <pre><code>@composite_solid(
@@ -1614,7 +1615,7 @@ def player_pass():
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Pipeline">Pipeline<a class="anchor-link" href="#Pipeline">&#182;</a></h3><p>Finally we can put everything together in our pipeline. A <a href="https://docs.dagster.io/docs/apidocs/pipeline#dagster.pipeline">pipeline</a> builds up a dependency graph between the solids/composite_solids.</p>
-<p><img src="../docs/images/pipeline.png" alt="pipeline" width="550" ></p>
+<p><img src="images/pipeline.png" alt="pipeline" width="550" ></p>
 
 <pre><code>@pipeline(mode_defs=[ModeDefinition(resource_defs={"spark": pyspark_resource})])  
 def statsbomb_pipeline():  
@@ -1633,7 +1634,7 @@ Our final <code>create_neo4j_db composite_solid</code> is dependent on the outpu
 <h2 id="Into-Neo4j">Into Neo4j<a class="anchor-link" href="#Into-Neo4j">&#182;</a></h2><p>The results of the Pipeline can be imported into <code>neo4j</code> .<br>
 In order to import <em>bigData</em> in an optimal manner we will use the <a href="https://neo4j.com/docs/operations-manual/4.1/tools/import/">batch import</a> admin tool.  This allows for loading tens of millions of nodes and billions of relationships  in the matter of hours.</p>
 <p>Here is some data for Liverpool's striker <a href="https://en.wikipedia.org/wiki/Mohamed_Salah">Mohamed Salah</a>:</p>
-<p><img src="../docs/images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" ></p>
+<p><img src="images/graphMohamed_Salah.png" alt="graph Mohamed Salah" width="650" ></p>
 
 </div>
 </div>
@@ -1668,19 +1669,6 @@ We hope that this post will inspire you to upgrade your workflow.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
  
 
@@ -1742,8 +1730,8 @@ We hope that this post will inspire you to upgrade your workflow.</p>
   "@type" : "Blog",
   "name": " Geo Berry ",
   "url" : ".",
-  "image": "",
-  "description": ""
+  "image": "/images/avatar_osnx.png",
+  "description": "Sephi's Thoughts and Writings"
 }
 </script>
 
