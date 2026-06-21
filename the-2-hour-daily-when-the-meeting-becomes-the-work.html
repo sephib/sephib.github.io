@@ -37,7 +37,7 @@
 <meta property="article:published_time" content="2026-06-17 00:00:00+03:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="./author/sephi-berry.html">
-<meta property="article:section" content="posts"/>
+<meta property="article:section" content="posts, agentic sdlc, daily"/>
 <meta property="og:image" content="/images/avatar_osnx.png">
 
   <title>Geo Berry &ndash; The 2-Hour Daily: When the Meeting Becomes the Work</title>
@@ -76,7 +76,7 @@
       
     <h1 id="the-2-hour-daily-when-the-meeting-becomes-the-work">The 2-Hour Daily: When the Meeting Becomes the Work</h1>
     <p>
-          Posted on Wed 17 June 2026 in <a href="./category/posts.html">posts</a>
+          Posted on Wed 17 June 2026 in <a href="./category/posts-agentic-sdlc-daily.html">posts, agentic sdlc, daily</a>
 
 
     </p>
@@ -92,22 +92,21 @@
 <p>What's been inverted isn't the cadence. It's the model itself.</p>
 <hr>
 <h1>The First Flip</h1>
-<p>A while back I wrote about how <a href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html">the standup shifted from "what did I do?" to "what did the agent do overnight?"</a> — the flipped development cycle where agents handle rote implementation while humans spend their prime time on verification, steering, and resolving the ambiguities that agents correctly surface.</p>
+<p>A while back I wrote about how <a href="https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html">the standup shifted from "what did I do?" to "what did the agent do overnight?"</a> — the flipped development cycle where agents handle the core implementation while humans spend their prime time on verification, steering, and resolving the ambiguities that agents surface.</p>
 <p>That was just the beginning.</p>
-<p>What I didn't fully articulate then: the inversion doesn't stop at cadence. It goes all the way down. The standup isn't just reporting different things now — the standup <em>is</em> the work. The human's core contribution has moved from "implementing" to "deciding." And the daily session is where that deciding happens.</p>
+<p>What I didn't fully understand then: the inversion doesn't stop at there. It goes all the way to the root of a <em>standup</em>. The standup isn't just reporting different things now — the standup <em>is</em> the work. The human's core contribution has moved from "implementing" to "deciding". And the daily session is where that deciding happens.</p>
 <hr>
-<h1>Enter FullSend</h1>
-<p>The clearest signal I've seen that this isn't hypothetical came from a Red Hat engineering presentation that walked through the <a href="https://github.com/fullsend-ai/fullsend">FullSend framework</a> — a living design document for fully autonomous agentic software development.</p>
-<p>FullSend describes an end-to-end pipeline where agents triage incoming issues, implement solutions, run code review, and merge to production — with minimal human touchpoints. It's not a research paper or a speculative roadmap. It's a work in progress, but the teams involved are already feeling the shift. The direction is clear.</p>
-<p>What struck me wasn't the autonomy of any single step. It's the architecture: the whole system is designed around the assumption that humans aren't the ones doing implementation. They're the ones setting direction and resolving the edge cases that agents correctly escalate.</p>
-<p>When you look at FullSend, something becomes obvious: the meeting isn't a preamble to the work. It's the control plane for the work.</p>
+<h1>Agentic SDLC - FullSend</h1>
+<p>The clearest signal I've seen that this isn't hypothetical came from a Red Hat engineering presentation that walked through the <a href="https://github.com/fullsend-ai/fullsend">FullSend agentic framework</a> project — a living design document for fully autonomous agentic software development within GitHub.</p>
+<p>FullSend describes an end-to-end pipeline where agents triage incoming issues, implement solutions, run code review, and merge to production — with minimal human touchpoints. It's a work in progress, but the teams involved are already feeling the shift.  </p>
+<p>The Ah-Ah moment was when the presenter said that they increased the daily from 10 minutes to over an hour...</p>
 <hr>
 <h1>The Daily as Control Room</h1>
-<p>Here's what actually happens in a well-run extended daily on an agentic team — and why each of these is <em>work</em>, not reporting:</p>
+<p>Here's what actually happens in a well-run extended daily on an agentic team — and why the <em>work</em> is with in the <em>daily meeting</em>:</p>
 <p><strong>Strategic direction.</strong> Which problems matter most this cycle? What's the shape of the solution we want? Agents are fast. Misdirected fast is expensive. Choosing the right target is a human call.</p>
 <p><strong>Priority triage.</strong> The backlog has 40 items agents could plausibly pick up today. Which 5 actually move the needle? That judgment doesn't delegate cleanly — it requires context about business constraints, team capacity, and technical risk that agents don't carry reliably.</p>
-<p><strong>Escalation resolution.</strong> Agents hit genuine ambiguity. When they do, they surface it rather than guess past it. The daily is where humans work through those cases — not as overhead, but as a feature. The agent asking "I found three valid approaches and can't determine which aligns with your architecture goals" is the system working correctly.</p>
-<p><strong>Intent authoring.</strong> This is the one that surprised me most when I saw it in practice. The highest-leverage work on an agentic team isn't code review — it's writing clear intent documents. Specs, acceptance criteria, architectural constraints, definitions of done. The quality of your input is the ceiling on the agent's output. Senior engineers who used to spend 70% of their time implementing now spend that time writing the kind of clear, precise intent that unlocks the next 24 hours of agent execution.</p>
+<p><strong>Escalation resolution.</strong> Agents hit genuine ambiguity. When they do, they should surface it rather than guess past it. The daily is where humans work through those cases — not as overhead, but as a feature. The agent asking "I found three valid approaches and can't determine which aligns with your architecture goals" is the system working correctly.</p>
+<p><strong>Intent authoring.</strong> The highest-leverage work on an agentic team isn't code review — it's writing clear intent documents. Specs, acceptance criteria, architectural constraints, definitions of done. The quality of your input is the ceiling on the agent's output. Senior engineers who used to spend 70% of their time implementing now spend that time writing the kind of clear, precise intent that unlocks the next 24 hours of agent execution.</p>
 <p>None of this is reporting. All of it is deciding. The meeting is the work.</p>
 <hr>
 <h1>The Pipeline That Follows</h1>
@@ -115,19 +114,13 @@
 <p>A transcription agent captures everything discussed. A task-extraction agent parses decisions and action items from the transcript. Jira tickets get created or updated with full context. GitHub issues receive structured comments. Implementation agents pick up the queue — bug fixes, feature slices, refactors — and start executing in parallel branches.</p>
 <p>By mid-afternoon, you have PRs to review and progress summaries ready for the next morning's session.</p>
 <p>What runs on human time: the morning decisions. What runs on agent time: everything downstream. The meeting is the chokepoint in the best possible sense — where human judgment concentrates, then fans out into parallel execution that runs through the night.</p>
-<p>I've been running variations of this workflow using <a href="https://agor.live">Agor</a> for session orchestration, Claude Code for implementation, and a lightweight spec-based approach for intent capture. The pipeline is real. The leverage is real. The adjustment period is also real — it takes time to learn to write intent precisely enough that agents can execute without constant re-steering.</p>
-<hr>
-<h1>The Train Rails</h1>
-<p>The metaphor that's been most useful for me: agents operate on train rails.</p>
-<p>They need a track, not just a destination. You can tell a train where it's going, but without rails it doesn't move. The rails are: intent documents, spec-driven constraints, defined acceptance criteria, clear escalation paths, and architectural guardrails that tell the agent what category of solution is in scope.</p>
-<p>The key thing most people get wrong here: this isn't about constraining agents. It's about enabling them to move fast without guessing at the wrong moments. Guardrails exist only where the cost of a wrong guess is high — not everywhere. Over-railing an agent is just bureaucracy in disguise. You want a clear track, not a cage.</p>
-<p>The rails get laid in the daily. That's the insight I keep coming back to. The session isn't where you pick the destination — it's where you lay track. Better track means faster, more reliable execution through the night. Vague intent documents are rail gaps. They're where agents either stall or go off-path, and either outcome costs you the next morning's review session to untangle.</p>
+<p>I've been running variations of this workflow using <a href="https://agor.live">Agor</a> for session orchestration, Claude Code for implementation, and a lightweight spec-based approach for intent capture. The pipeline is real. The leverage is real. The adjustment period is also real — it takes time to learn setup the system and align with the team workflow.</p>
 <hr>
 <h1>The Adoption Gap</h1>
 <p>Most teams I talk to haven't started this yet. A few are deep into it. The gap between those two groups is growing.</p>
-<p>For early adopters, the inversion is already the default. The questions are about optimization: tighter intent documents, better escalation design, smarter review gates, faster transcript-to-ticket pipelines.</p>
-<p>For most orgs, the question is still "should we?" And the honest answer is: the longer you wait, the more ground you're giving up — not because the technology is moving fast (it is), but because the <em>practice</em> takes time to develop. Writing clear intent is a skill. Designing good escalation logic is a skill. Running an effective extended daily instead of a meandering status meeting is a skill. These don't come automatically with the tooling.</p>
-<p>The developer skill that matters now isn't writing faster code. It's writing clearer intent. Engineers who can articulate what done looks like — precisely enough for an agent to execute, self-verify, and know when to escalate — are the ones who'll be setting direction for the rest of the team.</p>
+<p>For early adopters, the inversion is already the default. The questions are about optimization: e.g.  tighter intent documents, better escalation design, smarter review gates etc.</p>
+<p>For most orgs, the question is still "should we?" And the honest answer is: the longer you wait, the more ground you're giving up — not because the technology is moving fast (it is), but because the <em>practice</em> takes time to develop. .</p>
+<p>The developer skill that matters now isn't writing faster code. It's writing clearer documents. Engineers who can articulate what done looks like — precisely enough for an agent to execute, self-verify, and know when to escalate — are the ones who'll be setting direction for the rest of the team.</p>
 <p>The meeting isn't overhead anymore.</p>
 <p>It's the product.</p>
 <hr>
