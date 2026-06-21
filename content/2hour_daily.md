@@ -72,19 +72,27 @@ I've been running variations of this workflow using [Agor](https://agor.live) fo
 
 ---
 
-# The Adoption Gap
+# From Builders to Directors
 
-Most teams I talk to haven't started this yet. A few are deep into it. The gap between those two groups is growing.
+Software teams used to organize around a simple model: engineers build, meetings coordinate.
 
-For early adopters, the inversion is already the default. The questions are about optimization: e.g.  tighter intent documents, better escalation design, smarter review gates etc.
+Agentic development changes that.
 
-For most orgs, the question is still "should we?" And the honest answer is: the longer you wait, the more ground you're giving up — not because the technology is moving fast (it is), but because the *practice* takes time to develop. .
+If agents can implement, review, test, and move work forward asynchronously, implementation stops being the center of gravity. Direction becomes the scarce resource.
 
-The developer skill that matters now isn't writing faster code. It's writing clearer documents. Engineers who can articulate what done looks like — precisely enough for an agent to execute, self-verify, and know when to escalate — are the ones who'll be setting direction for the rest of the team.
+The question shifts from:
 
-The meeting isn't overhead anymore.
+*"Who is going to build this?"*
 
-It's the product.
+to:
+
+*"What should exist tomorrow?"*
+
+Human leverage moves into choosing priorities, resolving ambiguity, defining constraints, and expressing intent clearly enough for execution to happen without constant intervention.
+
+The daily isn't shrinking.
+
+It's becoming the interface between human judgment and machine output.
 
 ---
 
