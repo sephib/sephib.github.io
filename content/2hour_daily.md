@@ -92,4 +92,4 @@ It's the product.
 
 1. The FullSend framework mentioned above: [https://github.com/fullsend-ai/fullsend](https://github.com/fullsend-ai/fullsend) — worth reading as a design document even if you're not adopting it wholesale.
 2. Prior post on the flipped development cycle: [Agent Dailies and the Flipped Development Cycle](https://sephib.github.io/agent-dailies-and-the-flipped-development-cycle.html)
-3. Spec-driven development as a methodology for intent authoring: [Spec-driven development on Wikipedia](https://en.wikipedia.org/wiki/Spec-driven_development) and [speckit workflows](https://github.com/github/spec-kit)
+3. My current _Go To_ spec driven workflow - [flightctl ai-workflows](https://github.com/flightctl/ai-workflows)
