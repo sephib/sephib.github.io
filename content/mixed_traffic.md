@@ -31,7 +31,7 @@ The software development equivalent: standups, sprint retros, PR review SLAs, co
 
 **Review cadence is traffic signal timing calibrated for human reaction speeds.** An agentic developer opening eight PRs from a single overnight run hits a structural bottleneck: review SLAs calibrated for one or two PRs per developer per day. The signal timing is wrong for the throughput. The bottleneck isn't the reviewer's capability — it's that the process doesn't account for burst volume.
 
-**Sprint rituals are rules written before autonomous vehicles existed.** Standups, story point estimation, sprint planning — these make sense when implementation is the human's primary contribution. They create overhead when agents are doing the implementation and humans are steering.
+**Sprint rituals are rules written before autonomous vehicles existed.** Standups, story point estimation, sprint planning — these make sense when implementation is the human's primary contribution. They create overhead when agents are doing the implementation and humans are steering. Estimating a ticket the agent will complete overnight, in a ceremony that assumes the estimating human will do the work, is the software equivalent of running a human-driver road test on a self-driving car.
 
 **PR size conventions are lane discipline.** "Keep PRs small" is reviewer advice — it exists because human reviewers struggle with large diffs. Agent-generated PRs may be larger but internally coherent: a complete feature, properly tested, logically structured. Applying the "small PR" rule to agent output is applying lane-width rules designed for one vehicle to something with different geometry.
 
