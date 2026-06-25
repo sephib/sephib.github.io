@@ -3,7 +3,7 @@ Title: Mixed Traffic: When Agentic and Traditional Teams Share the Same Road
 Date: 2026-06-21
 Author: Sephi Berry
 Category: posts, agentic sdlc, agentic engineering
-status: draft
+status: published
 Summary: The friction between agentic and traditional developers isn't a culture problem. It's an infrastructure problem — and the autonomous car analogy shows exactly why.
 ---
 
